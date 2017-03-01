@@ -1,12 +1,12 @@
 <table class="table table-responsive" id="books-table">
     <thead>
         <th>Name</th>
-        <th>Author Id</th>
-        <th>Publish Id</th>
+        <th>Author</th>
+        <th>Publish</th>
         <th>Price</th>
         <th>Image</th>
-        <th>Category Id</th>
-        <th>Type Id</th>
+        <th>Category</th>
+        <th>Type</th>
         <th>Publishing Year</th>
         <th colspan="3">Action</th>
     </thead>
@@ -14,12 +14,12 @@
     @foreach($books as $book)
         <tr>
             <td>{!! $book->name !!}</td>
-            <td>{!! $book->author_id !!}</td>
-            <td>{!! $book->publish_id !!}</td>
+            <td>{!! $book->author->name !!}</td>
+            <td>{!! $book->publish->name !!}</td>
             <td>{!! $book->price !!}</td>
             <td>{!! $book->image !!}</td>
-            <td>{!! $book->category_id !!}</td>
-            <td>{!! $book->type_id !!}</td>
+            <td>{!! $book->category->name !!}</td>
+            <td>{!! $book->type->name !!}</td>
             <td>{!! $book->publishing_year !!}</td>
             <td>
                 {!! Form::open(['route' => ['books.destroy', $book->id], 'method' => 'delete']) !!}

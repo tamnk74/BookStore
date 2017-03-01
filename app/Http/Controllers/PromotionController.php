@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePromotionRequest;
 use App\Http\Requests\UpdatePromotionRequest;
 use App\Repositories\PromotionRepository;
+use App\Repositories\BookRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -15,10 +16,12 @@ class PromotionController extends AppBaseController
 {
     /** @var  PromotionRepository */
     private $promotionRepository;
+    private $bookRepository;
 
-    public function __construct(PromotionRepository $promotionRepo)
+    public function __construct(PromotionRepository $promotionRepo, BookRepository $bookRepo)
     {
         $this->promotionRepository = $promotionRepo;
+        $this->bookRepository = $bookRepo;
     }
 
     /**
@@ -43,7 +46,8 @@ class PromotionController extends AppBaseController
      */
     public function create()
     {
-        return view('promotions.create');
+        $books = $this->bookRepository->all()->pluck('name','id');
+        return view('promotions.create')->with('books', $books);
     }
 
     /**

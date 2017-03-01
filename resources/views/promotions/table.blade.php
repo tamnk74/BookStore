@@ -1,13 +1,13 @@
 <table class="table table-responsive" id="promotions-table">
     <thead>
-        <th>Book Id</th>
-        <th>Level</th>
+        <th>Tên sách</th>
+        <th>Mức giảm giá</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($promotions as $promotion)
         <tr>
-            <td>{!! $promotion->book_id !!}</td>
+            <td>{!! $promotion->book->name !!}</td>
             <td>{!! $promotion->level !!}</td>
             <td>
                 {!! Form::open(['route' => ['promotions.destroy', $promotion->id], 'method' => 'delete']) !!}

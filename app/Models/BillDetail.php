@@ -48,5 +48,10 @@ class BillDetail extends Model
         'bill_id' => 'required'
     ];
 
+     public function bill()
+    {
+        return $this->belongsTo('App\Bill');
+    }
+
     
 }

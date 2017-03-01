@@ -44,5 +44,9 @@ class Promotion extends Model
         'book_id' => 'required'
     ];
 
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
     
 }

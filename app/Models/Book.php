@@ -56,12 +56,29 @@ class Book extends Model
         'name' => 'required',
         'author_id' => 'required',
         'publish_id' => 'required',
-        'price' => 'reruired',
-        'image' => 'required',
+        'price' => 'required',
         'category_id' => 'required',
         'type_id' => 'required',
-        'publishing_year' => 'required numeric min:1900 max:2100'
+        'publishing_year' => 'required'
     ];
 
-    
+    public function author()
+    {
+        return $this->belongsTo(Author::class, 'author_id');
+    }
+
+    public function publish()
+    {
+        return $this->belongsTo(Publish::class, 'publish_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'type_id');
+    }
 }

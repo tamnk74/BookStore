@@ -6,8 +6,8 @@
 
 <!-- Book Id Field -->
 <div class="form-group">
-    {!! Form::label('book_id', 'Book Id:') !!}
-    <p>{!! $promotion->book_id !!}</p>
+    {!! Form::label('book_id', 'Name:') !!}
+    <p>{!! $promotion->book->name !!}</p>
 </div>
 
 <!-- Level Field -->
