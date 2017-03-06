@@ -34,6 +34,12 @@ Route::resource('promotions', 'PromotionController');
 
 Route::resource('stores', 'StoreController');
 
+Route::get('importBooks/create_file', 'ImportBookController@create_file');
+
+Route::get('importBooks/downloadExcel/{type}', 'ImportBookController@downloadExcel');
+
+Route::post('importBooks/importExcel',  ['as' => 'importExcel', 'uses' => 'ImportBookController@importExcel']);
+
 Route::resource('importBooks', 'ImportBookController');
 
 Route::resource('billDetails', 'BillDetailController');

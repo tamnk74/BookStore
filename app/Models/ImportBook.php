@@ -48,11 +48,14 @@ class ImportBook extends Model
      */
     public static $rules = [
         'book_id' => 'required',
-        'amount' => 'required numberic',
-        'date' => 'required',
-        'buy_price' => 'required numberic',
-        'sell_price' => 'required'
+        'amount' => 'required|numeric',
+        'buy_price' => 'required|numeric',
+        'sell_price' => 'numeric'
     ];
 
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
     
 }

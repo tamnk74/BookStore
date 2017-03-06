@@ -45,7 +45,6 @@ class BillDetail extends Model
     public static $rules = [
         'book_id' => 'required',
         'amount' => 'required',
-        'bill_id' => 'required'
     ];
 
      public function bill()
@@ -53,5 +52,9 @@ class BillDetail extends Model
         return $this->belongsTo('App\Bill');
     }
 
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
     
 }

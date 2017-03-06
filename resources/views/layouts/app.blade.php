@@ -108,7 +108,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{!! url('/') !!}">
-                    InfyOm Generator
+                    Nhà sách ABC
                 </a>
             </div>
 

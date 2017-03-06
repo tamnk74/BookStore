@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Import Book
+            Nhập sách
         </h1>
     </section>
     <div class="content">
@@ -22,3 +22,5 @@
         </div>
     </div>
 @endsection
+
+@section('content')

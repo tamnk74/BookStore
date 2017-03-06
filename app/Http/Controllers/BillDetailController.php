@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateBillDetailRequest;
 use App\Http\Requests\UpdateBillDetailRequest;
 use App\Repositories\BillDetailRepository;
+use App\Repositories\BillRepository;
+use App\Repositories\BookRepository;
+use App\Repositories\StoreRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -15,10 +18,20 @@ class BillDetailController extends AppBaseController
 {
     /** @var  BillDetailRepository */
     private $billDetailRepository;
+    private $bookRepository;
+    private $billRepository;
+    private $storeRepository;
 
-    public function __construct(BillDetailRepository $billDetailRepo)
+    public function __construct(
+        BillDetailRepository $billDetailRepo, 
+        BookRepository $bookRepo, 
+        BillRepository $billRepo,
+        StoreRepository $storeRepo)
     {
         $this->billDetailRepository = $billDetailRepo;
+        $this->bookRepository = $bookRepo;
+        $this->billRepository = $billRepo;
+        $this->storeRepository = $storeRepo;
     }
 
     /**
@@ -43,7 +56,9 @@ class BillDetailController extends AppBaseController
      */
     public function create()
     {
-        return view('bill_details.create');
+        $books = $this->bookRepository->all()->pluck('name', 'id');
+        return view('bill_details.create')
+                ->with('books', $books);;
     }
 
     /**
@@ -56,9 +71,30 @@ class BillDetailController extends AppBaseController
     public function store(CreateBillDetailRequest $request)
     {
         $input = $request->all();
+        
+        $bill = $this->billRepository->create([
+            'client_name' => $input['client_name'],
+            'price_amount' => $input['price_amount'],
+            'date' => \Carbon\Carbon::today()->format('Y-m-d')
+        ]);
+        for($i=0; $i<count($input); $i++){
+            $bookstore = $this->storeRepository->findWithoutFail($input['book_id'][$i]);
+            if (empty($book)) {
+                Flash::error('Book not found in store');
 
-        $billDetail = $this->billDetailRepository->create($input);
+                return redirect(route('bill_details.index'));
+            }
+            if ($bookstore->current_amount < $input['amount'][$i]) {
+                Flash::error('The amount of this book is not enough in store');
 
+                return redirect(route('bill_details.index'));
+            }
+            $billDetail = $this->billDetailRepository->create([
+                'book_id' => $input['book_id'][$i],
+                'amount' => $input['amount'][$i],
+                'bill_id' => $bill->id
+            ]);
+        }
         Flash::success('Bill Detail saved successfully.');
 
         return redirect(route('billDetails.index'));

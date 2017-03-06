@@ -23,4 +23,5 @@ class BillDetailRepository extends BaseRepository
     {
         return BillDetail::class;
     }
+
 }

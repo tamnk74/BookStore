@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Import Book
+            Chi tiết quá trình nhập sách
         </h1>
     </section>
     <div class="content">

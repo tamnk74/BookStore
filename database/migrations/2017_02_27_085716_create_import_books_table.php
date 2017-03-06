@@ -22,7 +22,7 @@ class CreateImportBooksTable extends Migration
             $table->integer('sell_price')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('book_id')->references('book_id')->on('stores');
+            $table->foreign('book_id')->references('id')->on('books');
         });
     }
 

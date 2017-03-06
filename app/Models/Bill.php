@@ -43,7 +43,7 @@ class Bill extends Model
      * @var array
      */
     public static $rules = [
-        'client_name' => 'price_amount integer:unsigned text',
+        'client_name' => 'required',
         'price_amount' => 'required',
         'date' => 'required'
     ];
