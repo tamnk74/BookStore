@@ -6,11 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "infyomlabs/adminlte-templates": "5.3.x-dev",
+        "infyomlabs/laravel-generator": "5.3.x-dev",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "infyomlabs/laravel-generator": "5.3.x-dev",
         "laravelcollective/html": "^5.3.0",
-        "infyomlabs/adminlte-templates": "5.3.x-dev"
+        "maatwebsite/excel": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
