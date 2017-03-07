@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Excel;
+use App\ImportBook;
+
 
 class ImportBookController extends AppBaseController
 {
@@ -69,9 +72,11 @@ class ImportBookController extends AppBaseController
      */
 	public function downloadExcel(Request $request, $type)
 	{
-        dd('Chuc nang dang duoc xay dung');
-		$data = ImportBook::get()->toArray();
-		return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+        $data = $this->importBookRepository->all()->toArray();
+        for($i=0; $i < count($data); $i++){
+            $data[$i] = array_except($data[$i], ['created_at', 'updated_at', 'deleted_at']);
+        }
+		return Excel::create('danh_sach_nhap_sach', function($excel) use ($data) {
 			$excel->sheet('mySheet', function($sheet) use ($data)
 	        {
 				$sheet->fromArray($data);
@@ -88,24 +93,23 @@ class ImportBookController extends AppBaseController
 	{
         //dd($request);
 		if($request->hasFile('import_file')){
-            dd('Vo roi');
+            
 			$path = $request->file('import_file')->getRealPath();
 
 			$data = Excel::load($path, function($reader) {})->get();
-
+           
 			if(!empty($data) && $data->count()){
-
+                $date = \Carbon\Carbon::today()->format('Y-m-d');
 				foreach ($data->toArray() as $key => $value) {
 					if(!empty($value)){
-						foreach ($value as $v) {		
-							$insert[] = ['title' => $v['title'], 'description' => $v['description']];
-						}
+                      $insert[] = ['book_id' => $value['ma_sach'], 'amount' => $value['so_luong'], 'buy_price' => $value['gia_mua'], 'sell_price' => $value['gia_ban'], 'date' => $date];
 					}
 				}
 
-				
 				if(!empty($insert)){
-					ImportBook::insert($insert);
+                    foreach($insert as $input){
+                        $this->importBookRepository->create($input);
+                    }
 					return back()->with('success','Insert Record successfully.');
 				}
 

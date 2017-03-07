@@ -25,7 +25,7 @@
 
                 <h3>Import File Form:</h3>
                 <div class="row" style="margin-left: 10px">
-                    {!! Form::open(['route' => 'importExcel', 'class' => 'form-inline']) !!}
+                    {!! Form::open(['route' => 'importExcel', 'class' => 'form-inline', 'files'=> true]) !!}
                         <div class="form-group">
                             <label for="import_file">Chọn file:</label>
                             <input type="file" class="form-control" id="import_file" name="import_file">{{ csrf_field() }}
