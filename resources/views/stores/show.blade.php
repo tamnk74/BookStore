@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Store
+            Thống kê lưu trữ
         </h1>
     </section>
     <div class="content">

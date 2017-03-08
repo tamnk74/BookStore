@@ -16,7 +16,7 @@ class CreateStoresTable extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('book_id')->unsigned()->unique();
-            $table->integer('current_ammount')->unsigned();
+            $table->integer('current_amount')->unsigned();
             $table->integer('amount')->unsigned();
             $table->timestamps();
             $table->softDeletes();

@@ -22,7 +22,7 @@ class Store extends Model
 
     public $fillable = [
         'book_id',
-        'current_ammount',
+        'current_amount',
         'amount'
     ];
 
@@ -33,7 +33,7 @@ class Store extends Model
      */
     protected $casts = [
         'book_id' => 'integer',
-        'current_ammount' => 'integer',
+        'current_amount' => 'integer',
         'amount' => 'integer'
     ];
 
@@ -44,9 +44,13 @@ class Store extends Model
      */
     public static $rules = [
         'book_id' => 'required',
-        'current_ammount' => 'required',
+        'current_amount' => 'required',
         'amount' => 'required'
     ];
-
+    
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
     
 }

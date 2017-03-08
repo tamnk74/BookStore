@@ -1,14 +1,16 @@
 <table class="table table-responsive" id="stores-table">
     <thead>
-        <th>Book Id</th>
-        <th>Current Ammount</th>
-        <th>Amount</th>
+        <th>Mã sách</th>
+        <th>Tên sách</th>
+        <th>Số sách hiện tại</th>
+        <th>Số sách đã nhập</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
     @foreach($stores as $store)
         <tr>
             <td>{!! $store->book_id !!}</td>
+            <td>{!! $store->book->name !!}</td>
             <td>{!! $store->current_ammount !!}</td>
             <td>{!! $store->amount !!}</td>
             <td>

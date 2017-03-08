@@ -6,19 +6,25 @@
 
 <!-- Book Id Field -->
 <div class="form-group">
-    {!! Form::label('book_id', 'Book Id:') !!}
+    {!! Form::label('book_id', 'Mã sách:') !!}
     <p>{!! $store->book_id !!}</p>
+</div>
+
+<!-- Book Id Field -->
+<div class="form-group">
+    {!! Form::label('book_id', 'Tên sách:') !!}
+    <p>{!! $store->book->name !!}</p>
 </div>
 
 <!-- Current Ammount Field -->
 <div class="form-group">
-    {!! Form::label('current_ammount', 'Current Ammount:') !!}
+    {!! Form::label('current_ammount', 'Số sách còn lại:') !!}
     <p>{!! $store->current_ammount !!}</p>
 </div>
 
 <!-- Amount Field -->
 <div class="form-group">
-    {!! Form::label('amount', 'Amount:') !!}
+    {!! Form::label('amount', 'Tổng số sách đã nhập:') !!}
     <p>{!! $store->amount !!}</p>
 </div>
 

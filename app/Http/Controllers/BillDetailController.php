@@ -79,15 +79,16 @@ class BillDetailController extends AppBaseController
         ]);
         for($i=0; $i<count($input); $i++){
             $bookstore = $this->storeRepository->findWithoutFail($input['book_id'][$i]);
-            if (empty($book)) {
+            if (empty($bookstore)) {
                 Flash::error('Book not found in store');
 
-                return redirect(route('bill_details.index'));
+                return redirect(route('billDetails.index'));
             }
             if ($bookstore->current_amount < $input['amount'][$i]) {
+                
                 Flash::error('The amount of this book is not enough in store');
 
-                return redirect(route('bill_details.index'));
+                return redirect(route('billDetails.index'));
             }
             $billDetail = $this->billDetailRepository->create([
                 'book_id' => $input['book_id'][$i],
