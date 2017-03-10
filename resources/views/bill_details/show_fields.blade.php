@@ -1,36 +1,46 @@
 <!-- Id Field -->
 <div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $billDetail->id !!}</p>
+    {!! Form::label('id', 'Mã hóa đơn:') !!}
+    <p>{!! $bill->id !!}</p>
 </div>
 
-<!-- Book Id Field -->
+<!-- Client Name Field -->
 <div class="form-group">
-    {!! Form::label('book_id', 'Book Id:') !!}
-    <p>{!! $billDetail->book_id !!}</p>
+    {!! Form::label('client_name', 'Tên khách hàng:') !!}
+    <p>{!! $bill->client_name !!}</p>
 </div>
 
-<!-- Amount Field -->
+<!-- Price Amount Field -->
 <div class="form-group">
-    {!! Form::label('amount', 'Amount:') !!}
-    <p>{!! $billDetail->amount !!}</p>
+    {!! Form::label('bill_detail', 'Chi tiết hóa đơn:') !!}
+    <table class="table table-bordered" id="bill_detail">
+        <tr>
+            <th>STT</th>
+            <th>Mã sách</th>
+            <th>Tên sách</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+        @foreach($bill->billdetail as $billdetail)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{!! $billdetail->book_id !!}</td>
+            <td>{!! $billdetail->book->name !!}</td>
+            <td>{!! $billdetail->amount !!}</td>
+            <td>{{ $billdetail->amount*$billdetail->book->price.' VND' }}</td>
+        </tr>
+        @endforeach
+    </table> 
 </div>
 
-<!-- Bill Id Field -->
+<!-- Price Amount Field -->
 <div class="form-group">
-    {!! Form::label('bill_id', 'Bill Id:') !!}
-    <p>{!! $billDetail->bill_id !!}</p>
+    {!! Form::label('price_amount', 'Tổng tiền:') !!}
+    <p>{{ $bill->price_amount.' VND' }}</p>
 </div>
 
-<!-- Created At Field -->
+<!-- Date Field -->
 <div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $billDetail->created_at !!}</p>
+    {!! Form::label('date', 'Ngày lập:') !!}
+    <p>{!! $bill->date !!}</p>
 </div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $billDetail->updated_at !!}</p>
-</div>
-

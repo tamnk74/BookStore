@@ -20,11 +20,6 @@
         <button class="btn btn-info btn-add">Add</button>
     </div>
 </div>
-<!-- Price Amount Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('price_amount', 'Tổng tiền:') !!}
-    {!! Form::text('price_amount', null, ['class' => 'form-control']) !!}
-</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
