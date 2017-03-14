@@ -51,4 +51,17 @@ class Bill extends Model
         return $this->hasMany(BillDetail::class);
     }
     
+    /**
+     * Get all today's bills.
+     *
+     * @param string $date input date
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getByDate($date)
+    {
+        return self::whereRaw('date(created_at) = \''.$date.'\'')
+                   ->orderBy('created_at', 'asc');
+    }
+    
 }

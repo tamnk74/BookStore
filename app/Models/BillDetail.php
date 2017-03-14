@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class BillDetail
@@ -56,5 +57,78 @@ class BillDetail extends Model
     {
         return $this->belongsTo(Book::class, 'book_id');
     }
+    /**
+     * Get top hot 5 books daily
+     *
+     * @param int $year  determine specific year
+     * @param int $month determine specific month
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTop5BookByDate($date){
+        return  self::leftJoin('books', 'books.id', '=', 'bill_details.book_id')
+                ->select('name', DB::raw('SUM(amount) as sum'))
+                ->whereDate('bill_details.created_at', $date)
+                ->groupBy('name')
+                ->orderBy('sum', 'desc')
+                ->limit(5)
+                ->get()
+                ->toArray();
+    }
+    
+    /**
+     * Get all today's books.
+     *
+     * @param string $date input date
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getBooksByDate($date)
+    {
+        return self::join('books', 'bill_details.book_id', '=', 'books.id')
+                      ->select('books.id', 'books.name', DB::raw('sum(bill_details.amount) as total'))
+                      ->whereDate('bill_details.created_at', $date)
+                      ->groupBy('books.id', 'books.name')
+                      ->orderBy('total', 'desc')
+                      ->get()
+                      ->toArray();
+    }
+    
+    /**
+     * Get all products of.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return Return type
+     */
+    public static function getQuarter($year, $quarter)
+    {
+        return self::join('books', 'bills_details.book_id', '=', 'books.id')
+                      ->select('books.id', 'books.name', DB::raw('sum(bill_details.amount) as total'))
+                      ->whereRaw('QUARTER(bills_details.created_at) = '.$quarter.' and year(bills_details.created_at) = '.$year)
+                      ->groupBy('books.id')
+                      ->orderBy('total', 'desc');
+    }
+    
+    /**
+     * Get top hot 5 books monthly
+     *
+     * @param int $year  determine specific year
+     * @param int $month determine specific month
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getTop5Books($year, $month)
+    {
+        return self::whereYear('created_at', '=', $year)
+                    ->whereMonth('created_at', '=', $month)
+                    ->get()
+                    ->groupBy('book_id')
+                    ->sortByDesc(function ($value) {
+                        return $value->sum('amount');
+                    });
+    }
+    
     
 }

@@ -58,4 +58,16 @@ class ImportBook extends Model
         return $this->belongsTo(Book::class, 'book_id');
     }
     
+    public function getImportBookInDay($date)
+    {
+        self::leftJoin('books', 'books.id', '=', 'import_books.book_id')
+                ->select('name', \Illuminate\Support\Facades\DB::raw('SUM(amount) as sum'))
+                ->whereDate('bill_details.created_at', $date)
+                ->groupBy('name')
+                ->orderBy('sum', 'desc')
+                ->limit(5)
+                ->get()
+                ->toArray();
+    }
+    
 }
