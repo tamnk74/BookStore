@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ImportBook
@@ -58,16 +59,9 @@ class ImportBook extends Model
         return $this->belongsTo(Book::class, 'book_id');
     }
     
-    public function getImportBookInDay($date)
+    public static function getByDay($date)
     {
-        self::leftJoin('books', 'books.id', '=', 'import_books.book_id')
-                ->select('name', \Illuminate\Support\Facades\DB::raw('SUM(amount) as sum'))
-                ->whereDate('bill_details.created_at', $date)
-                ->groupBy('name')
-                ->orderBy('sum', 'desc')
-                ->limit(5)
-                ->get()
-                ->toArray();
+        return self::whereDate('created_at', $date)->get();
     }
     
 }

@@ -57,6 +57,11 @@ class BillDetail extends Model
     {
         return $this->belongsTo(Book::class, 'book_id');
     }
+    
+    public function getBooks()
+    {
+        return $this->id;
+    }
     /**
      * Get top hot 5 books daily
      *

@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Thống kê theo tháng</h1>
+        <h1 class="text-center"><b>Thống kê ngày {{ $date}}</b></h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -40,14 +40,40 @@
                         </div>
                     </div>
                 </div>
-                
+                <hr>
                 <div class="row bill">
-                    <div class="col-md-6">
-                        <div id=""></div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div id="example">
-                            <h2>Thông tin chi tiết</h2>
+                            <h2>Thống kê hóa đơn</h2>
+                            <div class="content">
+                                <table class="table table-responsive" id="billDetails-table">
+                                    <thead>
+                                        <th>STT</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Số lượng sách</th>
+                                        <th>Chi phí</th>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($bills as $bill)
+                                        <tr>
+                                            <td>{!! $loop->iteration !!}</td>
+                                            <td>{!! $bill->client_name !!}</td>
+                                            <td>{!! count($bill->billdetail) !!}</td>
+                                            <td>{!! $bill->price_amount !!} VND</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                <div class="row bill">
+                    <div class="col-md-12">
+                        <div id="example">
+                            <h2>Thống kê nhập sách</h2>
                             <div class="content">
                                 <table class="table table-responsive" id="billDetails-table">
                                     <thead>
@@ -55,14 +81,16 @@
                                         <th>Mã sách</th>
                                         <th>Tên sách</th>
                                         <th>Số lượng</th>
+                                        <th>Chi phí</th>
                                     </thead>
                                     <tbody>
-                                    @foreach($top_books_details as $top_books_detail)
+                                    @foreach($import_books as $import_book)
                                         <tr>
                                             <td>{!! $loop->iteration !!}</td>
-                                            <td>{!! $top_books_detail["id"] !!}</td>
-                                            <td>{!! $top_books_detail["name"] !!}</td>
-                                            <td>{!! $top_books_detail["total"] !!}</td>
+                                            <td>{!! $import_book->book->id !!}</td>
+                                            <td>{!! $import_book->book->name !!}</td>
+                                            <td>{!! $import_book->amount !!}</td>
+                                            <td>{!! $import_book->buy_price !!} VND</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

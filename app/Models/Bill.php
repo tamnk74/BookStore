@@ -61,7 +61,8 @@ class Bill extends Model
     public static function getByDate($date)
     {
         return self::whereRaw('date(created_at) = \''.$date.'\'')
-                   ->orderBy('created_at', 'asc');
+                   ->orderBy('created_at', 'asc')
+                ->get();
     }
     
 }
