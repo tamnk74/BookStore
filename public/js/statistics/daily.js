@@ -1,52 +1,37 @@
-$(function () { 
+$(function () {
 
-        var data_click = {{ json_encode(array_column($data['top_book'], 'sum'),JSON_NUMERIC_CHECK)}};
-
-        var data_viewer = {{ json_encode(array_column($data['top_book'], 'sum'),JSON_NUMERIC_CHECK)}};
-
-    $('#example').highcharts({
+    $('#top-book').highcharts({
 
         chart: {
 
             type: 'column'
 
         },
-
         title: {
 
-            text: 'Thống kê theo tháng'
+            text: 'Top 5 cuốn sách bán chạy nhất ngày'
 
         },
-
         xAxis: {
 
-            categories: {{json_encode(array_column($data['top_book'], 'name'),JSON_NUMERIC_CHECK)}}
+            categories: categories_topbook
 
         },
-
         yAxis: {
 
             title: {
 
-                text: 'Rate'
+                text: 'Số lượng'
 
             }
 
         },
-
         series: [{
 
-            name: 'Click',
+                name: 'Tên sách',
+                data: data_topbook
 
-            data: data_click
-
-        }, {
-
-            name: 'View',
-
-            data: data_viewer
-
-        }]
+            }]
 
     });
 
