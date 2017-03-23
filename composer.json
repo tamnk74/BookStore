@@ -12,7 +12,8 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3.0",
         "maatwebsite/excel": "^2.1",
-        "pragmarx/tracker": "^3.1"
+        "pragmarx/tracker": "^3.1",
+        "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
