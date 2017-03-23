@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', 'HomeController@index');
 
 Auth::routes();
 
@@ -34,26 +35,11 @@ Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update',
 
 Route::delete('roles/{id}',['as'=>'roles.destroy','uses'=>'RoleController@destroy','middleware' => ['permission:role-delete']]);
 
-Route::group(['middleware' => 'permission:other-items'], function()
-{
-    Route::resource('categories', 'CategoryController');
-
-    Route::resource('types', 'TypeController');
-
-    Route::resource('publishes', 'PublishController');
-
-    Route::resource('authors', 'AuthorController');
-
-    Route::resource('todo', 'TodoController', ['only' => ['index']]);
-});
-
-Route::get('/home', 'HomeController@index');
-
 Route::resource('books', 'BookController', ['only' => ['index'], 'middleware' => ['permission:book-view']]);
 
 Route::resource('books', 'BookController', ['except' => ['index'], 'middleware' => ['permission:book-others']]);
 
-Route::resource('permissions', 'PermissionController');//, ['middleware' => ['permission:permission']]
+Route::resource('permissions', 'PermissionController', ['middleware' => ['permission:permission']]);
 
 Route::resource('promotions', 'PromotionController', ['middleware' => ['permission:promotion']]);
 
@@ -68,43 +54,39 @@ Route::get('importBooks/downloadExcel/{type}',
 Route::post('importBooks/importExcel',
     ['as' => 'importExcel', 'uses' => 'ImportBookController@importExcel', 'middleware' => ['permission:import-book']]);
 
-Route::group(['middleware' => 'permission:import-book-function'], function()
+Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permission:import-book-function']);
+
+Route::resource('billDetails', 'BillDetailController', ['middleware' => 'permission:bill']);
+
+Route::resource('bills', 'BillController', ['middleware' => 'permission:bill']);
+
+Route::group(['middleware' => 'permission:other-items'], function()
 {
-    Route::resource('importBooks', 'ImportBookController');
+    Route::resource('categories', 'CategoryController');
+
+    Route::resource('types', 'TypeController');
+
+    Route::resource('publishes', 'PublishController');
+
+    Route::resource('authors', 'AuthorController');
+
+    Route::resource('todo', 'TodoController', ['only' => ['index']]);
 });
 
-Route::group(['middleware' => 'permission:import-book-function'], function()
-{
-    Route::resource('importBooks', 'ImportBookController');
-});
-
-Route::group(['middleware' => 'permission:bill'], function()
-{
-    Route::resource('billDetails', 'BillDetailController');
-});
-
-Route::group(['middleware' => 'permission:bill'], function()
-{
-    Route::resource('bills', 'BillController');
-});
-
-Route::group(['prefix' => 'statistic'], function () {
+Route::group(['prefix' => 'statistic', 'middleware' => ['permission:statistic']], function () {
 
         Route::get('/daily', [
             'uses' => 'StatisticController@daily',
-            'as' => 'statistic.daily',
-            'middleware' => ['permission:statistic']
+            'as' => 'statistic.daily'
         ]);
 
         Route::get('/monthly', [
             'uses' => 'StatisticController@monthly',
-            'as' => 'statistic.monthly',
-            'middleware' => ['permission:statistic']
+            'as' => 'statistic.monthly'
         ]);
 
         Route::get('/quarterly', [
             'uses' => 'StatisticController@quarterly',
-            'as' => 'statistic.quarterly',
-            'middleware' => ['permission:statistic']
+            'as' => 'statistic.quarterly'
         ]);
     });

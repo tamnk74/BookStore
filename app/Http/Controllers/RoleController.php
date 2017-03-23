@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Role;
 use App\Permission;
 use DB;
+use Laracasts\Flash\Flash;
 
 class RoleController extends Controller
 {
@@ -57,9 +58,8 @@ class RoleController extends Controller
         foreach ($request->input('permission') as $key => $value) {
             $role->attachPermission($value);
         }
-
-        return redirect()->route('roles.index')
-            ->with('success','Role created successfully');
+        Flash::success('Role created successfully');
+        return redirect()->route('roles.index');
     }
     /**
      * Display the specified resource.
@@ -119,9 +119,8 @@ class RoleController extends Controller
         foreach ($request->input('permission') as $key => $value) {
             $role->attachPermission($value);
         }
-
-        return redirect()->route('roles.index')
-            ->with('success','Role updated successfully');
+        Flash::success('Role updated successfully');
+        return redirect()->route('roles.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -132,7 +131,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index')
-            ->with('success','Role deleted successfully');
+        Flash::success('Role deleted successfully');
+        return redirect()->route('roles.index');
     }
 }
