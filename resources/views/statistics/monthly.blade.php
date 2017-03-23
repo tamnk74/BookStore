@@ -29,22 +29,57 @@
             <hr>
             <div class="row">
                 <div class="col-md-6">
-                    <div id="top-book">Thống kê sách theo tháng</div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Top các cuốn sách được ưa thích</div>
+                        <div class="panel-body">
+                            @if(count($top_books) > 0)
+                                <div id="top-book"></div>
+                            @else
+                                Du lieu rong!
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <div id="catagory">Thể loại sách được ưa thích</div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Thể loại sách được ưa thích</div>
+                        <div class="panel-body">
+                            @if(count($categories) > 0)
+                                <div id="catagory"></div>
+                            @else
+                                Du lieu rong!
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-md-12">
-                    <div id="revenue">Thống kê sách theo tháng</div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Thống kê sách theo tháng</div>
+                        <div class="panel-body">
+                            @if(count($bills) > 0)
+                                <div id="revenue"></div>
+                            @else
+                                Du lieu rong!
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12">
-                    <div id="turnover">Thể loại sách được ưa thích</div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Thể loại sách được ưa thích</div>
+                        <div class="panel-body">
+                            @if(count($bills) > 0)
+                                <div id="turnover"></div>
+                            @else
+                                Du lieu rong!
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

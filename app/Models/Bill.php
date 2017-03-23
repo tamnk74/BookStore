@@ -110,9 +110,8 @@ class Bill extends Model
         $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(price_amount) as sum')
                           ->groupBy('year', 'quarter')
                           ->orderByRaw('year(created_at) asc , QUARTER(created_at) asc')
-                          ->first()
-                          ->sum;
-
+                          ->first();
+        $firstMonth = ($firstMonth == null) ? $firstMonth =0 : $firstMonth->sum;
         return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(price_amount) / '.$firstMonth.') - 1, 2) as `index`')
                     ->groupBy('year', 'quarter')
                     ->orderByRaw('`year` desc, `quarter` desc')

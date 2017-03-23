@@ -42,25 +42,70 @@
             
                 <div class="row">
                     <div class="col-md-6">
-                        <div id="selft_quarter">Thống kê doanh thu theo quý</div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Thống kê doanh thu theo quý</div>
+                            <div class="panel-body">
+                                @if(count($quaterlyTotalImport) > 0)
+                                <div id="selft_quarter"></div>
+                                @else
+                                    Du lieu rong!
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <div id="example">Thông tin chi tiết</div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Thông tin chi tiết</div>
+                            <div class="panel-body">
+                                @if(count($quaterlyTotalImport) > 0)
+                                <div id="example"></div>
+                                @else
+                                    Du lieu rong!
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-6">
-                        <div id="catagory">Thống kê thể loại sách được ưa chuộng theo quý</div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Thống kê thể loại sách được ưa chuộng theo quý</div>
+                            <div class="panel-body">
+                                @if(count($categories) > 0)
+                                    <div id="catagory"></div>
+                                @else
+                                    Du lieu rong!
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <div id="top-book">Top các cuốn sách được mua nhiều nhất</div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Top các cuốn sách được mua nhiều nhất</div>
+                            <div class="panel-body">
+                                @if(count($top_books) > 0)
+                                <div id="top-book"></div>
+                                @else
+                                    Du lieu rong!
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="example">Thống kê tăng trưởng theo quý</div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Thống kê tăng trưởng theo quý</div>
+                            <div class="panel-body">
+                                @if(count($billGrowthIndexs) > 0)
+                                <div id="example"></div>
+                                @else
+                                    Du lieu rong!
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

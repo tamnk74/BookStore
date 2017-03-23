@@ -53,6 +53,8 @@ Route::resource('books', 'BookController', ['only' => ['index'], 'middleware' =>
 
 Route::resource('books', 'BookController', ['except' => ['index'], 'middleware' => ['permission:book-others']]);
 
+Route::resource('permissions', 'PermissionController');//, ['middleware' => ['permission:permission']]
+
 Route::resource('promotions', 'PromotionController', ['middleware' => ['permission:promotion']]);
 
 Route::resource('stores', 'StoreController', ['middleware' => ['permission:store']]);

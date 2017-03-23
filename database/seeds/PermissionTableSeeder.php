@@ -35,7 +35,7 @@ class PermissionTableSeeder extends Seeder
             ],
             [
                 'name' => 'book-view',
-                'display_name' => 'Display Book Listing',
+                'display_name' => 'View Book List',
                 'description' => 'See only Listing Of Book'
             ],
             [
