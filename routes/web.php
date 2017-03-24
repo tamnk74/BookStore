@@ -58,8 +58,6 @@ Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permiss
 
 Route::resource('billDetails', 'BillDetailController', ['middleware' => 'permission:bill']);
 
-Route::resource('bills', 'BillController', ['middleware' => 'permission:bill']);
-
 Route::group(['middleware' => 'permission:other-items'], function()
 {
     Route::resource('categories', 'CategoryController');

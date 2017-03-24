@@ -45,7 +45,7 @@
             var bookName = $(this).parent().parent().find('select option:selected').text();
             var bookId = $(this).parent().parent().find('select option:selected').val();
             var bookAmount = $(this).parent().parent().find('#bookAmount').val();
-            if(x < max_fields){ //max input box allowed
+            if(x < max_fields && bookId != null && bookAmount != 0){ //max input box allowed
                 x++; //text box increment
                 var html = "<tr>"
                 + "<td>" + bookName + "<input name='book_id[]' type='hidden' value='" + bookId + "'>"
@@ -54,6 +54,7 @@
                             console.log(html);
                 $("table.table-bill").append(html);
             }
+            else alert("Vui long dien gia tri hop le!");
         });
     });
     </script>

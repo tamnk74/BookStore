@@ -31,18 +31,14 @@
 </li>
 
 <li class="{{ Request::is('billDetails*') ? 'active' : '' }}">
-    <a href="{!! route('billDetails.index') !!}"><i class="fa fa-edit"></i><span>BillDetails</span></a>
+    <a href="{!! route('billDetails.index') !!}"><i class="fa fa-edit"></i><span>Bills</span></a>
 </li>
 
-<li class="{{ Request::is('bills*') ? 'active' : '' }}">
-    <a href="{!! route('bills.index') !!}"><i class="fa fa-edit"></i><span>Bills</span></a>
-</li>
-
-<li class="{{ Request::is('statistics*') ? 'active' : '' }}"><a><i class="fa fa-line-chart"></i>Thống kê <span class="fa fa-chevron-down"></span></a>
+<li><a><i class="fa fa-line-chart"></i>Thống kê <span class="fa fa-chevron-down pull-right"></span></a>
     <ul class="nav child_menu">
-      <li><a href="{{ route('statistic.daily') }}">Thống kê theo ngày</a></li>
-      <li><a href="{{ route('statistic.monthly') }}">Thống kê theo tháng</a></li>
-      <li><a href="{{ route('statistic.quarterly') }}">Thống kê theo quý</a></li>
+      <li class="{{ Request::is('statistics*') ? 'active' : '' }}"><a href="{{ route('statistic.daily') }}">Thống kê theo ngày</a></li>
+      <li class="{{ Request::is('statistics*') ? 'active' : '' }}"><a href="{{ route('statistic.monthly') }}">Thống kê theo tháng</a></li>
+      <li class="{{ Request::is('statistics*') ? 'active' : '' }}"><a href="{{ route('statistic.quarterly') }}">Thống kê theo quý</a></li>
     </ul>
 </li>
 <li class="{{ Request::is('bills*') ? 'active' : '' }}">
