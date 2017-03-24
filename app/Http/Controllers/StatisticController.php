@@ -45,8 +45,10 @@ class StatisticController extends Controller
                     ->whereMonth('created_at', '=', $month)
                     ->get()
                     ->sum('price_amount');
-        $data['bills'] = Bill::getByMonth($year)->toArray();
-        $data['import_books'] = ImportBook::getByMonth($year)->toArray();
+        $data['bill'] = Bill::getByMonth($year)->toArray();
+        $data['import_book'] = ImportBook::getByMonth($year)->toArray();
+        $data['bills'] = BillDetail::getByMonths($year)->toArray();
+        $data['import_books'] = ImportBook::getByMonths($year)->toArray();
         $data['totalCost'] = $totalCost;
         $data['top_books'] = BillDetail::getTop5Books($year, $month)->toArray();
         $data['categories'] = BillDetail::getCategoriesByMonth($year, $month);

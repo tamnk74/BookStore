@@ -87,7 +87,7 @@ $(function () {
         },
         series: [{
                 name: 'Nhập sách',
-                data: data_bills
+                data: data_bill
             },{
                 name: 'Bán sách',
                 data: data_import
@@ -114,7 +114,7 @@ $(function () {
                 data: data_bills
             },{
                 name: 'Bán sách',
-                data: data_import
+                data: data_imports
             }]
     });
 

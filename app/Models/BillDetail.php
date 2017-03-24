@@ -128,6 +128,21 @@ class BillDetail extends Model {
                         ->orderBy('total', 'desc')
                         ->get();
     }
+    /**
+     * Get all today's bills.
+     *
+     * @param string $date input date
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getByMonths($year)
+    {
+        return self::whereYear('created_at', $year)
+            ->select(DB::raw('MONTH(created_at) month, sum(amount) as total'))
+            ->groupby('month')
+            ->orderBy('month', 'asc')
+            ->get();
+    }
     
     public static function totalAmountByMonth($year, $month)
     {

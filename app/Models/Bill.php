@@ -82,7 +82,7 @@ class Bill extends Model
                     ->orderBy('month', 'asc')
                     ->get();
     }
-    
+
     /**
      * Get total by quarter.
      *

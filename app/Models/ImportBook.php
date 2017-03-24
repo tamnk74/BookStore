@@ -68,30 +68,20 @@ class ImportBook extends Model
     public static function getByMonth($year)
     {
         return self::whereYear('created_at', $year)
-                    ->select(DB::raw('MONTH(created_at) month, sum(amount) as total'))
+                    ->select(DB::raw('MONTH(created_at) month, sum(buy_price) as total'))
                     ->groupby('month')
                     ->orderBy('month', 'asc')
                     ->get();
     }
-    /**
-     * Get all orders with specific year
-     *
-     * @param int $year determine specific year
-     *
-     * @return Illuminate\Database\Eloquent\Collection
-     */
+
     public static function getByMonths($year)
     {
         return self::whereYear('created_at', $year)
-                      ->get()
-                      ->groupBy(function ($item, $key) {
-                          return Carbon::parse($item['created_at'])->format('m');
-                      })
-                      ->sortBy(function ($item, $key) {
-                          return $key;
-                      });
+            ->select(DB::raw('MONTH(created_at) month, sum(amount) as total'))
+            ->groupby('month')
+            ->orderBy('month', 'asc')
+            ->get();
     }
-    
     /**
      * Get all order amount by quarter.
      *

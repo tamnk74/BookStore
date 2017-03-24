@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Thống kê sách theo tháng</div>
+                        <div class="panel-heading">Thống kê doanh thu  theo tháng</div>
                         <div class="panel-body">
                             @if(count($bills) > 0)
                                 <div id="revenue"></div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Thể loại sách được ưa thích</div>
+                        <div class="panel-heading">Thống kê doanh số  theo tháng</div>
                         <div class="panel-body">
                             @if(count($bills) > 0)
                                 <div id="turnover"></div>
@@ -90,8 +90,10 @@
     var data_topbook = {{ json_encode(array_column($top_books, 'total'), JSON_NUMERIC_CHECK)}};
     var categories_topbook = {!! json_encode(array_column($top_books, 'name'), JSON_NUMERIC_CHECK)!!};
     
+    var data_bill = {{ json_encode(array_column($bill, 'total'), JSON_NUMERIC_CHECK)}};
+    var data_import = {{ json_encode(array_column($import_book, 'total'), JSON_NUMERIC_CHECK)}};
     var data_bills = {{ json_encode(array_column($bills, 'total'), JSON_NUMERIC_CHECK)}};
-    var data_import = {{ json_encode(array_column($import_books, 'total'), JSON_NUMERIC_CHECK)}};
+    var data_imports = {{ json_encode(array_column($import_books, 'total'), JSON_NUMERIC_CHECK)}};
     var categories_month = {!! json_encode(array_column($bills, 'month'), JSON_NUMERIC_CHECK)!!};
    
     var categoryData = [
