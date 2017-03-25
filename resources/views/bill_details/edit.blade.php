@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/bootstrap-select.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bills/select2.css')}}">
 @endsection
 
 @section('content')
@@ -24,8 +24,9 @@
                     <div class="form-group">
                        <label class="col-sm-12 col-md-12">Chọn sách:</label>
                        <div class="col-sm-12 col-md-5">
-                           {!! Form::select('book_id', $books, null,
-                           ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'title'=>'Please select a book..']) !!}
+                           <!--{!! Form::select('book_id', $books, null,
+                           ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'title'=>'Please select a book..']) !!}-->
+                           <select class="form-control selectpicker" name="book_id"></select>
                        </div>
                        <div class="col-sm-12 col-md-5">
                            <input class='form-control' id="bookAmount" name='amount' type='text' placeholder="Số lượng">
@@ -60,34 +61,6 @@
    </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bootstrap-select.js')}}"></script>
-    <script>
-        $().ready(function() {
-            var max_fields = 10; //maximum input boxes allowed
-
-            var x = 1;
-            $("table.table-bill").on("click", ".btn-remove", function(e){
-                e.preventDefault();
-                $(this).parent().parent().remove();
-                x--;
-            });
-
-            $('.btn-add').click(function(e){
-                e.preventDefault();
-                var bookName = $(this).parent().parent().find('select option:selected').text();
-                var bookId = $(this).parent().parent().find('select option:selected').val();
-                var bookAmount = $(this).parent().parent().find('#bookAmount').val();
-                if(x < max_fields && bookId != null && bookAmount != 0){ //max input box allowed
-                    x++; //text box increment
-                    var html = "<tr>"
-                        + "<td>" + bookName + "<input name='book_id[]' type='hidden' value='" + bookId + "'>"
-                        + "<td>" + bookAmount + "<input name='amount[]' type='hidden' value='"+ bookAmount + "'>"
-                        + "</td><td><a class=\"btn btn-default btn-remove\" href=\"#\">Remove</a></td></tr>";
-                    console.log(html);
-                    $("table.table-bill").append(html);
-                }
-                else alert("Vui long dien gia tri hop le!");
-            });
-        });
-    </script>
+    <script src="{{asset('js/bills/select2.js')}}"></script>
+    <script src="{{asset('js/bills/script.js')}}"></script>
 @endsection

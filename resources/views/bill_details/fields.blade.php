@@ -6,8 +6,8 @@
 <div class="form-group">
     <label class="col-sm-12 col-md-12">Chọn sách:</label>
     <div class="col-sm-12 col-md-5">
-        {!! Form::select('book_id', $books, null,
-        ['class' => 'form-control selectpicker', 'data-live-search' => 'true', 'title'=>'Please select a book..']) !!}
+        <!--{!! Form::select('book_id', $books, null, ['class' => '', 'data-live-search' => 'true', 'title'=>'Please select a book..']) !!}-->
+        <select class="form-control selectpicker" name="book_id"></select>
     </div>
     <div class="col-sm-12 col-md-5">
         <input class='form-control' id="bookAmount" name='amount' type='text' placeholder="Số lượng">

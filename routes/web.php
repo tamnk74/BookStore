@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.index');
 });
 
 Route::get('/home', 'HomeController@index');
@@ -57,6 +57,8 @@ Route::post('importBooks/importExcel',
 Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permission:import-book-function']);
 
 Route::resource('billDetails', 'BillDetailController', ['middleware' => 'permission:bill']);
+
+Route::get('search-book', 'BillDetailController@searchBook', ['middleware' => 'permission:bill']);
 
 Route::group(['middleware' => 'permission:other-items'], function()
 {

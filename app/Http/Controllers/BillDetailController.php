@@ -11,6 +11,7 @@ use App\Repositories\StoreRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
@@ -256,5 +257,17 @@ class BillDetailController extends AppBaseController
         Flash::success('Bill Detail deleted successfully.');
 
         return redirect(route('billDetails.index'));
+    }
+
+    public function searchBook(Request $request){
+        $data = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $data = DB::table('books')
+                ->select("id","name")
+                ->where('name','LIKE',"%$search%")
+                ->get();
+        }
+        return response()->json($data);
     }
 }

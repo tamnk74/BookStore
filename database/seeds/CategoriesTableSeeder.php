@@ -11,20 +11,11 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        $categories = ['Sách giáo khoa - Giáo trình', 'Sách ngoại ngữ', 'Sách chuyên ngành', 'Sách văn học trong nước', 'Sách văn học nước ngoài', 'Sách kinh tế',  'Quản trị lãnh đạo',
+            'Sách thiếu nhi', 'Truyện tranh', 'Truyện ngắn', 'Sách phát triển bản thân', 'Tạp chí', 'Khác'];
+        foreach ($categories as $category)
         DB::table('categories')->insert([
-            'name' => 'Toán học'
-        ]);
-        DB::table('categories')->insert([
-            'name' => 'Vật lí'
-        ]);
-        DB::table('categories')->insert([
-            'name' => 'Hóa học'
-        ]);
-        DB::table('categories')->insert([
-            'name' => 'Văn học - Xã hội'
-        ]);
-        DB::table('categories')->insert([
-            'name' => 'Khác'
+            'name' => $categories
         ]);
     }
 }
