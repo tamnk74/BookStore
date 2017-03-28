@@ -569,6 +569,7 @@ h2.tittle {
 .grid-arr {
     border: 1px solid #E2E2E2;
     border: 5px solid #ffffff;
+	height: 100%;
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
@@ -580,9 +581,11 @@ h2.tittle {
   overflow: hidden;
   margin: 0 0 20px 0;
   width: 100%;
+	height: 300px;
 }
 .grid-arr .grid-arrival figure:hover .grid-img + .grid-img{
-  right: 100%;
+  	right: 100%;
+	height: 300px;
 }
 .grid-arr .grid-arrival figure > a {
   display: block;
@@ -591,7 +594,7 @@ h2.tittle {
   z-index: 1;
 }
 .grid-arr .grid-arrival figure > a .grid-img {
-  width: 100%;
+  height: 360px;
   line-height: 0;
   will-change: right;
   -moz-transform: translateZ(0);
@@ -599,10 +602,17 @@ h2.tittle {
   transform: translateZ(0);
 }
 .grid-arr .grid-arrival figure > a .grid-img img {
-  width: 100%;
+    width: 100%;
+	height: 300px;
+}
+.grid-arr .grid-arrival figure > a .grid-img img {
+	width: 100%;
+	height: 300px;
 }
 .grid-arr .grid-arrival figure > a .grid-img + .grid-img {
   position: absolute;
+	height: 300px;
+	width: 100%;
   top: 0;
   right: 0;
   -moz-transition: right 0.7s cubic-bezier(0.75, 0, 0.175, 1), opacity 0.7s cubic-bezier(0.75, 0, 0.175, 1);
@@ -612,6 +622,7 @@ h2.tittle {
 }
 .grid-arr .grid-arrival figure > a .grid-img + .grid-img img {
   max-width: none;
+	height: 300px;
 }
 
 .grid-product {
@@ -906,10 +917,16 @@ h3.tittle1 {
 }
 .latest-grids {
     margin-top: 4em;
+	height: 300px;
 }
 .latest-top {
     position: relative;
-	    overflow: hidden;
+	overflow: hidden;
+	height: 100%;
+}
+.latest-top img{
+	height: 100%;
+	width: 100%;
 }
 .latest-text {
     background: rgba(21, 101, 192, 0.71);
@@ -1354,6 +1371,17 @@ h3.tittle1 {
 	background-position: 0 -16px;
 }
 
+.core-slider_item{
+	width: 100%;
+	height: 550px;
+}
+.core-slider_item img{
+	width: 100%;
+	height: 100%;
+}
+.latest-grid{
+	height: 100%;
+}
 /* webkit adjacent element selector bugfix */
 @media screen and (-webkit-min-device-pixel-ratio:0)
 {
@@ -2544,6 +2572,7 @@ li.bt-nn h6 {
 .arrival-grid {
     float: left;
     width: 25%;
+	height: 500px;
 }
 .ribben1 p,.ribben p,.ribben2 p {
     font-size: 0.95em;
@@ -2673,7 +2702,8 @@ h3.tittle1,h3.tittle {
 }
 .new-grid {
     float: left;
-    width: 60%;
+    width: 100%;
+	height: 100%;
 }
 .modal-dialog {
     width: 669px;

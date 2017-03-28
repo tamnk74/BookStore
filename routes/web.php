@@ -11,11 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-});
+Route::name('homepage')->get('/', 'FrontEnd\HomeController@index');
+
+Route::name('contact')->get('/contact', 'FrontEnd\HomeController@contact');
+
+Route::name('show')->get('/show/{id}', 'FrontEnd\HomeController@show');
+
+Route::name('book')->get('/book', 'FrontEnd\HomeController@listBook');
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/admin', 'HomeController@index');
 
 Auth::routes();
 
@@ -69,8 +75,6 @@ Route::group(['middleware' => 'permission:other-items'], function()
     Route::resource('publishes', 'PublishController');
 
     Route::resource('authors', 'AuthorController');
-
-    Route::resource('todo', 'TodoController', ['only' => ['index']]);
 });
 
 Route::group(['prefix' => 'statistic', 'middleware' => ['permission:statistic']], function () {
