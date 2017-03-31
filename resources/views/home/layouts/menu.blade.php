@@ -44,12 +44,12 @@
                     <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
                 </ul> <!-- cd-header-buttons -->
                 <div id="cd-search" class="cd-search">
-                    <form action="{{route('book')}}" method="post">
-                        <input name="search" type="search" placeholder="Search...">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                {!! Form::open(['route' => 'book', 'method' => 'GET'])!!}
+                   <input name="search" type="search" placeholder="Search...">
+                 {{ Form::close()}}
+</div>
+</div>
+</div>
+</div>
 </div>
 <!--header-->

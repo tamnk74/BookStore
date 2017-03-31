@@ -77,35 +77,20 @@ class HomeController extends Controller
     public function listBook(Request $request)
     {
         //Search form
-        if ($request->has('name') || $request->has('department_id')) {
-            $name = $request->input('name');
-            $department_id = intval($request->input('department_id'));
-            if($department_id > 0){
-                $employees = Employees::where('name', 'like', '%'.$name.'%' )
-                    ->where('department_id', $department_id)
-                    ->get();
-            }
-            else{
-                $employees = Employees::where('name', 'like', '%'.$name.'%' )->get();
-            }
-
-            $formsearch = compact('name', 'department_id');
-            return view("pages.employees.index")->with([
-                "formsearch" => $formsearch,
-                "employees" => $employees,
-                "departments" => $departments
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $books = $this->bookRepository->findWhere([
+                ['name','like','%'.$search.'%']
             ]);
+            return view('home.books')
+                ->with('books', $books);
         } else {
-            $employees = Employees::all();
-            return view("pages.employees.index")->with([
-                "employees" => $employees,
-                "departments" => $departments
-            ]);
+            $books = $this->bookRepository->paginate(8);
+            //dd($books);
+            return view('home.books')
+                ->with('books', $books);
         }
-        $books = $this->bookRepository->paginate(8);
-        //dd($books);
-        return view('home.books')
-            ->with('books', $books);
+
     }
 
     /**
