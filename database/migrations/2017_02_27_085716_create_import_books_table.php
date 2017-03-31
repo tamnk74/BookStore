@@ -17,9 +17,7 @@ class CreateImportBooksTable extends Migration
             $table->increments('id');
             $table->integer('book_id')->unsigned();
             $table->integer('amount')->unsigned();
-            $table->date('date');
-            $table->integer('buy_price')->unsigned();
-            $table->integer('sell_price')->unsigned();
+            $table->integer('price')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('book_id')->references('id')->on('books');

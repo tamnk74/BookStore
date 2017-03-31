@@ -18,6 +18,7 @@ class EntrustSetupTables extends Migration
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Create table for associating roles to users (Many-to-Many)
@@ -31,6 +32,8 @@ class EntrustSetupTables extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['user_id', 'role_id']);
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         // Create table for storing permissions
@@ -40,6 +43,7 @@ class EntrustSetupTables extends Migration
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Create table for associating permissions to roles (Many-to-Many)
@@ -53,6 +57,8 @@ class EntrustSetupTables extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['permission_id', 'role_id']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

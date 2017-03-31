@@ -19,7 +19,9 @@ class CreateBooksTable extends Migration
             $table->integer('author_id')->unsigned();
             $table->integer('publish_id')->unsigned();
             $table->integer('price')->unsigned();
-            $table->string('image', 255);
+            $table->integer('sale')->unsigned()->default(0);;
+            $table->string('front_cover', 255);
+            $table->string('back_cover', 255);
             $table->integer('category_id')->unsigned();
             $table->integer('type_id')->unsigned();
             $table->integer('publishing_year')->unsigned();

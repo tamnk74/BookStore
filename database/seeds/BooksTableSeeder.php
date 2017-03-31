@@ -16,7 +16,8 @@ class BooksTableSeeder extends Seeder
             'author_id' => '1',
             'publish_id' => '1',
             'price' => '30000',
-            'image' => 'dai_so_10.jpg',
+            'front_cover' => 'dai_so_10.jpg',
+            'back_cover' => 'dai_so_10.jpg',
             'category_id' => '1',
             'type_id' => '1',
             'publishing_year' => '2010'
@@ -26,7 +27,8 @@ class BooksTableSeeder extends Seeder
             'author_id' => '1',
             'publish_id' => '1',
             'price' => '30000',
-            'image' => 'dai_so_11.jpg',
+            'front_cover' => 'dai_so_11.jpg',
+            'back_cover' => 'dai_so_11.jpg',
             'category_id' => '1',
             'type_id' => '1',
             'publishing_year' => '2010'
@@ -36,7 +38,8 @@ class BooksTableSeeder extends Seeder
             'author_id' => '1',
             'publish_id' => '1',
             'price' => '30000',
-            'image' => 'dai_so_12.jpg',
+            'front_cover' => 'dai_so_12.jpg',
+            'back_cover' => 'dai_so_12.jpg',
             'category_id' => '1',
             'type_id' => '1',
             'publishing_year' => '2010'
@@ -46,7 +49,8 @@ class BooksTableSeeder extends Seeder
             'author_id' => '1',
             'publish_id' => '1',
             'price' => '12000',
-            'image' => 'vat_li_10.jpg',
+            'front_cover' => 'vat_li_10.jpg',
+            'back_cover' => 'vat_li_10.jpg',
             'category_id' => '2',
             'type_id' => '1',
             'publishing_year' => '2010'

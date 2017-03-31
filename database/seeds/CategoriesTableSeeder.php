@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
             'Sách thiếu nhi', 'Truyện tranh', 'Truyện ngắn', 'Sách phát triển bản thân', 'Tạp chí', 'Khác'];
         foreach ($categories as $category)
         DB::table('categories')->insert([
-            'name' => $categories
+            'name' => $category
         ]);
     }
 }

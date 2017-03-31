@@ -15,11 +15,12 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->string('client_name', 255);
-            $table->integer('price_amount')->unsigned();
-            $table->date('date');
+            $table->integer('total_price')->unsigned();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

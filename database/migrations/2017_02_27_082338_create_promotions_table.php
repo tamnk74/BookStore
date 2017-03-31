@@ -13,13 +13,14 @@ class CreatePromotionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('promotions', function (Blueprint $table) {
+
+       /* Schema::create('promotions', function (Blueprint $table) {
             $table->integer('book_id')->unsigned()->unique();
             $table->integer('level');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('book_id')->references('id')->on('books');
-        });
+        });*/
     }
 
     /**
@@ -29,6 +30,6 @@ class CreatePromotionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('promotions');
+       /*Schema::drop('promotions');*/
     }
 }

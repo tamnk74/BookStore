@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Permission;
+use App\Models\Permission;
 
-class PermissionTableSeeder extends Seeder
+class PermissionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,24 +14,44 @@ class PermissionTableSeeder extends Seeder
     {
         $permission = [
             [
+                'name' => 'user-list',
+                'display_name' => 'User Show',
+                'description' => 'View users list'
+            ],
+            [
+                'name' => 'user-show',
+                'display_name' => 'User Show',
+                'description' => 'View account'
+            ],
+            [
+                'name' => 'user-update',
+                'display_name' => 'User Update',
+                'description' => 'Update users'
+            ],
+            [
+                'name' => 'user-create',
+                'display_name' => 'User Create',
+                'description' => 'Create users'
+            ],
+            [
+                'name' => 'user-delete',
+                'display_name' => 'User Delete',
+                'description' => 'Delete users'
+            ],
+            [
                 'name' => 'role-list',
                 'display_name' => 'Display Role Listing',
                 'description' => 'See only Listing Of Role'
             ],
             [
-                'name' => 'role-create',
-                'display_name' => 'Create Role',
-                'description' => 'Create New Role'
+                'name' => 'role-manage',
+                'display_name' => 'Manage Role',
+                'description' => 'Create, Update, Delete a Role'
             ],
             [
-                'name' => 'role-edit',
-                'display_name' => 'Edit Role',
-                'description' => 'Edit Role'
-            ],
-            [
-                'name' => 'role-delete',
-                'display_name' => 'Delete Role',
-                'description' => 'Delete Role'
+                'name' => 'permission-manage',
+                'display_name' => 'Manage Permission',
+                'description' => 'Create, Update, Delete, View a Permission'
             ],
             [
                 'name' => 'book-view',
@@ -84,7 +104,6 @@ class PermissionTableSeeder extends Seeder
                 'description' => 'See Statistic'
             ]
         ];
-
         foreach ($permission as $key => $value) {
             Permission::create($value);
         }
