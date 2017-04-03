@@ -2,18 +2,18 @@
 
 namespace App\Repositories;
 
-use App\Models\Permission;
+use App\Models\User;
 use InfyOm\Generator\Common\BaseRepository;
 
-class PermissionRepository extends BaseRepository
+class UserRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
         'name',
-        'display_name',
-        'description'
+        'email',
+        'password'
     ];
 
     /**
@@ -21,6 +21,6 @@ class PermissionRepository extends BaseRepository
      **/
     public function model()
     {
-        return Permission::class;
+        return User::class;
     }
 }

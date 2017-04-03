@@ -47,7 +47,7 @@ class BookController extends AppBaseController
     public function index(Request $request)
     {
         $this->bookRepository->pushCriteria(new RequestCriteria($request));
-        $books = $this->bookRepository->all();
+        $books = $this->bookRepository->paginate(10);
         //dd($books);
         return view('books.index')
             ->with('books', $books);

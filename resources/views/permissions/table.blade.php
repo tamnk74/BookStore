@@ -1,6 +1,5 @@
 <table class="table table-responsive" id="permissions-table">
     <thead>
-        <th>Id</th>
         <th>Name</th>
         <th>Display Name</th>
         <th>Description</th>
@@ -9,7 +8,6 @@
     <tbody>
     @foreach($permissions as $permission)
         <tr>
-            <td>{!! $permission->id !!}</td>
             <td>{!! $permission->name !!}</td>
             <td>{!! $permission->display_name !!}</td>
             <td>{!! $permission->description !!}</td>

@@ -1,36 +1,39 @@
 <!-- Id Field -->
 <div class="form-group">
     {!! Form::label('id', 'Id:') !!}
-    <p>{!! $permission->id !!}</p>
+    <p>{!! $user->id !!}</p>
 </div>
 
 <!-- Name Field -->
 <div class="form-group">
     {!! Form::label('name', 'Name:') !!}
-    <p>{!! $permission->name !!}</p>
+    <p>{!! $user->name !!}</p>
 </div>
 
-<!-- Display Name Field -->
+<!-- Email Field -->
 <div class="form-group">
-    {!! Form::label('display_name', 'Display Name:') !!}
-    <p>{!! $permission->display_name !!}</p>
+    {!! Form::label('email', 'Email:') !!}
+    <p>{!! $user->email !!}</p>
 </div>
 
-<!-- Description Field -->
 <div class="form-group">
-    {!! Form::label('description', 'Description:') !!}
-    <p>{!! $permission->description !!}</p>
+    <strong>Roles:</strong>
+    @if(!empty($user->roles))
+        @foreach($user->roles as $v)
+            <label class="label label-success">{{ $v->display_name }}</label>
+        @endforeach
+    @endif
 </div>
 
 <!-- Created At Field -->
 <div class="form-group">
     {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $permission->created_at !!}</p>
+    <p>{!! $user->created_at !!}</p>
 </div>
 
 <!-- Updated At Field -->
 <div class="form-group">
     {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $permission->updated_at !!}</p>
+    <p>{!! $user->updated_at !!}</p>
 </div>
 

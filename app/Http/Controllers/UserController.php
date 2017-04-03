@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 use DB;
 use Hash;
 
@@ -19,8 +20,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+        $users = User::orderBy('id','DESC')->paginate(5);
+        return view('users.index',compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -41,15 +42,8 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UpdateUserRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
-        ]);
-
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 

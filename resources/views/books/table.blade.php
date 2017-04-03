@@ -1,13 +1,14 @@
 <table class="table table-responsive" id="books-table">
     <thead>
-        <th>Name</th>
-        <th>Author</th>
-        <th>Publish</th>
-        <th>Price</th>
-        <th>Image</th>
-        <th>Category</th>
-        <th>Type</th>
-        <th>Publishing Year</th>
+        <th>@lang('books.label_book_name')</th>
+        <th>@lang('books.label_book_author')</th>
+        <th>@lang('books.label_book_publish')</th>
+        <th>@lang('books.label_book_price')</th>
+        <th>@lang('books.label_book_front_cover')</th>
+        <th>@lang('books.label_book_back_cover')</th>
+        <th>@lang('books.label_book_category')</th>
+        <th>@lang('books.label_book_type')</th>
+        <th>@lang('books.label_book_pulishing_year')</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
@@ -17,7 +18,8 @@
             <td>{!! $book->author->name !!}</td>
             <td>{!! $book->publish->name !!}</td>
             <td>{!! $book->price !!}</td>
-            <td>{!! $book->image !!}</td>
+            <td>{!! $book->front_cover !!}</td>
+            <td>{!! $book->back_cover !!}</td>
             <td>{!! $book->category->name !!}</td>
             <td>{!! $book->type->name !!}</td>
             <td>{!! $book->publishing_year !!}</td>
@@ -34,3 +36,4 @@
     @endforeach
     </tbody>
 </table>
+{{ $books->links() }}

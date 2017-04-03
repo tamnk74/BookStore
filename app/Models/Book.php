@@ -25,7 +25,9 @@ class Book extends Model
         'author_id',
         'publish_id',
         'price',
-        'image',
+        'sale',
+        'front_cover',
+        'back_cover',
         'category_id',
         'type_id',
         'publishing_year'
@@ -41,8 +43,10 @@ class Book extends Model
         'author_id' => 'integer',
         'publish_id' => 'integer',
         'price' => 'integer',
-        'image' => 'string',
-        'category_id' => 'integer',
+        'sale' => 'integer',
+        'front_cover' => 'string',
+        'back_cover' => 'string',
+        'back_covver' => 'integer',
         'type_id' => 'integer',
         'publishing_year' => 'integer'
     ];
@@ -57,6 +61,9 @@ class Book extends Model
         'author_id' => 'required',
         'publish_id' => 'required',
         'price' => 'required',
+        'sale' => 'required',
+        'front_cover' => 'required',
+        'back_cover' => 'required',
         'category_id' => 'required',
         'type_id' => 'required',
         'publishing_year' => 'required'

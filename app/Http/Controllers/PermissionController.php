@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\PermissionRepository;
 use Illuminate\Support\Facades\DB;
 use Flash;
+use App\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -23,6 +24,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
+
         $permissions = $this->permissionRepository->all();
 
         return view('permissions.index')

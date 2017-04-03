@@ -27,21 +27,25 @@ Route::group(['middleware' => 'auth'], function()
 {
     Route::get('/home', 'HomeController@index');
 
-    Route::resource('users','UserController');
-
-    Route::get('roles',['as'=>'roles.index','uses'=>'RoleController@index','middleware' => ['permission:role-list|role-create|role-edit|role-delete']]);//
-
-    Route::get('roles/create',['as'=>'roles.create','uses'=>'RoleController@create','middleware' => ['permission:role-create']]);
-
-    Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store','middleware' => ['permission:role-create']]);
-
-    Route::get('roles/{id}',['as'=>'roles.show','uses'=>'RoleController@show']);
-
-    Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','middleware' => ['permission:role-edit']]);
-
-    Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update','middleware' => ['permission:role-edit']]);
-
-    Route::delete('roles/{id}',['as'=>'roles.destroy','uses'=>'RoleController@destroy','middleware' => ['permission:role-delete']]);
+    Route::get('/home', 'HomeController@index');
+    Route::resource('users','UserController', ['only' => ['create', 'store'], 'middleware' =>
+        'permission:user-create']);
+    Route::resource('users','UserController', ['only' => ['edit', 'update'], 'middleware' =>
+        'permission:user-update']);
+    Route::resource('users','UserController', ['only' => ['show'], 'middleware' =>
+        'permission:user-show']);
+    Route::resource('users','UserController', ['only' => ['destroy'], 'middleware' =>
+        'permission:user-delete']);
+    Route::resource('users','UserController', ['only' => ['index'], 'middleware' =>
+        'permission:user-list']);
+    Route::resource('roles', 'RoleController', ['middleware' =>
+        'permission:role-list']);
+    Route::resource('permissions', 'PermissionController', ['middleware' =>
+        'permission:permission-manage']);
+    Route::resource('roles', 'RoleController', ['only' => ['index', 'show'], 'middleware' =>
+        'permission:role-list']);
+    Route::resource('roles', 'RoleController',['except' => ['index', 'show'], 'middleware' =>
+        'permission:role-manage']);
 
     Route::resource('books', 'BookController', ['only' => ['index'], 'middleware' => ['permission:book-view']]);
 

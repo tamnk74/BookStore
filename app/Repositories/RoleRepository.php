@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Permission;
+use App\Models\Role;
 use InfyOm\Generator\Common\BaseRepository;
 
-class PermissionRepository extends BaseRepository
+class RoleRepository extends BaseRepository
 {
     /**
      * @var array
@@ -21,6 +21,6 @@ class PermissionRepository extends BaseRepository
      **/
     public function model()
     {
-        return Permission::class;
+        return Role::class;
     }
 }
