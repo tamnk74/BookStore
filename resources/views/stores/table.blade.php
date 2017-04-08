@@ -11,8 +11,8 @@
         <tr>
             <td>{!! $store->book_id !!}</td>
             <td>{!! $store->book->name !!}</td>
-            <td>{!! $store->current_amount !!}</td>
             <td>{!! $store->amount !!}</td>
+            <td>{!! $store->total_amount !!}</td>
             <td>
                 {!! Form::open(['route' => ['stores.destroy', $store->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

@@ -3,9 +3,8 @@
         <th>Mã sách</th>
         <th>Tên sách</th>
         <th>Số lượng</th>
-        <th>Ngày nhập</th>
         <th>Giá mua</th>
-        <th>Giá bán</th>
+        <th>Ngày nhập</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
@@ -14,9 +13,8 @@
             <td>{!! $importBook->book_id !!}</td>
             <td>{!! $importBook->book->name !!}</td>
             <td>{!! $importBook->amount !!}</td>
-            <td>{!! $importBook->date !!}</td>
-            <td>{!! $importBook->buy_price !!}</td>
-            <td>{!! $importBook->sell_price !!}</td>
+            <td>{!! $importBook->price !!}</td>
+            <td>{!! $importBook->created_at !!}</td>
             <td>
                 {!! Form::open(['route' => ['importBooks.destroy', $importBook->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
@@ -30,3 +28,4 @@
     @endforeach
     </tbody>
 </table>
+{!! $importBooks->links() !!}

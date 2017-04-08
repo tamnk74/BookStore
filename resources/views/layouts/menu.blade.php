@@ -67,11 +67,11 @@
             </span>
     </a>
     <ul class="treeview-menu">
-        <li class="{{ Request::is('billDetails*') ? 'active' : '' }}">
-            <a href="{!! route('billDetails.create') !!}"><i class="fa fa-circle-o"></i>Tạo hóa đơn</a>
+        <li class="{{ Request::is('bills*') ? 'active' : '' }}">
+            <a href="{!! route('bills.create') !!}"><i class="fa fa-circle-o"></i>Tạo hóa đơn</a>
         </li>
-        <li cclass="{{ Request::is('billDetails*') ? 'active' : '' }}">
-            <a href="{!! route('billDetails.index') !!}"><i class="fa fa-circle-o"></i>Xem hóa đơn</a>
+        <li cclass="{{ Request::is('bills*') ? 'active' : '' }}">
+            <a href="{!! route('bills.index') !!}"><i class="fa fa-circle-o"></i>Xem hóa đơn</a>
         </li>
     </ul>
 </li>

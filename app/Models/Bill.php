@@ -24,8 +24,8 @@ class Bill extends Model
 
     public $fillable = [
         'client_name',
-        'price_amount',
-        'date'
+        'user_id',
+        'total_price'
     ];
 
     /**
@@ -35,8 +35,7 @@ class Bill extends Model
      */
     protected $casts = [
         'client_name' => 'string',
-        'price_amount' => 'integer',
-        'date' => 'date'
+        'total_price' => 'integer'
     ];
 
     /**
@@ -52,7 +51,10 @@ class Bill extends Model
     {
         return $this->hasMany(BillDetail::class);
     }
-    
+
+    public function  user(){
+        return $this->belongsTo(User::class);
+    }
     /**
      * Get all today's bills.
      *

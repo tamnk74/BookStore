@@ -30,7 +30,7 @@ class PublishController extends AppBaseController
     public function index(Request $request)
     {
         $this->publishRepository->pushCriteria(new RequestCriteria($request));
-        $publishes = $this->publishRepository->all();
+        $publishes = $this->publishRepository->paginate(10);
 
         return view('publishes.index')
             ->with('publishes', $publishes);

@@ -1,16 +1,28 @@
-<table class="table table-responsive" id="bills-table">
+<table class="table table-responsive" id="billDetails-table">
     <thead>
-        <th>Client Name</th>
-        <th>Price Amount</th>
-        <th>Date</th>
-        <th colspan="3">Action</th>
+        <th>STT</th>
+        <th>Mã hóa đơn</th>
+        <th>Tên khách hàng</th>
+        <th>Chi tiết</th>
+        <th>Thành Tiền</th>
+        <th>Ngày mua</th>
+        <th colspan="3">Hành động</th>
     </thead>
     <tbody>
     @foreach($bills as $bill)
         <tr>
+            <td>{!! $loop->iteration !!}</td>
+            <td>{!! $bill->id !!}</td>
             <td>{!! $bill->client_name !!}</td>
-            <td>{!! $bill->price_amount !!}</td>
-            <td>{!! $bill->date !!}</td>
+            <td>
+                <ul class="list-group">
+                    @foreach($bill->billdetail as $billdetail)
+                    <li class="list-group-item">{!! $billdetail->book->name !!}<span class="badge">{!! $billdetail->amount !!}</span></li>
+                    @endforeach
+                </ul>
+            </td>
+            <td>{!! $bill->total_price !!}</td>
+            <td>{!! $bill->created_at !!}</td>
             <td>
                 {!! Form::open(['route' => ['bills.destroy', $bill->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

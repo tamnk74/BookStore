@@ -30,7 +30,7 @@ class CategoryController extends AppBaseController
     public function index(Request $request)
     {
         $this->categoryRepository->pushCriteria(new RequestCriteria($request));
-        $categories = $this->categoryRepository->all();
+        $categories = $this->categoryRepository->paginate(10);
 
         return view('categories.index')
             ->with('categories', $categories);

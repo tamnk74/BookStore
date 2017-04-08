@@ -1,25 +1,19 @@
 <!-- Book Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('book_id', 'Book Id:') !!}
+<div class="form-group col-sm-4">
+    {!! Form::label('book_id', 'Choose Book:') !!}
     {!! Form::select('book_id', $books, null,  ['class' => 'form-control']) !!}
 </div>
 
 <!-- Amount Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-4">
     {!! Form::label('amount', 'Amount:') !!}
     {!! Form::text('amount', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Buy Price Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('buy_price', 'Buy Price:') !!}
-    {!! Form::text('buy_price', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Sell Price Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('sell_price', 'Sell Price:') !!}
-    {!! Form::text('sell_price', null, ['class' => 'form-control']) !!}
+<div class="form-group col-sm-4">
+    {!! Form::label('price', 'Price:') !!}
+    {!! Form::text('price', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

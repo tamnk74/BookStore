@@ -37,6 +37,9 @@ $().ready(function() {
         var bookAmount = $(this).parent().parent().find('#bookAmount').val();
         if(x < max_fields && bookId != null && bookAmount != 0){ //max input box allowed
             x++; //text box increment
+            $.ajax({url: "demo_test.txt", success: function(result){
+                $("#div1").html(result);
+            }});
             var html = "<tr>"
                 + "<td>" + bookName + "<input name='book_id[]' type='hidden' value='" + bookId + "'>"
                 + "<td>" + bookAmount + "<input name='amount[]' type='hidden' value='"+ bookAmount + "'>"

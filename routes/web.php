@@ -51,11 +51,11 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('books', 'BookController', ['except' => ['index'], 'middleware' => ['permission:book-others']]);
 
-    Route::resource('permissions', 'PermissionController', ['middleware' => ['permission:permission']]);
+    Route::resource('permissions', 'PermissionController', ['middleware' => ['permission:permission-manage']]);
 
     Route::resource('promotions', 'PromotionController', ['middleware' => ['permission:promotion']]);
 
-    Route::resource('stores', 'StoreController', ['middleware' => ['permission:store']]);
+    Route::resource('stores', 'StoreController', ['middleware' => ['permission:store-view']]);
 
     Route::get('importBooks/create_file',
         ['as' => 'create_file', 'uses' => 'ImportBookController@create_file', 'middleware' => ['permission:import-book']]);
@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permission:import-book-function']);
 
-    Route::resource('billDetails', 'BillDetailController', ['middleware' => 'permission:bill']);
+    Route::resource('bills', 'BillController', ['middleware' => 'permission:bill']);
 
     Route::get('search-book', 'BillDetailController@searchBook', ['middleware' => 'permission:bill']);
 

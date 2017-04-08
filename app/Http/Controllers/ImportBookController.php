@@ -42,7 +42,7 @@ class ImportBookController extends AppBaseController
     public function index(Request $request)
     {
         $this->importBookRepository->pushCriteria(new RequestCriteria($request));
-        $importBooks = $this->importBookRepository->all();
+        $importBooks = $this->importBookRepository->paginate(10);
 
         return view('import_books.index')
             ->with('importBooks', $importBooks);
@@ -102,7 +102,7 @@ class ImportBookController extends AppBaseController
                 $date = \Carbon\Carbon::today()->format('Y-m-d');
 				foreach ($data->toArray() as $key => $value) {
 					if(!empty($value)){
-                      $insert[] = ['book_id' => $value['ma_sach'], 'amount' => $value['so_luong'], 'buy_price' => $value['gia_mua'], 'sell_price' => $value['gia_ban'], 'date' => $date];
+                      $insert[] = ['book_id' => $value['ma_sach'], 'amount' => $value['so_luong'], 'price' => $value['gia_mua'], 'date' => $date];
 					}
 				}
 
@@ -133,25 +133,12 @@ class ImportBookController extends AppBaseController
         $book = $this->bookRepository->findWithoutFail($input['book_id']);
 
         if (empty($book)) {
-            Flash::error('Import Book not found');
-
+            Flash::error('Book not found');
             return redirect(route('importBooks.index'));
         }
 
         $store = $this->storeRepository->findWithoutFail($input['book_id']);
 
-        if (empty($store)) {
-            $store = $this->storeRepository->create([
-                'book_id' => $input['book_id'],
-                'current_amount' => 0,
-                'amount' => 0
-            ]);
-        }
-        $store = $this->storeRepository->update([
-            'book_id' => $input['book_id'],
-            'current_amount' => $store->current_amount,
-            'amount' => $store->amount
-        ], $input['book_id']);
         $input['date'] = \Carbon\Carbon::today()->format('Y-m-d');     
         $importBook = $this->importBookRepository->create($input);
 

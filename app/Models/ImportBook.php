@@ -25,9 +25,7 @@ class ImportBook extends Model
     public $fillable = [
         'book_id',
         'amount',
-        'date',
-        'buy_price',
-        'sell_price'
+        'price'
     ];
 
     /**
@@ -38,9 +36,7 @@ class ImportBook extends Model
     protected $casts = [
         'book_id' => 'integer',
         'amount' => 'integer',
-        'date' => 'date',
-        'buy_price' => 'integer',
-        'sell_price' => 'integer'
+        'price' => 'integer'
     ];
 
     /**
@@ -51,8 +47,7 @@ class ImportBook extends Model
     public static $rules = [
         'book_id' => 'required',
         'amount' => 'required|numeric',
-        'buy_price' => 'required|numeric',
-        'sell_price' => 'numeric'
+        'price' => 'required|numeric'
     ];
 
     public function book()

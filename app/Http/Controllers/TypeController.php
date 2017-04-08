@@ -30,7 +30,7 @@ class TypeController extends AppBaseController
     public function index(Request $request)
     {
         $this->typeRepository->pushCriteria(new RequestCriteria($request));
-        $types = $this->typeRepository->all();
+        $types = $this->typeRepository->paginate(10);
 
         return view('types.index')
             ->with('types', $types);

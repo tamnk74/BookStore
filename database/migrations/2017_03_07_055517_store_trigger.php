@@ -48,13 +48,13 @@ class StoreTrigger extends Migration
         AFTER INSERT 
         ON bill_details 
         FOR EACH ROW 
-        UPDATE stores SET stores.amount = stores.amount - NEW.amount, stores.total_amount = stores.total_amount - NEW.amount WHERE stores.book_id = NEW.book_id      
+        UPDATE stores SET stores.amount = stores.amount - NEW.amount, stores.total_amount = stores.total_amount WHERE stores.book_id = NEW.book_id      
         ');
         DB::unprepared('
         CREATE TRIGGER update_bills_trigger 
         AFTER UPDATE ON bill_details 
         FOR EACH ROW 
-        UPDATE stores SET stores.amount = stores.amount + NEW.amount - OLD.amount, stores.total_amount = stores.total_amount + NEW.amount - OLD.amount 
+        UPDATE stores SET stores.amount = stores.amount + NEW.amount - OLD.amount, stores.total_amount = stores.total_amount 
         WHERE stores.book_id = NEW.book_id
         ');
         

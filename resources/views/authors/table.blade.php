@@ -20,3 +20,4 @@
     @endforeach
     </tbody>
 </table>
+{!! $authors->links() !!}
