@@ -65,12 +65,7 @@ class BookController extends AppBaseController
         $publishes = $this->publishRepository->all()->pluck('name','id');
         $categories = $this->categoryRepository->all()->pluck('name','id');
         return view('books.create')
-            ->with([
-                'types' => $types,
-                'authors' => $authors,
-                'publishes' => $publishes,
-                'categories' => $categories
-            ]);
+            ->with(compact('types', 'authors', 'publishes', 'categories' ));
     }
 
     /**
@@ -84,13 +79,20 @@ class BookController extends AppBaseController
     {
         $input = $request->all();
 
-        if ($request->hasFile('image')) {
-            $input['image'] = time().'.'.$request->image->getClientOriginalExtension();
-            dd($input['image']);
-            $request->photo->move(public_path('images/books '), $input['image']);
+        if ($request->hasFile('front_cover')) {
+            $input['front_cover'] = time().'.'.$request->front_cover->getClientOriginalExtension();
+            $request->front_cover->move(public_path('images/books '), $input['front_cover']);
         } 
         else {
-            $input['image'] = 'default.png';
+            $input['front_cover'] = 'front_cover.png';
+        }
+
+        if ($request->hasFile('back_cover')) {
+            $input['back_cover'] = time().'.'.$request->back_cover->getClientOriginalExtension();
+            $request->back_cover->move(public_path('images/books '), $input['back_cover']);
+        }
+        else {
+            $input['back_cover'] = 'back_cover.png';
         }
 
         $book = $this->bookRepository->create($input);
@@ -141,13 +143,7 @@ class BookController extends AppBaseController
             return redirect(route('books.index'));
         }
 
-        return view('books.edit')->with([
-            'book'=> $book,
-            'types' => $types,
-            'authors' => $authors,
-            'publishes' => $publishes,
-            'categories' => $categories
-            ]);
+        return view('books.edit')->with(compact('book', 'types', 'authors', 'publishes', 'categories' ));
     }
 
     /**
@@ -161,14 +157,32 @@ class BookController extends AppBaseController
     public function update($id, UpdateBookRequest $request)
     {
         $book = $this->bookRepository->findWithoutFail($id);
-
+        $input = $request->all();
         if (empty($book)) {
             Flash::error('Book not found');
 
             return redirect(route('books.index'));
         }
+        $except = [];
+        if ($request->hasFile('front_cover')) {
+            $input['front_cover'] = time().'.'.$request->front_cover->getClientOriginalExtension();
+            $request->front_cover->move(public_path('images/books '), $input['front_cover']);
+        }
+        else
+        {
+            $except[] = 'front_cover';
+        }
 
-        $book = $this->bookRepository->update($request->all(), $id);
+        if ($request->hasFile('back_cover')) {
+            $input['back_cover'] = time().'.'.$request->back_cover->getClientOriginalExtension();
+            $request->back_cover->move(public_path('images/books '), $input['back_cover']);
+        }
+        else
+        {
+            $except[] = 'back_cover';
+        }
+
+        $book = $this->bookRepository->update(array_except($input, $except), $id);
 
         Flash::success('Book updated successfully.');
 

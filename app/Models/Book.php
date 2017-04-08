@@ -61,9 +61,8 @@ class Book extends Model
         'author_id' => 'required',
         'publish_id' => 'required',
         'price' => 'required',
-        'sale' => 'required',
-        'front_cover' => 'required',
-        'back_cover' => 'required',
+        'front_cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'back_cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'category_id' => 'required',
         'type_id' => 'required',
         'publishing_year' => 'required'

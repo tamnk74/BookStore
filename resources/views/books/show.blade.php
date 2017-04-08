@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Book
+            <label>@lang('books.label_book_detail')</label>
         </h1>
     </section>
     <div class="content">

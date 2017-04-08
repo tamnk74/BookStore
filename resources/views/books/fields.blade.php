@@ -1,48 +1,53 @@
 <!-- Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('name', 'Name:') !!}
+    <label for="name">@lang('books.label_book_name')</label>
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Author Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('author_id', 'Author Id:') !!}
+    <label for="author_id">@lang('books.label_book_author')</label>
     {!! Form::select('author_id', $authors, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Publish Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('publish_id', 'Publish Id:') !!}
+    <label for="publish_id">@lang('books.label_book_publish')</label>
     {!! Form::select('publish_id',$publishes, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Price Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('price', 'Price:') !!}
+    <label for="price">@lang('books.label_book_price')</label>
     {!! Form::text('price', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Image Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('image', 'Image:') !!}
-    {!! Form::file('image', null, ['class' => 'form-control']) !!}
+    <label for="front_cover">@lang('books.label_book_front_cover')</label>
+    {!! Form::file('front_cover', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Image Field -->
+<div class="form-group col-sm-6">
+    <label for="back_cover">@lang('books.label_book_back_cover')</label>
+    {!! Form::file('back_cover', null, ['class' => 'form-control']) !!}
+</div>
 <!-- Category Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('category_id', 'Category Id:') !!}
+    <label for="category_id">@lang('books.label_book_category')</label>
     {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Type Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('type_id', 'Type Id:') !!}
+    <label for="type_id">@lang('books.label_book_type')</label>
     {!! Form::select('type_id', $types, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Publishing Year Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('publishing_year', 'Publishing Year:') !!}
+    <label for="publishing_year">@lang('books.label_book_pulishing_year')</label>
     {!! Form::text('publishing_year', null, ['class' => 'form-control']) !!}
 </div>
 
