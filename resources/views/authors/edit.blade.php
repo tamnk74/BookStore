@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Author
+            @lang('authors.label_update_author')
         </h1>
    </section>
    <div class="content">

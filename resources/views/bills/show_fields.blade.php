@@ -1,6 +1,6 @@
 <div class="row invoice-info">
     <div class="col-sm-4 invoice-col">
-        <label>Nhân viên</label>
+        <label>@lang('bills.label_cashier')</label>
         <p>
             <strong>{!! $bill->user->name !!}</strong><br>
             54 Nguyễn Lương Bằng<br>
@@ -10,7 +10,7 @@
     </div>
     <!-- /.col -->
     <div class="col-sm-4 invoice-col">
-        <label>Khách hàng</label>
+        <label>@lang('bills.label_customer')</label>
         <p>
             <strong>{!! $bill->client_name !!}</strong><br>
             K97 Nguyen Luong Bang<br>
@@ -18,23 +18,23 @@
     </div>
     <!-- /.col -->
     <div class="col-sm-4 invoice-col">
-        <b>Invoice #{!! $bill->id !!}</b><br>
+        <b>@lang('bills.label_invoice') #{!! $bill->id !!}</b><br>
         <br>
-        <b>Date:</b> {!! $bill->created_at !!}<br>
+        <b>@lang('bills.label_date'):</b> {!! $bill->created_at !!}<br>
     </div>
     <!-- /.col -->
 </div>
 
 <!-- Price Amount Field -->
 <div class="form-group">
-    {!! Form::label('bill_detail', 'Chi tiết hóa đơn:') !!}
+    {!! Form::label('bill_detail', __('bills.label_bill_detail')) !!}
     <table class="table table-bordered" id="bill_detail">
         <tr>
-            <th>STT</th>
-            <th>Mã sách</th>
-            <th>Tên sách</th>
-            <th>Số lượng</th>
-            <th>Thành tiền</th>
+            <th>@lang('bills.label_books_no')</th>
+            <th>@lang('bills.label_book_code')</th>
+            <th>@lang('bills.label_book_name')</th>
+            <th>@lang('bills.label_book_number')</th>
+            <th>@lang('bills.label_subtotal')</th>
         </tr>
         @foreach($bill->billdetail as $billdetail)
         <tr>
@@ -49,24 +49,24 @@
 </div>
 
 <div class="col-xs-6 col-xs-offset-6">
-    <p class="lead">Date {!! $bill->created_at !!}</p>
+    <p class="lead">@lang('bills.label_date'): {!! $bill->created_at !!}</p>
 
     <div class="table-responsive">
         <table class="table">
             <tbody><tr>
-                <th style="width:50%">Subtotal:</th>
+                <th style="width:50%">@lang('bills.label_subtotal'):</th>
                 <td>{{ $bill->total_price.' VND' }}</td>
             </tr>
             <tr>
-                <th>Tax (10%)</th>
+                <th>@lang('bills.label_tax') (10%)</th>
                 <td> &nbsp;{{ ($bill->total_price/10).' VND' }}</td>
             </tr>
             <tr>
-                <th>Shipping:</th>
+                <th>@lang('bills.label_shipping')</th>
                 <td>0 VND</td>
             </tr>
             <tr>
-                <th>Total:</th>
+                <th>@lang('bills.label_total'):</th>
                 <td>{{ ($bill->total_price*1.1).' VND' }}</td>
             </tr>
             </tbody></table>

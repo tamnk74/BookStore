@@ -53,6 +53,6 @@
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('books.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit( __('buttons.btn_save'), ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('books.index') !!}" class="btn btn-default">@lang('buttons.btn_cancel')</a>
 </div>

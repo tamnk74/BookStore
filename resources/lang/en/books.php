@@ -12,6 +12,9 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+
+    'label_create_book' => 'Create a book',
+    'label_update_book' => 'Update a book',
     'label_book_id' => 'Id',
     'label_book_name' => 'Name',
     'label_book_author' => 'Author',

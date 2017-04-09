@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('books.show_fields')
-                    <a href="{!! route('books.index') !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('books.index') !!}" class="btn btn-default">@lang('buttons.btn_back')</a>
                 </div>
             </div>
         </div>

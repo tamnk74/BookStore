@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1>Bill Detail <a href="{!! route('bills.index') !!}" class="btn btn-default pull-right">Back</a></h1>
+        <h1>@lang('bills.label_bill_detail') <a href="{!! route('bills.index') !!}" class="btn btn-default pull-right">@lang('buttons.btn_back')</a></h1>
     </section>
     <div class="content">
         <div class="box box-primary">

@@ -1,45 +1,6 @@
 <li class="treeview">
     <a href="#">
         <i class="fa fa-laptop"></i>
-        <span>Book Mangement</span>
-        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-    </a>
-    <ul class="treeview-menu">
-        <li class="{{ Request::is('books*') ? 'active' : '' }}">
-            <a href="{!! route('books.create') !!}"><i class="fa fa-circle-o"></i> Add a book</a>
-        </li>
-        <li class="{{ Request::is('books*') ? 'active' : '' }}">
-            <a href="{!! route('books.index') !!}"><i class="fa fa-circle-o"></i> List of book</a>
-        </li>
-    </ul>
-</li>
-
-<li class="treeview">
-    <a href="#">
-        <i class="fa fa-line-chart"></i>
-        <span>Statistic</span>
-        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-    </a>
-    <ul class="treeview-menu">
-        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.daily') !!}"><i class="fa fa-circle-o"></i>Thống kê theo ngày</a>
-        </li>
-        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.monthly') !!}"><i class="fa fa-circle-o"></i>Thống kê theo tháng</a>
-        </li>
-        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.quarterly') !!}"><i class="fa fa-circle-o"></i>Thống kê theo quý</a>
-        </li>
-    </ul>
-</li>
-
-<li class="treeview">
-    <a href="#">
-        <i class="fa fa-laptop"></i>
         <span>Nhập sách</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -72,6 +33,50 @@
         </li>
         <li cclass="{{ Request::is('bills*') ? 'active' : '' }}">
             <a href="{!! route('bills.index') !!}"><i class="fa fa-circle-o"></i>Xem hóa đơn</a>
+        </li>
+    </ul>
+</li>
+
+
+<li class="{{ Request::is('stores*') ? 'active' : '' }}">
+    <a href="{!! route('stores.index') !!}"><i class="fa fa-edit"></i><span>Kho sách</span></a>
+</li>
+
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-line-chart"></i>
+        <span>Statistic</span>
+        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
+            <a href="{!! route('statistic.daily') !!}"><i class="fa fa-circle-o"></i>Thống kê theo ngày</a>
+        </li>
+        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
+            <a href="{!! route('statistic.monthly') !!}"><i class="fa fa-circle-o"></i>Thống kê theo tháng</a>
+        </li>
+        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
+            <a href="{!! route('statistic.quarterly') !!}"><i class="fa fa-circle-o"></i>Thống kê theo quý</a>
+        </li>
+    </ul>
+</li>
+
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-laptop"></i>
+        <span>Book Mangement</span>
+        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="{{ Request::is('books*') ? 'active' : '' }}">
+            <a href="{!! route('books.create') !!}"><i class="fa fa-circle-o"></i> Add a book</a>
+        </li>
+        <li class="{{ Request::is('books*') ? 'active' : '' }}">
+            <a href="{!! route('books.index') !!}"><i class="fa fa-circle-o"></i> List of book</a>
         </li>
     </ul>
 </li>
@@ -123,7 +128,4 @@
         </li>
 
     </ul>
-</li>
-<li class="{{ Request::is('stores*') ? 'active' : '' }}">
-    <a href="{!! route('stores.index') !!}"><i class="fa fa-edit"></i><span>Thống kê sách</span></a>
 </li>

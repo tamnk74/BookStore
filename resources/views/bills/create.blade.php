@@ -6,7 +6,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Tạo hóa đơn
+            @lang('bills.label_create_bill')
         </h1>
     </section>
     <div class="content">
