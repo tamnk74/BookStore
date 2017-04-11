@@ -79,6 +79,7 @@ class BookController extends AppBaseController
     {
         $input = $request->all();
 
+        if(empty($input['sale'])) $input['sale'] = 0;
         if ($request->hasFile('front_cover')) {
             $input['front_cover'] = time().'.'.$request->front_cover->getClientOriginalExtension();
             $request->front_cover->move(public_path('images/books '), $input['front_cover']);
@@ -163,6 +164,9 @@ class BookController extends AppBaseController
 
             return redirect(route('books.index'));
         }
+
+        if(empty($input['sale'])) $input['sale'] = 0;
+        
         $except = [];
         if ($request->hasFile('front_cover')) {
             $input['front_cover'] = time().'.'.$request->front_cover->getClientOriginalExtension();

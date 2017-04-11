@@ -18,4 +18,6 @@ return [
     'btn_back' => 'Back',
     'btn_add' => 'Add',
     'btn_remove' => 'Remove',
+    'btn_import' => 'Import',
+    'btn_dowload_excel' => 'Download Excel xlsx',
 ];

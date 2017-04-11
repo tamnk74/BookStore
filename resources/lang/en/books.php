@@ -26,6 +26,7 @@ return [
     'label_book_category' => 'Category',
     'label_book_type' => 'Type',
     'label_book_pulishing_year' => 'Publishing Year',
+    'label_book_sale' => 'Sale',
     'delete_confirm' => 'Are you sure?',
     'btn_add_new' => 'Add New',
     'list_book' => 'List of books',

@@ -51,6 +51,12 @@
     {!! Form::text('publishing_year', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Sale Field -->
+<div class="form-group col-sm-6">
+    <label for="sale">@lang('books.label_book_sale')(%)</label>
+    {!! Form::text('sale', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit( __('buttons.btn_save'), ['class' => 'btn btn-primary']) !!}

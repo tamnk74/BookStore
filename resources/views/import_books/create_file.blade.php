@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Nhập sách
+            @lang('import_books.label_import_book_file')
         </h1>
     </section>
     <div class="content">
@@ -23,21 +23,20 @@
 					</div>
 				@endif
 
-                <h3>Import File Form:</h3>
                 <div class="row" style="margin-left: 10px">
                     {!! Form::open(['route' => 'importExcel', 'class' => 'form-inline', 'files'=> true]) !!}
                         <div class="form-group">
-                            <label for="import_file">Chọn file:</label>
+                            <label for="import_file">@lang('import_books.label_select_file')</label>
                             <input type="file" class="form-control" id="import_file" name="import_file">{{ csrf_field() }}
                         </div>
-					    <button class="btn btn-primary">Import CSV or Excel File</button>
+					    <button class="btn btn-primary">@lang('buttons.btn_import')</button>
                     {!! Form::close() !!}
                 </div>
-                <h3>Import File From Database:</h3>
-                <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;"> 		
-			    	<a href="{{ url('importBooks/downloadExcel/xls') }}"><button class="btn btn-success btn-lg">Download Excel xls</button></a>
-					<a href="{{ url('importBooks/downloadExcel/xlsx') }}"><button class="btn btn-success btn-lg">Download Excel xlsx</button></a>
-					<a href="{{ url('importBooks/downloadExcel/csv') }}"><button class="btn btn-success btn-lg">Download CSV</button></a>
+                <h3>@lang('import_books.label_export_file')</h3>
+                <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;">
+					<a href="{{ url('importBooks/downloadExcel/xlsx') }}">
+                        <button class="btn btn-success btn-lg">@lang('buttons.btn_dowload_excel')</button>
+                    </a>
 		    	</div>
             </div>
         </div>

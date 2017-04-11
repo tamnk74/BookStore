@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            @lang('catebories.label_create_category')
+            @lang('categories.label_create_category')
         </h1>
     </section>
     <div class="content">

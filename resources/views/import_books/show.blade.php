@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Chi tiết quá trình nhập sách
+            @lang('import_books.label_import_detail')
         </h1>
     </section>
     <div class="content">
@@ -12,7 +12,7 @@
                 <div class="row" style="padding-left: 20px">
                     @include('import_books.show_fields')
                     <div class="form-group col-sm-12">
-                        <a href="{!! route('importBooks.index') !!}" class="btn btn-default">Back</a>
+                        <a href="{!! route('importBooks.index') !!}" class="btn btn-default">@lang('buttons.btn_back')</a>
                     </div>
                 </div>
             </div>

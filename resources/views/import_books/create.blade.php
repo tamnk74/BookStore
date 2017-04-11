@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Nhập sách
+            @lang('import_books.label_import_book')
         </h1>
     </section>
     <div class="content">

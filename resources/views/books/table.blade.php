@@ -9,6 +9,7 @@
         <th>@lang('books.label_book_category')</th>
         <th>@lang('books.label_book_type')</th>
         <th>@lang('books.label_book_pulishing_year')</th>
+        <th>@lang('books.label_book_sale')</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
             <td>{!! $book->category->name !!}</td>
             <td>{!! $book->type->name !!}</td>
             <td>{!! $book->publishing_year !!}</td>
+            <td>{!! $book->sale !!}%</td>
             <td>
                 {!! Form::open(['route' => ['books.destroy', $book->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
