@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Repositories\BookRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\CategoryRepository;
-use App\Repositories\PublishRepository;
+use App\Repositories\PublisherRepository;
 use App\Repositories\AuthorRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -21,20 +21,20 @@ class BookController extends AppBaseController
     private $bookRepository;
     private $typeRepository;
     private $categoryRepository;
-    private $publishRepository;
+    private $publisherRepository;
     private $authorRepository;
 
     public function __construct(
         BookRepository $bookRepo,
         TypeRepository $typeRepo,
         CategoryRepository $categoryRepo,
-        PublishRepository $publishRepo,
+        PublisherRepository $publisherRepo,
         AuthorRepository $authorRepo)
     {
         $this->bookRepository = $bookRepo;
         $this->categoryRepository = $categoryRepo;
         $this->typeRepository = $typeRepo;
-        $this->publishRepository = $publishRepo;
+        $this->publisherRepository = $publisherRepo;
         $this->authorRepository = $authorRepo;
     }
 
@@ -62,7 +62,7 @@ class BookController extends AppBaseController
     {
         $types = $this->typeRepository->all()->pluck('name','id');
         $authors = $this->authorRepository->all()->pluck('name','id');
-        $publishes = $this->publishRepository->all()->pluck('name','id');
+        $publishes = $this->publisherRepository->all()->pluck('name','id');
         $categories = $this->categoryRepository->all()->pluck('name','id');
         return view('books.create')
             ->with(compact('types', 'authors', 'publishes', 'categories' ));
@@ -105,7 +105,7 @@ class BookController extends AppBaseController
 
     /**
      * Display the specified Book.
-     *
+     *publisherRepo
      * @param  int $id
      *
      * @return Response
@@ -135,7 +135,7 @@ class BookController extends AppBaseController
         $book = $this->bookRepository->findWithoutFail($id);
         $types = $this->typeRepository->all()->pluck('name','id');
         $authors = $this->authorRepository->all()->pluck('name','id');
-        $publishes = $this->publishRepository->all()->pluck('name','id');
+        $publishes = $this->publisherRepository->all()->pluck('name','id');
         $categories = $this->categoryRepository->all()->pluck('name','id');
 
         if (empty($book)) {

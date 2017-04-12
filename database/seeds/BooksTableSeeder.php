@@ -14,7 +14,7 @@ class BooksTableSeeder extends Seeder
         DB::table('books')->insert([
             'name' => 'Đại số 10',
             'author_id' => '1',
-            'publish_id' => '1',
+            'publisher_id' => '1',
             'price' => '30000',
             'front_cover' => 'dai_so_10.jpg',
             'back_cover' => 'dai_so_10.jpg',
@@ -25,7 +25,7 @@ class BooksTableSeeder extends Seeder
         DB::table('books')->insert([
             'name' => 'Đại số và giải tích 11',
             'author_id' => '1',
-            'publish_id' => '1',
+            'publisher_id' => '1',
             'price' => '30000',
             'front_cover' => 'dai_so_11.jpg',
             'back_cover' => 'dai_so_11.jpg',
@@ -36,7 +36,7 @@ class BooksTableSeeder extends Seeder
         DB::table('books')->insert([
             'name' => 'Đại số 12',
             'author_id' => '1',
-            'publish_id' => '1',
+            'publisher_id' => '1',
             'price' => '30000',
             'front_cover' => 'dai_so_12.jpg',
             'back_cover' => 'dai_so_12.jpg',
@@ -47,7 +47,7 @@ class BooksTableSeeder extends Seeder
         DB::table('books')->insert([
             'name' => 'Vật lí 10',
             'author_id' => '1',
-            'publish_id' => '1',
+            'publisher_id' => '1',
             'price' => '12000',
             'front_cover' => 'vat_li_10.jpg',
             'back_cover' => 'vat_li_10.jpg',

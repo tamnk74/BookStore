@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthorsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(TypesTableSeeder::class);
-        $this->call(PublishesTableSeeder::class);        
+        $this->call(PublishersTableSeeder::class);
         $this->call(BooksTableSeeder::class);
         $this->call(ImportBooksTableSeeder::class);
     }

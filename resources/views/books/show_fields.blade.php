@@ -14,8 +14,8 @@
     <p>{!! $book->name !!}</p>
     <label>@lang('books.label_book_author')</label>
     <p>{!! $book->author->name !!}</p>
-    <label>@lang('books.label_book_publish')</label>
-    <p>{!! $book->publish->name !!}</p>
+    <label>@lang('books.label_book_publisher')</label>
+    <p>{!! $book->publisher->name !!}</p>
 </div>
 
 <!-- Name Field -->

@@ -102,3 +102,6 @@ Route::group(['middleware' => 'auth'], function()
     });
 });
 
+
+
+Route::resource('publishers', 'PublisherController');

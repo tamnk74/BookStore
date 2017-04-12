@@ -119,8 +119,8 @@
             <a href="{!! route('types.index') !!}"><i class="fa fa-edit"></i><span>Types</span></a>
         </li>
 
-        <li class="{{ Request::is('publishes*') ? 'active' : '' }}">
-            <a href="{!! route('publishes.index') !!}"><i class="fa fa-edit"></i><span>Publishes</span></a>
+        <li class="{{ Request::is('publishers*') ? 'active' : '' }}">
+            <a href="{!! route('publishers.index') !!}"><i class="fa fa-edit"></i><span>Publishers</span></a>
         </li>
 
         <li class="{{ Request::is('authors*') ? 'active' : '' }}">
@@ -129,3 +129,7 @@
 
     </ul>
 </li>
+<li class="{{ Request::is('publishers*') ? 'active' : '' }}">
+    <a href="{!! route('publishers.index') !!}"><i class="fa fa-edit"></i><span>Publishers</span></a>
+</li>
+

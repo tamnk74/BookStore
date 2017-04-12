@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Publisher;
 
-class PublishesTableSeeder extends Seeder
+class PublishersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,16 +12,16 @@ class PublishesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('publishes')->insert([
+        Publisher::insert([
             'name' => 'NXB Kim Dong'
         ]);
-        DB::table('publishes')->insert([
+        Publisher::insert([
             'name' => 'NXB Tuổi Trẻ'
         ]);
-        DB::table('publishes')->insert([
+        Publisher::insert([
             'name' => 'NXB Kim Đồng'
         ]);
-        DB::table('publishes')->insert([
+        Publisher::insert([
             'name' => 'Khác'
         ]);
     }

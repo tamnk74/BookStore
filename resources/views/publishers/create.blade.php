@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Publish
+            @lang('publishers.label_create_publisher')
         </h1>
     </section>
     <div class="content">
@@ -12,9 +12,9 @@
 
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'publishes.store']) !!}
+                    {!! Form::open(['route' => 'publishers.store']) !!}
 
-                        @include('publishes.fields')
+                        @include('publishers.fields')
 
                     {!! Form::close() !!}
                 </div>

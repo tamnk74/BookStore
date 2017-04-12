@@ -17,7 +17,7 @@ class CreateBooksTable extends Migration
             $table->increments('id');
             $table->string('name', 255);
             $table->integer('author_id')->unsigned();
-            $table->integer('publish_id')->unsigned();
+            $table->integer('publisher_id')->unsigned();
             $table->integer('price')->unsigned();
             $table->integer('sale')->unsigned()->default(0);;
             $table->string('front_cover', 255);
@@ -28,7 +28,7 @@ class CreateBooksTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('author_id')->references('id')->on('authors');
-            $table->foreign('publish_id')->references('id')->on('publishes');
+            $table->foreign('publisher_id')->references('id')->on('publishers');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('type_id')->references('id')->on('types');
         });

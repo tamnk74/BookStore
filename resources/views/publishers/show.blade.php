@@ -3,20 +3,15 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Promotion
+            @lang('publishers.label_publisher')
         </h1>
     </section>
     <div class="content">
-        @include('adminlte-templates::common.errors')
         <div class="box box-primary">
-
             <div class="box-body">
-                <div class="row">
-                    {!! Form::open(['route' => 'promotions.store']) !!}
-
-                        @include('promotions.fields')
-
-                    {!! Form::close() !!}
+                <div class="row" style="padding-left: 20px">
+                    @include('publishers.show_fields')
+                    <a href="{!! route('publishers.index') !!}" class="btn btn-default">@lang('buttons.btn_back')</a>
                 </div>
             </div>
         </div>

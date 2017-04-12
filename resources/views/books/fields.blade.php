@@ -12,8 +12,8 @@
 
 <!-- Publish Id Field -->
 <div class="form-group col-sm-6">
-    <label for="publish_id">@lang('books.label_book_publish')</label>
-    {!! Form::select('publish_id',$publishes, null, ['class' => 'form-control']) !!}
+    <label for="publisher_id">@lang('books.label_book_publisher')</label>
+    {!! Form::select('publisher_id',$publishes, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Price Field -->

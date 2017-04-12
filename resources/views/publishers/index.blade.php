@@ -2,9 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Publishes</h1>
+        <h1 class="pull-left">@lang('publishers.label_publishers')</h1>
         <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('publishes.create') !!}">Add New</a>
+           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('publishers.create') !!}">
+               @lang('buttons.btn_add_new')
+           </a>
         </h1>
     </section>
     <div class="content">
@@ -15,7 +17,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                    @include('publishes.table')
+                    @include('publishers.table')
             </div>
         </div>
     </div>

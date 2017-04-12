@@ -6,15 +6,15 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Publish
+ * Class Publisher
  * @package App\Models
- * @version February 27, 2017, 7:42 am UTC
+ * @version April 11, 2017, 9:47 am UTC
  */
-class Publish extends Model
+class Publisher extends Model
 {
     use SoftDeletes;
 
-    public $table = 'publishes';
+    public $table = 'publishers';
     
 
     protected $dates = ['deleted_at'];

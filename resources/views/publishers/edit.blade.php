@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Promotion
+            @lang('publishers.label_update_publisher')
         </h1>
    </section>
    <div class="content">
@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($promotion, ['route' => ['promotions.update', $promotion->id], 'method' => 'patch']) !!}
+                   {!! Form::model($publisher, ['route' => ['publishers.update', $publisher->id], 'method' => 'patch']) !!}
 
-                        @include('promotions.fields')
+                        @include('publishers.fields')
 
                    {!! Form::close() !!}
                </div>

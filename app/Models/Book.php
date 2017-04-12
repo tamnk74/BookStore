@@ -23,7 +23,7 @@ class Book extends Model
     public $fillable = [
         'name',
         'author_id',
-        'publish_id',
+        'publisher_id',
         'price',
         'sale',
         'front_cover',
@@ -41,7 +41,7 @@ class Book extends Model
     protected $casts = [
         'name' => 'string',
         'author_id' => 'integer',
-        'publish_id' => 'integer',
+        'publisher_id' => 'integer',
         'price' => 'integer',
         'sale' => 'integer',
         'front_cover' => 'string',
@@ -59,7 +59,7 @@ class Book extends Model
     public static $rules = [
         'name' => 'required',
         'author_id' => 'required',
-        'publish_id' => 'required',
+        'publisher_id' => 'required',
         'price' => 'required',
         'front_cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'back_cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -73,9 +73,9 @@ class Book extends Model
         return $this->belongsTo(Author::class, 'author_id');
     }
 
-    public function publish()
+    public function publisher()
     {
-        return $this->belongsTo(Publish::class, 'publish_id');
+        return $this->belongsTo(Publisher::class, 'publisher_id');
     }
 
     public function category()
