@@ -47,17 +47,15 @@
                                 <table class="table table-responsive" id="billDetails-table">
                                     <thead>
                                     <th>@lang('statistics.daily_book_no')</th>
-                                    <th>@lang('statistics.daily_book_id')</th>
                                     <th>@lang('statistics.daily_book_name')</th>
                                     <th>@lang('statistics.daily_book_total')</th>
                                     </thead>
                                     <tbody>
                                     @foreach($top_books_details as $top_books_detail)
                                         <tr>
-                                            <td>{!! $loop->iteration !!}</td>
-                                            <td>{!! $top_books_detail["id"] !!}</td>
-                                            <td>{!! $top_books_detail["name"] !!}</td>
-                                            <td>{!! $top_books_detail["total"] !!}</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $top_books_detail["name"] }}</td>
+                                            <td>{{ $top_books_detail["total"] }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -78,10 +76,10 @@
                         <!-- Custom tabs (Charts with tabs)-->
                         <div class="nav-tabs-custom" style="cursor: move;">
                             <!-- Tabs within a box -->
-                            <ul class="nav nav-tabs pull-left ui-sortable-handle">
+                            <ul class="nav nav-tabs pull-right ui-sortable-handle">
                                 <li class="active"><a href="#revenue-chart" data-toggle="tab" aria-expanded="true">@lang('statistics.daily_bills')</a></li>
                                 <li class=""><a href="#daily-import-book" data-toggle="tab" aria-expanded="false">@lang('statistics.daily_import_book')</a></li>
-                                <li class="pull-right header"><i class="fa fa-database"></i> Daily</li>
+                                <li class="header pull-left"><i class="fa fa-database"></i> Daily</li>
                             </ul>
                             <div class="tab-content no-padding">
                                 <!-- Morris chart - Sales -->
@@ -89,18 +87,18 @@
                                     @if(count($bills) > 0)
                                         <table class="table table-responsive" id="billDetails-table">
                                             <thead>
-                                            <th>STT</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Số lượng sách</th>
-                                            <th>Chi phí</th>
+                                            <th>@lang('statistics.daily_bill_no')</th>
+                                            <th>@lang('statistics.daily_customer_name')</th>
+                                            <th>@lang('statistics.daily_number')</th>
+                                            <th>@lang('statistics.daily_total_price')</th>
                                             </thead>
                                             <tbody>
                                             @foreach($bills as $bill)
                                                 <tr>
-                                                    <td>{!! $loop->iteration !!}</td>
-                                                    <td>{!! $bill->client_name !!}</td>
-                                                    <td>{!! count($bill->billdetail) !!}</td>
-                                                    <td>{!! $bill->total_price !!} VND</td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $bill->client_name }}</td>
+                                                    <td>{{ $bill->billdetail->count() }}</td>
+                                                    <td>{{ $bill->total_price }} VND</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
@@ -120,24 +118,22 @@
                                     @if(count($top_book) > 0)
                                         <table class="table table-responsive" id="billDetails-table">
                                             <thead>
-                                            <th>STT</th>
-                                            <th>Mã sách</th>
-                                            <th>Tên sách</th>
-                                            <th>Số lượng</th>
-                                            <th>Chi phí</th>
+                                            <th>@lang('statistics.daily_import_no')</th>
+                                            <th>@lang('statistics.daily_book_name')</th>
+                                            <th>@lang('statistics.daily_number')</th>
+                                            <th>@lang('statistics.daily_price')</th>
                                             </thead>
                                             <tbody>
                                             @foreach($import_books as $import_book)
                                                 <tr>
-                                                    <td>{!! $loop->iteration !!}</td>
-                                                    <td>{!! $import_book->book->id !!}</td>
-                                                    <td>{!! $import_book->book->name !!}</td>
-                                                    <td>{!! $import_book->amount !!}</td>
-                                                    <td>{!! $import_book->price !!} VND</td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $import_book->book->name }}</td>
+                                                    <td>{{ $import_book->amount }}</td>
+                                                    <td>{{ $import_book->price }} VND</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
-                                                <td colspan="3" class="text-center"><b>Total</b></td>
+                                                <td colspan="2" class="text-center"><b>Total</b></td>
                                                 <td><b>{{ array_sum(array_pluck($import_books, 'amount')) }} </b></td>
                                                 <td><b>{{ array_sum(array_pluck($import_books, 'price')) }} VND</b></td>
                                             </tr>
@@ -155,76 +151,6 @@
                     </section>
                     <!-- /.Left col -->
                 </div>
-                <div class="row bill">
-                    <div class="col-md-12">
-                        <div id="example">
-                            <h2>Thống kê hóa đơn</h2>
-                            <div class="content">
-                                @if(count($bills) > 0)
-                                    <table class="table table-responsive" id="billDetails-table">
-                                        <thead>
-                                        <th>STT</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Số lượng sách</th>
-                                        <th>Chi phí</th>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($bills as $bill)
-                                            <tr>
-                                                <td>{!! $loop->iteration !!}</td>
-                                                <td>{!! $bill->client_name !!}</td>
-                                                <td>{!! count($bill->billdetail) !!}</td>
-                                                <td>{!! $bill->price_amount !!} VND</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                @else
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">Du lieu rong!</div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr>
-                <div class="row bill">
-                    <div class="col-md-12">
-                        <div id="example">
-                            <h2>Thống kê nhập sách</h2>
-                            <div class="content">
-                                @if(count($top_book) > 0)
-                                    <table class="table table-responsive" id="billDetails-table">
-                                        <thead>
-                                        <th>STT</th>
-                                        <th>Mã sách</th>
-                                        <th>Tên sách</th>
-                                        <th>Số lượng</th>
-                                        <th>Chi phí</th>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($import_books as $import_book)
-                                            <tr>
-                                                <td>{!! $loop->iteration !!}</td>
-                                                <td>{!! $import_book->book->id !!}</td>
-                                                <td>{!! $import_book->book->name !!}</td>
-                                                <td>{!! $import_book->amount !!}</td>
-                                                <td>{!! $import_book->buy_price !!} VND</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                @else
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">Du lieu rong!</div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -233,8 +159,11 @@
 @section('scripts')
     <script type="text/javascript">
         @if(count($top_book) >0)
-        var data_topbook = {{ json_encode(array_column($top_book, 'sum'), JSON_NUMERIC_CHECK)}};
-        var categories_topbook = {!! json_encode(array_column($top_book, 'name'), JSON_NUMERIC_CHECK)!!};
+        var data_topbook = {!! json_encode(array_column($top_book, 'sum'), JSON_NUMERIC_CHECK)!!};
+        var categories_topbook = {!! json_encode(array_column($top_book, 'name'), JSON_NUMERIC_CHECK) !!};
+        var labelTopbook = '@lang('statistics.daily_title_top_book')';
+        var numberOfBook = '@lang('statistics.daily_number')';
+        var labelBookName = '@lang('statistics.daily_book_name')';
         @endif
     </script>
     <script src="/js/statistics/highcharts.js"></script>

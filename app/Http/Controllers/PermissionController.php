@@ -25,7 +25,7 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
 
-        $permissions = $this->permissionRepository->all();
+        $permissions = $this->permissionRepository->paginate(15);
 
         return view('permissions.index')
             ->with('permissions', $permissions);

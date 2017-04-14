@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Edit a permission
+            @lang('permissions.label_edit_permission')
         </h1>
    </section>
    <div class="content">

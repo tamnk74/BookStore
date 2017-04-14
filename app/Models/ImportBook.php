@@ -63,7 +63,7 @@ class ImportBook extends Model
     public static function getByMonth($year)
     {
         return self::whereYear('created_at', $year)
-                    ->select(DB::raw('MONTH(created_at) month, sum(buy_price) as total'))
+                    ->select(DB::raw('MONTH(created_at) month, sum(price) as total'))
                     ->groupby('month')
                     ->orderBy('month', 'asc')
                     ->get();
@@ -114,13 +114,13 @@ class ImportBook extends Model
      */
     public static function getGrowthIndex()
     {
-        $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(buy_price) as sum')
+        $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(price) as sum')
                           ->groupBy('year', 'quarter')
                           ->orderByRaw('year(created_at) asc , QUARTER(created_at) asc')
                           ->first();
         $firstMonth = ($firstMonth == null) ? $firstMonth =0 : $firstMonth->sum;
 
-        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(buy_price) - '.$firstMonth.')/'.$firstMonth.', 2) as `index`')
+        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(price) - '.$firstMonth.')/'.$firstMonth.', 2) as `index`')
                    ->groupBy('year', 'quarter')
                    ->orderByRaw('`year` desc, `quarter` desc');
     }

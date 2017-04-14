@@ -79,7 +79,7 @@ class Bill extends Model
     public static function getByMonth($year)
     {
         return self::whereYear('created_at', $year)
-                    ->select(DB::raw('MONTH(created_at) month, sum(price_amount) as total'))
+                    ->select(DB::raw('MONTH(created_at) month, sum(total_price) as total'))
                     ->groupby('month')
                     ->orderBy('month', 'asc')
                     ->get();
@@ -95,7 +95,7 @@ class Bill extends Model
      */
     public static function quarterTotal($year, $quarter)
     {
-        return self::selectRaw('year(created_at) as `year`, monthname(created_at) as `month`, sum(price_amount) as total')
+        return self::selectRaw('year(created_at) as `year`, monthname(created_at) as `month`, sum(total_price) as total')
                    ->whereRaw('QUARTER(created_at) = '.$quarter.' and year(created_at) = '.$year)
                    ->groupBy('year', 'month')
                    ->orderByRaw('`year` desc, `month` asc')
@@ -109,12 +109,12 @@ class Bill extends Model
      */
     public static function getGrowthIndex()
     {
-        $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(price_amount) as sum')
+        $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(total_price) as sum')
                           ->groupBy('year', 'quarter')
                           ->orderByRaw('year(created_at) asc , QUARTER(created_at) asc')
                           ->first();
         $firstMonth = ($firstMonth == null) ? $firstMonth =0 : $firstMonth->sum;
-        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(price_amount) / '.$firstMonth.') - 1, 2) as `index`')
+        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(total_price) / '.$firstMonth.') - 1, 2) as `index`')
                     ->groupBy('year', 'quarter')
                     ->orderByRaw('`year` desc, `quarter` desc')
                     ->get();

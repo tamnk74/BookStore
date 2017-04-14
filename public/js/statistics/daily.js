@@ -9,7 +9,7 @@ $(function () {
         },
         title: {
 
-            text: 'Top 5 cuốn sách bán chạy nhất ngày'
+            text: labelTopbook
 
         },
         xAxis: {
@@ -21,14 +21,14 @@ $(function () {
 
             title: {
 
-                text: 'Số lượng'
+                text: numberOfBook
 
             }
 
         },
         series: [{
 
-                name: 'Tên sách',
+                name: labelBookName,
                 data: data_topbook
 
             }]

@@ -6,12 +6,12 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg" class="img-circle"
+                <img src="{{asset('images/logo/logo.png')}}" class="img-circle"
                      alt="User Image"/>
             </div>
             <div class="pull-left info">
                 @if (Auth::guest())
-                <p>Nhà sách Đà Nẵng</p>
+                <p>@lang('layouts.app_title')</p>
                 @else
                     <p>{{ Auth::user()->name}}</p>
                 @endif

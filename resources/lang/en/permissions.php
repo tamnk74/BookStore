@@ -12,21 +12,15 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'label_import_book_list' => 'Imported book list',
-    'label_import_book' => 'Import books',
-    'label_import_book_update' => 'Update Imported books',
-    'label_import_book_file' => 'Import books from a file',
-    'label_select_file' => 'Select excel file :',
-    'label_export_file' => 'Export File From Database:',
-    'label_select_book' => 'Select a book:',
-    'label_book_number' => 'Number of book',
-    'label_import_detail' => 'Imported books details',
-    'label_book_id' => 'Book Id',
-    'label_book_name' => 'Book Name',
-    'label_book_number' => 'Number of book',
-    'label_price' => 'Price',
-    'label_cover' => 'Cover',
-    'label_date' => 'Date',
-    'delete_confirm' => 'Are you sure?',
-    'label_action' => 'Action',
+    'label_add_permission' => 'Add a permission',
+    'label_edit_permission' => 'Edit a permission',
+    'label_id' => 'Id',
+    'label_name' => 'Name',
+    'label_display_name' => 'Display Name',
+    'label_description' => 'Description',
+    'label_created_at' => 'Created At',
+    'label_updated_at' => 'Updated At',
+    'label_permissions_list' => 'List of permissions',
+    'label_permission_show' => 'Permission Information',
+
 ];

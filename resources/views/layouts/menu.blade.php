@@ -1,135 +1,133 @@
 <li class="treeview">
     <a href="#">
-        <i class="fa fa-laptop"></i>
-        <span>Nhập sách</span>
+        <i class="fa fa-upload"></i>
+        <span>@lang('layouts.menu_import_book')</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
     </a>
     <ul class="treeview-menu">
         <li class="{{ Request::is('importBooks*') ? 'active' : '' }}">
-            <a href="{!! route('importBooks.create') !!}"><i class="fa fa-circle-o"></i>Nhập sách thủ công</a>
+            <a href="{!! route('importBooks.create') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_import_book_handwork')</a>
         </li>
         <li class="{{ Request::is('importBooks*') ? 'active' : '' }}">
-            <a href="{!! action('ImportBookController@create_file') !!}"><i class="fa fa-circle-o"></i>Nhập sách từ file</a>
+            <a href="{!! action('ImportBookController@create_file') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_import_book_file')</a>
         </li>
         <li class="{{ Request::is('importBooks*') ? 'active' : '' }}">
-            <a href="{!! route('importBooks.index') !!}"><i class="fa fa-circle-o"></i>Danh sách nhập sách</a>
+            <a href="{!! route('importBooks.index') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_list_imported_book')</a>
         </li>
     </ul>
 </li>
 
 <li class="treeview">
     <a href="#">
-        <i class="fa fa-laptop"></i>
-        <span>Hóa đơn</span>
+        <i class="fa fa-file-o"></i>
+        <span>@lang('layouts.menu_bills')</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
     </a>
     <ul class="treeview-menu">
         <li class="{{ Request::is('bills*') ? 'active' : '' }}">
-            <a href="{!! route('bills.create') !!}"><i class="fa fa-circle-o"></i>Tạo hóa đơn</a>
+            <a href="{!! route('bills.create') !!}"><i class="fa fa-plus-square-o"></i>@lang('layouts.menu_create_bill')</a>
         </li>
         <li cclass="{{ Request::is('bills*') ? 'active' : '' }}">
-            <a href="{!! route('bills.index') !!}"><i class="fa fa-circle-o"></i>Xem hóa đơn</a>
+            <a href="{!! route('bills.index') !!}"><i class="fa fa-navicon"></i>@lang('layouts.menu_show_bill')</a>
         </li>
     </ul>
 </li>
 
 
 <li class="{{ Request::is('stores*') ? 'active' : '' }}">
-    <a href="{!! route('stores.index') !!}"><i class="fa fa-edit"></i><span>Kho sách</span></a>
+    <a href="{!! route('stores.index') !!}"><i class="fa fa-database"></i><span>@lang('layouts.menu_stores')</span></a>
 </li>
 
 <li class="treeview">
     <a href="#">
         <i class="fa fa-line-chart"></i>
-        <span>Statistic</span>
+        <span>@lang('layouts.menu_statistics')</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        </span>
     </a>
     <ul class="treeview-menu">
         <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.daily') !!}"><i class="fa fa-circle-o"></i>Thống kê theo ngày</a>
+            <a href="{!! route('statistic.daily') !!}"><i class="fa fa-bar-chart"></i>@lang('layouts.menu_daily_statistic')</a>
         </li>
         <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.monthly') !!}"><i class="fa fa-circle-o"></i>Thống kê theo tháng</a>
+            <a href="{!! route('statistic.monthly') !!}"><i class="fa fa-area-chart"></i>@lang('layouts.menu_monthly_statistic')</a>
         </li>
         <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.quarterly') !!}"><i class="fa fa-circle-o"></i>Thống kê theo quý</a>
+            <a href="{!! route('statistic.quarterly') !!}"><i class="fa pie-chart"></i>@lang('layouts.menu_quarterly_statistic')</a>
         </li>
     </ul>
 </li>
 
 <li class="treeview">
     <a href="#">
-        <i class="fa fa-laptop"></i>
-        <span>Book Mangement</span>
+        <i class="fa fa-book"></i>
+        <span>@lang('layouts.menu_book_management')</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
     </a>
     <ul class="treeview-menu">
         <li class="{{ Request::is('books*') ? 'active' : '' }}">
-            <a href="{!! route('books.create') !!}"><i class="fa fa-circle-o"></i> Add a book</a>
+            <a href="{!! route('books.create') !!}"><i class="fa fa-plus-square-o"></i>@lang('layouts.menu_add_book')</a>
         </li>
         <li class="{{ Request::is('books*') ? 'active' : '' }}">
-            <a href="{!! route('books.index') !!}"><i class="fa fa-circle-o"></i> List of book</a>
+            <a href="{!! route('books.index') !!}"><i class="fa fa-navicon"></i>@lang('layouts.menu_list_book')</a>
         </li>
     </ul>
 </li>
 
 <li class="treeview">
     <a href="#">
-        <i class="fa fa-laptop"></i>
-        <span>Tài khoản</span>
+        <i class="fa fa-user"></i>
+        <span>@lang('layouts.menu_account')</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
     </a>
     <ul class="treeview-menu">
         <li class="{{ Request::is('bills*') ? 'active' : '' }}">
-            <a href="{{ route('users.index') }}"><i class="fa fa-circle-o"></i><span>Users</span></a>
+            <a href="{{ route('users.index') }}"><i class="fa fa-users"></i><span>@lang('layouts.menu_users')</span></a>
         </li>
         <li class="{{ Request::is('bills*') ? 'active' : '' }}">
-            <a href="{{ route('roles.index') }}"><i class="fa fa-edit"></i><span>Roles</span></a>
+            <a href="{{ route('roles.index') }}"><i class="fa fa-user-md"></i><span>@lang('layouts.menu_roles')</span></a>
         </li>
         <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
-            <a href="{{ route('permissions.index') }}"><i class="fa fa-edit"></i><span>Permissions</span></a>
+            <a href="{{ route('permissions.index') }}"><i class="fa fa-hand-o-right"></i><span>@lang('layouts.menu_permissions')</span></a>
         </li>
     </ul>
 </li>
 
 <li class="treeview">
     <a href="#">
-        <i class="fa fa-laptop"></i>
-        <span>Khác</span>
+        <i class="fa fa-plus-circle"></i>
+        <span>@lang('layouts.menu_others')</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>
     </a>
     <ul class="treeview-menu">
         <li class="{{ Request::is('categories*') ? 'active' : '' }}">
-            <a href="{!! route('categories.index') !!}"><i class="fa fa-edit"></i><span>Categories</span></a>
+            <a href="{!! route('categories.index') !!}"><i class="fa fa-edit"></i><span>@lang('layouts.menu_categories')</span></a>
         </li>
 
         <li class="{{ Request::is('types*') ? 'active' : '' }}">
-            <a href="{!! route('types.index') !!}"><i class="fa fa-edit"></i><span>Types</span></a>
+            <a href="{!! route('types.index') !!}"><i class="fa fa-edit"></i><span>@lang('layouts.menu_types')</span></a>
         </li>
 
         <li class="{{ Request::is('publishers*') ? 'active' : '' }}">
-            <a href="{!! route('publishers.index') !!}"><i class="fa fa-edit"></i><span>Publishers</span></a>
+            <a href="{!! route('publishers.index') !!}"><i class="fa fa-edit"></i><span>@lang('layouts.menu_publishers')</span></a>
         </li>
 
         <li class="{{ Request::is('authors*') ? 'active' : '' }}">
-            <a href="{!! route('authors.index') !!}"><i class="fa fa-edit"></i><span>Authors</span></a>
+            <a href="{!! route('authors.index') !!}"><i class="fa fa-edit"></i><span>@lang('layouts.menu_authors')</span></a>
         </li>
 
     </ul>
 </li>
-<li class="{{ Request::is('publishers*') ? 'active' : '' }}">
-    <a href="{!! route('publishers.index') !!}"><i class="fa fa-edit"></i><span>Publishers</span></a>
-</li>
+
 

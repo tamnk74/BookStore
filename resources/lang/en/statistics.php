@@ -23,6 +23,13 @@ return [
     'daily_book_total' => 'Total',
     'daily_bills' => 'Bill Statistics',
     'daily_import_book' => 'Import Books Statistics',
+    'daily_bill_no' => 'No',
+    'daily_customer_name' => 'Customer name',
+    'daily_number' => 'Number of books',
+    'daily_total_price' => 'Total price',
+    'daily_import_no' => 'No',
+    'daily_price' => 'Total price',
+    'daily_title_top_book' => 'Top 5 books',
 
     'monthly_statistic' => 'Monthly Statistic',
 
