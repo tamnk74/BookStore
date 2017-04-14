@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Edit a role
+            @lang('roles.label_edit_role')
         </h1>
    </section>
    <div class="content">
