@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Type
+            @lang('types.label_update_type')
         </h1>
     </section>
     <div class="content">

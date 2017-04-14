@@ -12,8 +12,12 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
-    'failed' => 'Email hoặc mật khẩu không đúng!',
-    'throttle' => 'Quá nhiều lần đăng nhập. Hãy thử lại sau vài giây.',
-
+    'btn_add_new' => 'Add New',
+    'btn_save' => 'Save',
+    'btn_cancel' => 'Cancel',
+    'btn_back' => 'Back',
+    'btn_add' => 'Add',
+    'btn_remove' => 'Remove',
+    'btn_import' => 'Import',
+    'btn_dowload_excel' => 'Download Excel xlsx',
 ];

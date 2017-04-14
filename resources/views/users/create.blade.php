@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Create User
+            @lang('users.label_create_user')
         </h1>
     </section>
     <div class="content">

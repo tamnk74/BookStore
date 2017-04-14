@@ -12,8 +12,12 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'label_store' => 'Store',
+    'label_no' => 'No.',
+    'label_book_id' => 'Book Id',
+    'label_book_name' => 'Book Name',
+    'label_book_number' => 'Number of book',
+    'label_book_total_number' => 'Total number of book',
 
-    'failed' => 'Email hoặc mật khẩu không đúng!',
-    'throttle' => 'Quá nhiều lần đăng nhập. Hãy thử lại sau vài giây.',
 
 ];

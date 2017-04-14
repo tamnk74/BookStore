@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Edit User
+            @lang('users.label_update_user')
         </h1>
    </section>
    <div class="content">

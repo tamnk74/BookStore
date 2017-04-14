@@ -17,7 +17,6 @@ return [
     'app_home' => 'Home',
     'app_login' => 'Login',
     'app_register' => 'Register',
-    'menu_statistics' => 'Statistics',
     'menu_book_management' => 'Book Management',
     'menu_add_book' => 'add a book',
     'menu_list_book' => 'list of books',

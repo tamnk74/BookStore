@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('promotions', 'PromotionController', ['middleware' => ['permission:promotion']]);
 
-    Route::resource('stores', 'StoreController', ['middleware' => ['permission:store-view']]);
+    Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
 
     Route::get('importBooks/create_file',
         ['as' => 'create_file', 'uses' => 'ImportBookController@create_file', 'middleware' => ['permission:import-book']]);
