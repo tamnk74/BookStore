@@ -13,16 +13,16 @@ return [
     |
     */
 
-    'label_create_category' => 'Create a category',
-    'label_update_category' => 'Update a category',
-    'label_category_id' => 'Id',
-    'label_category_name' => 'Name',
-    'label_action' => 'Action',
-    'label_category_list' => 'Categories list',
-    'label_category_view' => 'View category',
-    'delete_confirm' => 'Are you sure?',
-    'list_category' => 'List of categories',
-    'label_category' => 'Category',
-    'label_created_at' => 'Created At:',
-    'label_updated_at' => 'Updated At:',
+    'label_create_category' => 'Tạo mới một chủ đề',
+    'label_update_category' => 'Cập nhật một chủ đề',
+    'label_category_id' => 'Mã chủ đề',
+    'label_category_name' => 'Tên chủ đề',
+    'label_action' => 'Hành động',
+    'label_category_list' => 'Danh sách chủ đề',
+    'label_category_view' => 'chi tiết chủ đề',
+    'delete_confirm' => 'Bạn có chắc muốn xóa?',
+    'list_category' => 'Danh sách chủ đề',
+    'label_category' => 'Chủ đề',
+    'label_created_at' => 'Ngày tạo:',
+    'label_updated_at' => 'Ngày cập nhật:',
 ];

@@ -14,10 +14,10 @@
 								<figure>
 									<a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
 										<div class="grid-img">
-											<img  src="{{asset('images/books/'.$book->image)}}"  width="100%" height="100%">
+											<img  src="{{asset('images/books/'.$book->back_cover)}}"  width="100%" height="100%">
 										</div>
 										<div class="grid-img">
-											<img  src="{{asset('images/books/'.$book->image)}}" width="100%" height="100%">
+											<img  src="{{asset('images/books/'.$book->front_cover)}}" width="100%" height="100%">
 										</div>
 									</a>
 								</figure>
@@ -46,7 +46,7 @@
 		<div class="accessories-w3l">
 				<div class="container">
 					<h3 class="tittle">20% Discount on</h3>
-					<span>REFERENCE BOOK</span>
+					<span>REFERENCE BOOKS</span>
 					<div class="button">
 						<a href="#" class="button1"> Quick View</a>
 					</div>
@@ -69,10 +69,10 @@
 												<figure>
 													<a href="show_book.blade.php">
 														<div class="grid-img">
-															<img  src="{{asset('images/books/'.$book->image)}}"  width="100%" height="100%">
+															<img  src="{{asset('images/books/'.$book->back_cover)}}"  width="100%" height="100%">
 														</div>
 														<div class="grid-img">
-															<img  src="{{asset('images/books/'.$book->image)}}" width="100%" height="100%">
+															<img  src="{{asset('images/books/'.$book->front_cover)}}" width="100%" height="100%">
 														</div>
 													</a>
 												</figure>
@@ -110,10 +110,10 @@
 										<figure>		
 											<a href="show_book.blade.php">
 												<div class="grid-img">
-													<img  src="{{asset('images/books/'.$book->image)}}"  width="100%" height="100%">
+													<img  src="{{asset('images/books/'.$book->back_cover)}}"  width="100%" height="100%">
 												</div>
 												<div class="grid-img">
-													<img  src="{{asset('images/books/'.$book->image)}}" width="100%" height="100%">
+													<img  src="{{asset('images/books/'.$book->front_cover)}}" width="100%" height="100%">
 												</div>
 											</a>		
 										</figure>	

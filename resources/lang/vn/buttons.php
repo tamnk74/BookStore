@@ -12,12 +12,12 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'btn_add_new' => 'Add New',
-    'btn_save' => 'Save',
-    'btn_cancel' => 'Cancel',
-    'btn_back' => 'Back',
-    'btn_add' => 'Add',
-    'btn_remove' => 'Remove',
-    'btn_import' => 'Import',
-    'btn_dowload_excel' => 'Download Excel xlsx',
+    'btn_add_new' => 'Thêm mới',
+    'btn_save' => 'Lưu',
+    'btn_cancel' => 'Hủy',
+    'btn_back' => 'Quay lại',
+    'btn_add' => 'Thêm',
+    'btn_remove' => 'Xóa',
+    'btn_import' => 'Nhập dữ liệu',
+    'btn_dowload_excel' => 'Tải về file excel',
 ];

@@ -34,7 +34,7 @@ return [
     'menu_quarterly_statistic' => 'Thống kê theo quý',
     'menu_account' => 'Tài khoản',
     'menu_users' => 'Người dùng',
-    'menu_roles' => 'Vị trí',
+    'menu_roles' => 'Chức vụ',
     'menu_permissions' => 'Quyền truy cập',
     'menu_others' => 'Khác',
     'menu_categories' => 'Chủ đề',

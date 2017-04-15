@@ -1,13 +1,15 @@
 <table class="table table-responsive" id="roles-table">
     <thead>
-        <th>Name</th>
-        <th>Display Name</th>
-        <th>Description</th>
-        <th colspan="3">Action</th>
+        <th>@lang('roles.label_no')</th>
+        <th>@lang('roles.label_name')</th>
+        <th>@lang('roles.label_display_name')</th>
+        <th>@lang('roles.label_description')</th>
+        <th colspan="3">@lang('roles.label_action')</th>
     </thead>
     <tbody>
     @foreach($roles as $role)
         <tr>
+            <td> {!! $loop->iteration !!}</td>
             <td>{!! $role->name !!}</td>
             <td>{!! $role->display_name !!}</td>
             <td>{!! $role->description !!}</td>

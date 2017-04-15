@@ -12,12 +12,12 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'label_store' => 'Store',
-    'label_no' => 'No.',
-    'label_book_id' => 'Book Id',
-    'label_book_name' => 'Book Name',
-    'label_book_number' => 'Number of book',
-    'label_book_total_number' => 'Total number of book',
+    'label_store' => 'Kho sách',
+    'label_no' => 'STT',
+    'label_book_id' => 'Mã sách',
+    'label_book_name' => 'Tên sách',
+    'label_book_number' => 'Số lượng sách hiện có',
+    'label_book_total_number' => 'Số lượng sách đã nhập',
 
 
 ];

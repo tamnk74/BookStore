@@ -5,7 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Repositories\AuthorRepository;
 use App\Repositories\BookRepository;
 use App\Repositories\CategoryRepository;
-use App\Repositories\PublishRepository;
+use App\Repositories\PublisherRepository;
 use App\Repositories\TypeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,20 +16,20 @@ class HomeController extends Controller
     private $bookRepository;
     private $typeRepository;
     private $categoryRepository;
-    private $publishRepository;
+    private $publisherRepository;
     private $authorRepository;
 
     public function __construct(
         BookRepository $bookRepo,
         TypeRepository $typeRepo,
         CategoryRepository $categoryRepo,
-        PublishRepository $publishRepo,
+        PublisherRepository $publisherRepo,
         AuthorRepository $authorRepo)
     {
         $this->bookRepository = $bookRepo;
         $this->categoryRepository = $categoryRepo;
         $this->typeRepository = $typeRepo;
-        $this->publishRepository = $publishRepo;
+        $this->publisherRepository = $publisherRepo;
         $this->authorRepository = $authorRepo;
     }
 
