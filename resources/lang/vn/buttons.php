@@ -17,6 +17,7 @@ return [
     'btn_cancel' => 'Hủy',
     'btn_back' => 'Quay lại',
     'btn_add' => 'Thêm',
+    'btn_edit' => 'Chỉnh sửa',
     'btn_remove' => 'Xóa',
     'btn_import' => 'Nhập dữ liệu',
     'btn_dowload_excel' => 'Tải về file excel',

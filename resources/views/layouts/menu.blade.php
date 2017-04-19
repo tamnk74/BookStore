@@ -1,5 +1,5 @@
 @permission('import-book')
-<li class="treeview">
+<li class="treeview {{ Request::is('importBooks*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-upload"></i>
         <span>@lang('layouts.menu_import_book')</span>
@@ -8,7 +8,7 @@
             </span>
     </a>
     <ul class="treeview-menu">
-        <li class="{{ Request::is('importBooks*') ? 'active' : '' }}">
+        <li class="{{ Request::is('importBooks.create*') ? 'active' : '' }}">
             <a href="{!! route('importBooks.create') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_import_book_handwork')</a>
         </li>
         <li class="{{ Request::is('importBooks*') ? 'active' : '' }}">
@@ -21,7 +21,7 @@
 </li>
 @endpermission
 @permission('bill')
-<li class="treeview">
+<li class="treeview {{ Request::is('bills*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-file-o"></i>
         <span>@lang('layouts.menu_bills')</span>
@@ -45,7 +45,7 @@
 </li>
 @endpermission
 @permission('statistic')
-<li class="treeview">
+<li class="treeview {{ Request::is('statistics*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-line-chart"></i>
         <span>@lang('layouts.menu_statistics')</span>
@@ -67,7 +67,7 @@
 </li>
 @endpermission
 @permission('book')
-<li class="treeview">
+<li class="treeview {{ Request::is('books*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-book"></i>
         <span>@lang('layouts.menu_book_management')</span>
@@ -86,7 +86,7 @@
 </li>
 @endpermission
 @permission('user-manager')
-<li class="treeview">
+<li class="treeview {{ Request::is('users*') || Request::is('roles*') || Request::is('permissions*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-user"></i>
         <span>@lang('layouts.menu_account')</span>
@@ -108,7 +108,7 @@
 </li>
 @endpermission
 @permission('other-items')
-<li class="treeview">
+<li class="treeview {{ Request::is('categories*') || Request::is('types*') || Request::is('publishers*') || Request::is('authors*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-plus-circle"></i>
         <span>@lang('layouts.menu_others')</span>

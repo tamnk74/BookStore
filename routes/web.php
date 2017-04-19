@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('bills', 'BillController', ['middleware' => 'permission:bill']);
 
     Route::get('search-book', 'BillController@searchBook', ['middleware' => 'permission:bill']);
+
     Route::get('get-book', 'BillController@getBook', ['middleware' => 'permission:bill']);
 
     Route::group(['middleware' => 'permission:other-items'], function()
@@ -83,7 +84,12 @@ Route::group(['middleware' => 'auth'], function()
             'as' => 'statistic.quarterly'
         ]);
     });
+
+    Route::resource('employees', 'EmployeeController');
+
+    Route::get('profiles', 'ProfileController@index')->name('profiles.index');
+    Route::match(['put', 'patch'], 'profiles/update', 'ProfileController@update')->name('profiles.update');
+    Route::get('profiles/edit', 'ProfileController@edit')->name('profiles.edit');
 });
 
 
-Route::resource('employees', 'EmployeeController');

@@ -17,6 +17,7 @@ return [
     'btn_cancel' => 'Cancel',
     'btn_back' => 'Back',
     'btn_add' => 'Add',
+    'btn_edit' => 'Edit',
     'btn_remove' => 'Remove',
     'btn_import' => 'Import',
     'btn_dowload_excel' => 'Download Excel xlsx',

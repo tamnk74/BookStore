@@ -50,7 +50,9 @@ class AuthorsTableSeeder extends Seeder
         ];
         foreach ($authors as $author)
         DB::table('authors')->insert([
-            'name' => $author
+            'name' => $author,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now()
         ]);
     }
 }

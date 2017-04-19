@@ -1,5 +1,7 @@
 @extends('layouts.app')
  
 @section('content')
-	<h1>You don't have permission.</h1>
+	<div class="container">
+		<div class="well"><h1>This page is not exist!</h1></div>
+	</div>
 @endsection
