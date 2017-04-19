@@ -19,13 +19,12 @@
 <div class="form-group col-sm-6 col-sm-offset-1">
         {!! Form::label('permission', __('roles.label_permission')) !!}
         <div class="row">
-            <div class="checkbox col-sm-6 col-md-6">
             @foreach($permission as $value)
-                <label>{{ Form::checkbox('permission[]', $value->id, (!isset($rolePermissions) || !in_array($value->id, $rolePermissions) )? false : true, array('class' => 'name')) }}
-                    {{ $value->display_name }}
-                </label>
+                <div class=" col-sm-6 col-md-6 col-xs-6">
+                    <label>{{ Form::checkbox('permission[]', $value->id, (!isset($rolePermissions) || !in_array($value->id, $rolePermissions) )? false : true, array('class' => 'name')) }}
+                    {{ $value->display_name }}</label>
+                </div>
             @endforeach
-            </div>
         </div>
 </div>
 

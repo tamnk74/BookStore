@@ -33,7 +33,7 @@ return [
     'menu_monthly_statistic' => 'Thống kê theo tháng',
     'menu_quarterly_statistic' => 'Thống kê theo quý',
     'menu_account' => 'Tài khoản',
-    'menu_users' => 'Người dùng',
+    'menu_users' => 'Nhân viên',
     'menu_roles' => 'Chức vụ',
     'menu_permissions' => 'Quyền truy cập',
     'menu_others' => 'Khác',

@@ -67,8 +67,8 @@
                 <td>{{ $bill->total_price.' VND' }}</td>
             </tr>
             <tr>
-                <th>@lang('bills.label_tax') (10%)</th>
-                <td> &nbsp;{{ ($bill->total_price/10).' VND' }}</td>
+                <th>@lang('bills.label_tax') (0%)</th>
+                <td> &nbsp;0 VND</td>
             </tr>
             <tr>
                 <th>@lang('bills.label_shipping')</th>
@@ -76,7 +76,7 @@
             </tr>
             <tr>
                 <th>@lang('bills.label_total'):</th>
-                <td>{{ ($bill->total_price*1.1).' VND' }}</td>
+                <td>{{ ($bill->total_price).' VND' }}</td>
             </tr>
             </tbody></table>
     </div>

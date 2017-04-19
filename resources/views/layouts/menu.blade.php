@@ -1,3 +1,4 @@
+@permission('import-book')
 <li class="treeview">
     <a href="#">
         <i class="fa fa-upload"></i>
@@ -18,7 +19,8 @@
         </li>
     </ul>
 </li>
-
+@endpermission
+@permission('bill')
 <li class="treeview">
     <a href="#">
         <i class="fa fa-file-o"></i>
@@ -36,12 +38,13 @@
         </li>
     </ul>
 </li>
-
-
+@endpermission
+@permission('store-view')
 <li class="{{ Request::is('stores*') ? 'active' : '' }}">
     <a href="{!! route('stores.index') !!}"><i class="fa fa-database"></i><span>@lang('layouts.menu_stores')</span></a>
 </li>
-
+@endpermission
+@permission('statistic')
 <li class="treeview">
     <a href="#">
         <i class="fa fa-line-chart"></i>
@@ -62,7 +65,8 @@
         </li>
     </ul>
 </li>
-
+@endpermission
+@permission('book')
 <li class="treeview">
     <a href="#">
         <i class="fa fa-book"></i>
@@ -80,7 +84,8 @@
         </li>
     </ul>
 </li>
-
+@endpermission
+@permission('user-manager')
 <li class="treeview">
     <a href="#">
         <i class="fa fa-user"></i>
@@ -90,10 +95,10 @@
             </span>
     </a>
     <ul class="treeview-menu">
-        <li class="{{ Request::is('bills*') ? 'active' : '' }}">
+        <li class="{{ Request::is('users*') ? 'active' : '' }}">
             <a href="{{ route('users.index') }}"><i class="fa fa-users"></i><span>@lang('layouts.menu_users')</span></a>
         </li>
-        <li class="{{ Request::is('bills*') ? 'active' : '' }}">
+        <li class="{{ Request::is('roles*') ? 'active' : '' }}">
             <a href="{{ route('roles.index') }}"><i class="fa fa-user-md"></i><span>@lang('layouts.menu_roles')</span></a>
         </li>
         <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
@@ -101,7 +106,8 @@
         </li>
     </ul>
 </li>
-
+@endpermission
+@permission('other-items')
 <li class="treeview">
     <a href="#">
         <i class="fa fa-plus-circle"></i>
@@ -129,5 +135,9 @@
 
     </ul>
 </li>
-
-
+@endpermission
+@permission('store')
+<li class="{{ Request::is('employees*') ? 'active' : '' }}">
+    <a href="{!! route('employees.index') !!}"><i class="fa fa-edit"></i><span>Employees</span></a>
+</li>
+@endpermission

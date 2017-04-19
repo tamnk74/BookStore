@@ -27,29 +27,13 @@ Route::group(['middleware' => 'auth'], function()
 {
     Route::get('/home', 'HomeController@index');
 
-    Route::get('/home', 'HomeController@index');
-    Route::resource('users','UserController', ['only' => ['create', 'store'], 'middleware' =>
-        'permission:user-create']);
-    Route::resource('users','UserController', ['only' => ['edit', 'update'], 'middleware' =>
-        'permission:user-update']);
-    Route::resource('users','UserController', ['only' => ['show'], 'middleware' =>
-        'permission:user-show']);
-    Route::resource('users','UserController', ['only' => ['destroy'], 'middleware' =>
-        'permission:user-delete']);
-    Route::resource('users','UserController', ['only' => ['index'], 'middleware' =>
-        'permission:user-list']);
-    Route::resource('roles', 'RoleController', ['middleware' =>
-        'permission:role-list']);
-    Route::resource('permissions', 'PermissionController', ['middleware' =>
-        'permission:permission-manage']);
-    Route::resource('roles', 'RoleController', ['only' => ['index', 'show'], 'middleware' =>
-        'permission:role-list']);
-    Route::resource('roles', 'RoleController',['except' => ['index', 'show'], 'middleware' =>
-        'permission:role-manage']);
+    Route::resource('users','UserController', ['middleware' => 'permission:user-manager']);
 
-    Route::resource('books', 'BookController', ['only' => ['index'], 'middleware' => ['permission:book-view']]);
+    Route::resource('permissions', 'PermissionController', ['middleware' => 'permission:permission-manage']);
 
-    Route::resource('books', 'BookController', ['except' => ['index'], 'middleware' => ['permission:book-others']]);
+    Route::resource('roles', 'RoleController',['middleware' => 'permission:role-manage']);
+
+    Route::resource('books', 'BookController', ['middleware' => ['permission:book']]);
 
     Route::resource('permissions', 'PermissionController', ['middleware' => ['permission:permission-manage']]);
 
@@ -59,12 +43,12 @@ Route::group(['middleware' => 'auth'], function()
         ['as' => 'create_file', 'uses' => 'ImportBookController@create_file', 'middleware' => ['permission:import-book']]);
 
     Route::get('importBooks/downloadExcel/{type}',
-        ['as' => 'exportExcel', 'uses' => 'ImportBookController@downloadExcel', 'middleware' => ['permission:export-excel']]);
+        ['as' => 'exportExcel', 'uses' => 'ImportBookController@downloadExcel', 'middleware' => ['permission:import-book']]);
 
     Route::post('importBooks/importExcel',
         ['as' => 'importExcel', 'uses' => 'ImportBookController@importExcel', 'middleware' => ['permission:import-book']]);
 
-    Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permission:import-book-function']);
+    Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permission:import-book']);
 
     Route::resource('bills', 'BillController', ['middleware' => 'permission:bill']);
 
@@ -100,3 +84,6 @@ Route::group(['middleware' => 'auth'], function()
         ]);
     });
 });
+
+
+Route::resource('employees', 'EmployeeController');
