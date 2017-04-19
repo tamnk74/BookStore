@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/bills/select2.css')}}">
 @endsection
 
 @section('content')
@@ -38,16 +37,19 @@
                             <tr>
                                 <th>@lang('bills.label_book_name')</th>
                                 <th>@lang('bills.label_book_number')</th>
+                                <th>@lang('bills.label_subtotal')</th>
                                 <th>@lang('bills.label_remove')</th>
                             </tr>
                             @foreach($bill->billDetail as $billDetail)
                             <tr>
                                 <td>{!! $billDetail->book->name !!}<input type="hidden" name='book_id[]' value="{{$billDetail->book->id}}"> </td>
                                 <td>{!! $billDetail->amount !!}<input type="hidden" name='amount[]' value="{{$billDetail->amount}}"></td>
-                                <td><a class="btn btn-default btn-remove" href="#">@lang('buttons.btn_remove')</a></td>
+                                <td>{!! $billDetail->amount*$billDetail->book->price !!} VND</td>
+                                <td><a class="btn btn-link btn-remove" href="#">@lang('buttons.btn_remove')</a></td>
                             </tr>
                             @endforeach
                         </table>
+                        <div>@lang('bills.label_total') : <span class="bill_total">{{ $bill->total_price }} VND</span></div>
                     </div>
                     <!-- Submit Field -->
                     <div class="form-group col-sm-12">
@@ -61,6 +63,8 @@
    </div>
 @endsection
 @section('scripts')
-    <script src="{{asset('js/bills/select2.js')}}"></script>
+    <script type="text/javascript">
+        var total = {{ $bill->total_price }};
+    </script>
     <script src="{{asset('js/bills/script.js')}}"></script>
 @endsection

@@ -53,8 +53,6 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('permissions', 'PermissionController', ['middleware' => ['permission:permission-manage']]);
 
-    Route::resource('promotions', 'PromotionController', ['middleware' => ['permission:promotion']]);
-
     Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
 
     Route::get('importBooks/create_file',
@@ -70,7 +68,8 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('bills', 'BillController', ['middleware' => 'permission:bill']);
 
-    Route::get('search-book', 'BillDetailController@searchBook', ['middleware' => 'permission:bill']);
+    Route::get('search-book', 'BillController@searchBook', ['middleware' => 'permission:bill']);
+    Route::get('get-book', 'BillController@getBook', ['middleware' => 'permission:bill']);
 
     Route::group(['middleware' => 'permission:other-items'], function()
     {
@@ -78,7 +77,7 @@ Route::group(['middleware' => 'auth'], function()
 
         Route::resource('types', 'TypeController');
 
-        Route::resource('publishes', 'PublishController');
+        Route::resource('publishers', 'PublisherController');
 
         Route::resource('authors', 'AuthorController');
     });
@@ -101,7 +100,3 @@ Route::group(['middleware' => 'auth'], function()
         ]);
     });
 });
-
-
-
-Route::resource('publishers', 'PublisherController');

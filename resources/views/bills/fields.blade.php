@@ -20,11 +20,11 @@
         <tr>
             <th>@lang('bills.label_book_name')</th>
             <th>@lang('bills.label_book_number')</th>
+            <th>@lang('bills.label_subtotal')</th>
             <th>@lang('bills.label_remove')</th>
         </tr>
-        <tr>
-        </tr>
     </table>
+    <div>@lang('bills.label_total') : <span class="bill_total"></span></div>
 </div>
 
 <!-- Submit Field -->

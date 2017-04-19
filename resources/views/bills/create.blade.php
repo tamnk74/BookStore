@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/bills/select2.min.css')}}">
 @endsection
 @section('content')
     <section class="content-header">
@@ -28,6 +26,8 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/bills/select2.min.js')}}"></script>
+    <script type="text/javascript">
+        var total = 0;
+    </script>
     <script src="{{asset('js/bills/script.js')}}"></script>
 @endsection

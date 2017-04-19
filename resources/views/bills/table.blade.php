@@ -15,13 +15,11 @@
             <td>{!! $bill->id !!}</td>
             <td>{!! $bill->client_name !!}</td>
             <td>
-                <ul class="list-group">
-                    @foreach($bill->billdetail as $billdetail)
-                    <li class="list-group-item">{!! $billdetail->book->name !!}<span class="badge">{!! $billdetail->amount !!}</span></li>
-                    @endforeach
-                </ul>
+                @foreach($bill->billdetail as $billdetail)
+                {!! $billdetail->book->name !!},
+                @endforeach
             </td>
-            <td>{!! $bill->total_price !!}</td>
+            <td>{!! $bill->total_price !!} VND</td>
             <td>{!! $bill->created_at !!}</td>
             <td>
                 {!! Form::open(['route' => ['bills.destroy', $bill->id], 'method' => 'delete']) !!}

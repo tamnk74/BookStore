@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Illuminate\Support\Facades\DB;
 
 class BillController extends AppBaseController
 {
@@ -111,7 +112,7 @@ class BillController extends AppBaseController
             }
 
             Flash::success('Bill saved successfully.');
-            return redirect(route('bills.index'));
+            return redirect(route('bills.show', [$bill->id]));
         }
         catch (ModelNotFoundException $saveException) {
             Flash::error('Error in create bill!');
@@ -186,18 +187,18 @@ class BillController extends AppBaseController
             }
 
             $input = $request->all();
-            $price_amount = 0;
+            $total_price = 0;
             for($i=0; $i<count($input['book_id']); $i++){
                 $book = $this->bookRepository->findWithoutFail($input['book_id'][$i]);
                 if (empty($book)) {
                     Flash::error('Book not found in store');
                     return redirect(route('bills.index'));
                 }
-                $price_amount += $book->price*$input['amount'][$i];
+                $total_price += $book->price*$input['amount'][$i];
             }
             $bill = $this->billRepository->update([
                 'client_name' => $input['client_name'],
-                'price_amount' => $price_amount,
+                'total_price' => $total_price,
                 'date' => \Carbon\Carbon::today()->format('Y-m-d')
             ],  $id);
             for($i=0; $i<count($input['book_id']); $i++){
@@ -205,13 +206,13 @@ class BillController extends AppBaseController
                 if (empty($bookstore)) {
                     Flash::error('Book not found in store');
 
-                    return redirect(route('billDetails.index'));
+                    return redirect(route('bills.index'));
                 }
-                if ($bookstore->current_amount < $input['amount'][$i]) {
+                if ($bookstore->amount < $input['amount'][$i]) {
 
                     Flash::error('The amount of this book is not enough in store');
 
-                    return redirect(route('billDetails.index'));
+                    return redirect(route('bills.index'));
                 }
                 $billDetail = $this->billDetailRepository->create([
                     'book_id' => $input['book_id'][$i],
@@ -220,8 +221,8 @@ class BillController extends AppBaseController
                 ]);
             }
 
-            Flash::success('Bill Detail saved successfully.');
-            return redirect(route('bills.index'));
+            Flash::success('Bill saved successfully.');
+            return redirect(route('bills.show', [$id]));
         }
         catch (ModelNotFoundException $saveException) {
             Flash::error('Error in create bill!');
@@ -263,10 +264,23 @@ class BillController extends AppBaseController
         if($request->has('q')){
             $search = $request->q;
             $data = DB::table('books')
-                ->select("id","name")
-                ->where('name','LIKE',"%$search%")
+                ->leftjoin('authors', 'authors.id', '=', 'books.author_id')
+                ->select("books.id",  "books.name", "authors.name AS author", "books.front_cover")
+                ->where('books.name','LIKE',"%$search%")
                 ->get();
         }
-        return response()->json($data);
+        return response()->json(["items"=>$data]);
+    }
+    public function getBook(Request $request){
+        if($request->has('id')){
+            $id = $request->id;
+            $book = $this->bookRepository->find($id);
+        }
+        else{
+            return response()->json(["error" => "Could find id"]);
+        }
+        if($book == null) return response()->json(["error" => "Could find that book"]);
+
+        return response()->json(["subtotal"=>$book->price*(100-$book->sale)/100]);
     }
 }

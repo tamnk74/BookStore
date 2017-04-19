@@ -1,5 +1,14 @@
-<div class="row invoice-info">
-    <div class="col-sm-4 invoice-col">
+<div class="row">
+    <div class="col-xs-12">
+        <h2 class="page-header" style="padding-right: 20px">
+            <i class="fa fa-globe"></i> @lang('layouts.app_title')
+            <small class="pull-right">@lang('bills.label_date'): {{$bill->created_at}}</small>
+        </h2>
+    </div>
+    <!-- /.col -->
+</div>
+<div class="row">
+    <div class="col-xs-4">
         <label>@lang('bills.label_cashier')</label>
         <p>
             <strong>{!! $bill->user->name !!}</strong><br>
@@ -9,7 +18,7 @@
         </p>
     </div>
     <!-- /.col -->
-    <div class="col-sm-4 invoice-col">
+    <div class="col-xs-4">
         <label>@lang('bills.label_customer')</label>
         <p>
             <strong>{!! $bill->client_name !!}</strong><br>
@@ -17,7 +26,7 @@
         </p>
     </div>
     <!-- /.col -->
-    <div class="col-sm-4 invoice-col">
+    <div class="col-xs-4">
         <b>@lang('bills.label_invoice') #{!! $bill->id !!}</b><br>
         <br>
         <b>@lang('bills.label_date'):</b> {!! $bill->created_at !!}<br>
@@ -45,7 +54,7 @@
             <td>{{ $billdetail->amount*$billdetail->book->price.' VND' }}</td>
         </tr>
         @endforeach
-    </table> 
+    </table>
 </div>
 
 <div class="col-xs-6 col-xs-offset-6">
@@ -72,9 +81,5 @@
             </tbody></table>
     </div>
 </div>
-<div class="row no-print">
-    <div class="col-xs-12">
-        <a href="#" id="btn-print" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-    </div>
-</div>
+
 

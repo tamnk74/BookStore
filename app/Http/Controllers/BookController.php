@@ -98,7 +98,7 @@ class BookController extends AppBaseController
 
         $book = $this->bookRepository->create($input);
 
-        Flash::success('Book saved successfully.');
+        Flash::success(__('notification.not_found', ['attribute' => __('entities.book')]));
 
         return redirect(route('books.index'));
     }
@@ -110,12 +110,13 @@ class BookController extends AppBaseController
      *
      * @return Response
      */
+
     public function show($id)
     {
         $book = $this->bookRepository->findWithoutFail($id);
 
         if (empty($book)) {
-            Flash::error('Book not found');
+            Flash::error(__('notification.not_found', ['attribute' => __('entities.book')]));
 
             return redirect(route('books.index'));
         }
@@ -139,7 +140,7 @@ class BookController extends AppBaseController
         $categories = $this->categoryRepository->all()->pluck('name','id');
 
         if (empty($book)) {
-            Flash::error('Book not found');
+            Flash::error(__('notification.not_found', ['attribute' => __('entities.book')]));
 
             return redirect(route('books.index'));
         }
@@ -160,7 +161,7 @@ class BookController extends AppBaseController
         $book = $this->bookRepository->findWithoutFail($id);
         $input = $request->all();
         if (empty($book)) {
-            Flash::error('Book not found');
+            Flash::error(__('notification.not_found', ['attribute' => __('entities.book')]));
 
             return redirect(route('books.index'));
         }
@@ -188,7 +189,7 @@ class BookController extends AppBaseController
 
         $book = $this->bookRepository->update(array_except($input, $except), $id);
 
-        Flash::success('Book updated successfully.');
+        Flash::success(__('notification.updated_success', ['attribute' => __('entities.book')]));
 
         return redirect(route('books.index'));
     }
@@ -205,14 +206,14 @@ class BookController extends AppBaseController
         $book = $this->bookRepository->findWithoutFail($id);
 
         if (empty($book)) {
-            Flash::error('Book not found');
+            Flash::error(__('notification.not_found', ['attribute' => __('entities.book')]));
 
             return redirect(route('books.index'));
         }
 
         $this->bookRepository->delete($id);
 
-        Flash::success('Book deleted successfully.');
+        Flash::success(__('notification.deleted_success', ['attribute' => __('entities.book')]));
 
         return redirect(route('books.index'));
     }
