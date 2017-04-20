@@ -14,6 +14,7 @@ class Employee extends Model
 {
     use SoftDeletes;
 
+    protected $primaryKey  = 'user_id';
     public $table = 'employees';
     
 
@@ -34,7 +35,6 @@ class Employee extends Model
      * @var array
      */
     protected $casts = [
-        'user_id' => 'integer',
         'full_name' => 'string',
         'phone_number' => 'string',
         'birthday' => 'string',
@@ -47,7 +47,6 @@ class Employee extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required|integer',
         'full_name' => 'required|min:0|max:100',
         'phone_number' => 'required',
         'birthday' => 'required'

@@ -6,6 +6,8 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -18,9 +20,11 @@ class ProfileController extends Controller
     {
         $userId = Auth::user()->id;
         $user = User::find($userId);
-        $profile = Employee::find($userId);
-        if($profile == null) Employee::create(['user_id' => $userId]);
-        return view('profiles.show',compact('user'));
+        $profile = Employee::where('user_id', $userId)->first();
+        if(empty($profile)) {
+            $profile = Employee::create(['user_id' => $userId]);
+        }
+        return view('profiles.show',compact('user', 'profile'));
     }
 
     /**
@@ -43,8 +47,11 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $user = User::find(Auth::user()->id);
-        return view('profiles.edit',compact('user'));
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $profile = Employee::where('user_id', $userId)->first();
+        if($profile == null) $profile = Employee::create(['user_id' => $userId]);
+        return view('profiles.edit',compact('user', 'profile'));
     }
 
     /**
@@ -67,9 +74,13 @@ class ProfileController extends Controller
         }else{
             $input = array_except($input,array('password'));
         }
-
-        $user = User::find(Auth::user()->id);
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
         $user->update($input);
+
+        $profile = Employee::where('user_id', $userId)->first();
+        $profile->update($input);
+
         return redirect()->route('profiles.index')
             ->with('success','Profile updated successfully');
     }
