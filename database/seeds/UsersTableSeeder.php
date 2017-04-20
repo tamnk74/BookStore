@@ -11,20 +11,31 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('123456'),
-        ]);
-        DB::table('users')->insert([
-            'name' => 'saler',
-            'email' => 'saler@gmail.com',
-            'password' => bcrypt('123456'),
-        ]);
-        DB::table('users')->insert([
-            'name' => 'guest',
-            'email' => 'guest@gmail.com',
-            'password' => bcrypt('123456'),
-        ]);
+        $users = [
+            [
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('123456'),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'cashier',
+                'email' => 'cashier@gmail.com',
+                'password' => bcrypt('123456'),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'storekeeper',
+                'email' => 'storekeeper@gmail.com',
+                'password' => bcrypt('123456'),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ]
+        ];
+        foreach ($users as $user){
+            DB::table('users')->insert($user);
+        }
     }
 }

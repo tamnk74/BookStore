@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -15,7 +16,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = User::find(Auth::user()->id);
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $profile = Employee::find($userId);
+        if($profile == null) Employee::create(['user_id' => $userId]);
         return view('profiles.show',compact('user'));
     }
 

@@ -14,14 +14,14 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('full_name');
-            $table->string('phone_number');
-            $table->string('birthday');
-            $table->string('address');
+            $table->string('full_name')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('birthday')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->primary('user_id');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -33,6 +33,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('employees');
+        Schema::dropIfExists('employees');
     }
 }

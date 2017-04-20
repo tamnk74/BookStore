@@ -12,17 +12,18 @@ class PublishersTableSeeder extends Seeder
      */
     public function run()
     {
-        Publisher::insert([
-            'name' => 'NXB Kim Dong'
-        ]);
-        Publisher::insert([
-            'name' => 'NXB Tuổi Trẻ'
-        ]);
-        Publisher::insert([
-            'name' => 'NXB Kim Đồng'
-        ]);
-        Publisher::insert([
+        $publishers = [
+            'NXB Kim Dong',
+            'NXB Tuổi Trẻ',
+            'NXB Kim Đồng',
             'name' => 'Khác'
-        ]);
+        ];
+        foreach($publishers as $publisher){
+            Publisher::insert([
+                'name' => $publisher,
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ]);
+        }
     }
 }
