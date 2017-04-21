@@ -19,9 +19,19 @@ class RolesTableSeeder extends Seeder
                 'description' => 'Manage the system'
             ],
             [
-                'name' => 'guest',
-                'display_name' => 'Guest',
-                'description' => 'Guest visit the system'
+                'name' => 'cashier',
+                'display_name' => 'Cashier',
+                'description' => 'Sell books'
+            ],
+            [
+                'name' => 'storekeeper',
+                'display_name' => 'Storekeeper',
+                'description' => 'Manage books in store'
+            ],
+            [
+                'name' => 'manager',
+                'display_name' => 'BookStore Manager',
+                'description' => 'Manage store'
             ]
         ];
         foreach ($roles as $key => $role) {

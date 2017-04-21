@@ -32,6 +32,13 @@ class UsersTableSeeder extends Seeder
                 'password' => bcrypt('123456'),
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'name' => 'manager',
+                'email' => 'manager@gmail.com',
+                'password' => bcrypt('123456'),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
             ]
         ];
         foreach ($users as $user){
