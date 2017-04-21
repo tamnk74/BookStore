@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            @lang('users.label_user_view')
+            @lang('users.label_user_profile')
         </h1>
     </section>
     <div class="content">

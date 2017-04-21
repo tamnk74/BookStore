@@ -12,9 +12,9 @@
         <label>@lang('bills.label_cashier')</label>
         <p>
             <strong>{!! $bill->user->name !!}</strong><br>
-            54 Nguyễn Lương Bằng<br>
-            Phone: +841638021280<br>
-            Email: admin@gmail.com
+            @lang('bills.label_address'): {{ $profile->address }}<br>
+            @lang('bills.label_phone_number'): {{ $profile->phone_number }}<br>
+            @lang('bills.label_email'): {{ $user->email }}
         </p>
     </div>
     <!-- /.col -->
@@ -22,7 +22,7 @@
         <label>@lang('bills.label_customer')</label>
         <p>
             <strong>{!! $bill->client_name !!}</strong><br>
-            K97 Nguyen Luong Bang<br>
+            {{ $bill->client_address }}<br>
         </p>
     </div>
     <!-- /.col -->

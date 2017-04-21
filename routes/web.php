@@ -70,5 +70,3 @@ Route::group(['middleware' => 'auth'], function()
     Route::match(['put', 'patch'], 'profiles/update', 'ProfileController@update')->name('profiles.update');
     Route::get('profiles/edit', 'ProfileController@edit')->name('profiles.edit');
 });
-
-

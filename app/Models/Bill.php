@@ -24,6 +24,7 @@ class Bill extends Model
 
     public $fillable = [
         'client_name',
+        'client_address',
         'user_id',
         'total_price'
     ];
@@ -35,6 +36,7 @@ class Bill extends Model
      */
     protected $casts = [
         'client_name' => 'string',
+        'client_address' => 'string',
         'total_price' => 'integer'
     ];
 
@@ -44,7 +46,8 @@ class Bill extends Model
      * @var array
      */
     public static $rules = [
-        'client_name' => 'required'
+        'client_name' => 'required',
+        'client_address' => 'required'
     ];
     
     public function billdetail()

@@ -51,5 +51,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-6  col-sm-offset-1">
     {!! Form::submit(__('buttons.btn_save'), ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('users.index') !!}" class="btn btn-default">@lang('buttons.btn_cancel')</a>
+    <a href="{!! route('profiles.index') !!}" class="btn btn-default">@lang('buttons.btn_cancel')</a>
 </div>

@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Employee;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Role;
+use Illuminate\Support\Facades\DB;
+
+class ProfileController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $profile = Employee::where('user_id', $userId)->first();
+        if(empty($profile)) {
+            $profile = Employee::create(['user_id' => $userId]);
+        }
+        return view('profiles.show',compact('user', 'profile'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show()
+    {
+        $user = User::find(Auth::user()->id);
+        return view('profiles.show',compact('user'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit()
+    {
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $profile = Employee::where('user_id', $userId)->first();
+        if($profile == null) $profile = Employee::create(['user_id' => $userId]);
+        return view('profiles.edit',compact('user', 'profile'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.Auth::user()->id,
+            'password' => 'same:confirm-password',
+        ]);
+        $input = $request->all();
+        if(!empty($input['password'])){
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = array_except($input,array('password'));
+        }
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $user->update($input);
+
+        $profile = Employee::where('user_id', $userId)->first();
+        $profile->update($input);
+
+        return redirect()->route('profiles.index')
+            ->with('success','Profile updated successfully');
+    }
+
+}

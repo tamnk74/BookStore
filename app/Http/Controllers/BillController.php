@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBillDetailRequest;
 use App\Http\Requests\UpdateBillDetailRequest;
+use App\Models\Profile;
 use App\Repositories\BillDetailRepository;
 use App\Repositories\BillRepository;
 use App\Repositories\BookRepository;
@@ -15,6 +16,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class BillController extends AppBaseController
 {
@@ -136,8 +138,9 @@ class BillController extends AppBaseController
 
             return redirect(route('bills.index'));
         }
-
-        return view('bills.show')->with('bill', $bill);
+        $profile = Profile::where('user_id', $bill->user_id)->first();
+        $user = User::find($bill->user->id);
+        return view('bills.show', compact('bill', 'profile', 'user'));
     }
 
     /**

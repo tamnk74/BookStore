@@ -6,17 +6,16 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Employee
+ * Class Profile
  * @package App\Models
- * @version April 19, 2017, 8:31 am UTC
+ * @version April 21, 2017, 3:10 am UTC
  */
-class Employee extends Model
+class Profile extends Model
 {
     use SoftDeletes;
 
+    public $table = 'profiles';
     protected $primaryKey  = 'user_id';
-    public $table = 'employees';
-    
 
     protected $dates = ['deleted_at'];
 
@@ -35,6 +34,7 @@ class Employee extends Model
      * @var array
      */
     protected $casts = [
+        'user_id' => 'integer',
         'full_name' => 'string',
         'phone_number' => 'string',
         'birthday' => 'string',
@@ -47,9 +47,10 @@ class Employee extends Model
      * @var array
      */
     public static $rules = [
-        'full_name' => 'required|min:0|max:100',
-        'phone_number' => 'required',
-        'birthday' => 'required'
+        'user_id' => 'required|unique',
+        'full_name' => 'min:0|max:100',
+        'phone_number' => 'min:9|max:11'
+
     ];
 
     
