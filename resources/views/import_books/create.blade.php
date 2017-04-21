@@ -24,3 +24,7 @@
 @endsection
 
 @section('content')
+
+@section('scripts')
+    <script src="{{asset('js/import_books/script.js')}}"></script>
+@endsection

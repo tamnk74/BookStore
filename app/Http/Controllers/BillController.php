@@ -261,29 +261,4 @@ class BillController extends AppBaseController
 
         return redirect(route('bills.index'));
     }
-
-    public function searchBook(Request $request){
-        $data = [];
-        if($request->has('q')){
-            $search = $request->q;
-            $data = DB::table('books')
-                ->leftjoin('authors', 'authors.id', '=', 'books.author_id')
-                ->select("books.id",  "books.name", "authors.name AS author", "books.front_cover")
-                ->where('books.name','LIKE',"%$search%")
-                ->get();
-        }
-        return response()->json(["items"=>$data]);
-    }
-    public function getBook(Request $request){
-        if($request->has('id')){
-            $id = $request->id;
-            $book = $this->bookRepository->find($id);
-        }
-        else{
-            return response()->json(["error" => "Could find id"]);
-        }
-        if($book == null) return response()->json(["error" => "Could find that book"]);
-
-        return response()->json(["subtotal"=>$book->price*(100-$book->sale)/100]);
-    }
 }

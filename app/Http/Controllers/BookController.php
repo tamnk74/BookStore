@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Book;
 use App\Repositories\BookRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\CategoryRepository;
@@ -47,10 +48,17 @@ class BookController extends AppBaseController
     public function index(Request $request)
     {
         $this->bookRepository->pushCriteria(new RequestCriteria($request));
-        $books = $this->bookRepository->paginate(10);
-        //dd($books);
-        return view('books.index')
-            ->with('books', $books);
+        //Search form
+        if ($request->has('key')) {
+            $key = $request->input('key');
+            $books = Book::where('name','like', '%'.$key.'%')->paginate(10);
+            return view('books.index')
+                ->with('books', $books)->with('key',$key);
+        } else {
+            $books = $this->bookRepository->paginate(10);
+            return view('books.index')
+                ->with('books', $books);
+        }
     }
 
     /**
@@ -216,5 +224,30 @@ class BookController extends AppBaseController
         Flash::success(__('notification.deleted_success', ['attribute' => __('entities.book')]));
 
         return redirect(route('books.index'));
+    }
+
+    public function searchBook(Request $request){
+        $data = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $data = Book::leftjoin('authors', 'authors.id', '=', 'books.author_id')
+                ->select("books.id",  "books.name", "authors.name AS author", "books.front_cover")
+                ->where('books.name','LIKE',"%$search%")
+                ->get();
+        }
+        return response()->json(["items"=>$data]);
+    }
+
+    public function getBook(Request $request){
+        if($request->has('id')){
+            $id = $request->id;
+            $book = $this->bookRepository->find($id);
+        }
+        else{
+            return response()->json(["error" => "Could find id"]);
+        }
+        if($book == null) return response()->json(["error" => "Could find that book"]);
+
+        return response()->json(["subtotal"=>$book->price*(100-$book->sale)/100]);
     }
 }

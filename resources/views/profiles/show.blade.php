@@ -11,7 +11,6 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('profiles.show_fields')
-                    <a href="{!! route('profiles.edit') !!}" class="btn btn-default">@lang('buttons.btn_edit')</a>
                 </div>
             </div>
         </div>

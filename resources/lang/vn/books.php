@@ -31,4 +31,5 @@ return [
     'btn_add_new' => 'Thêm mới',
     'list_book' => 'Danh sách sách',
     'label_book_detail' => 'Chi tiết sách',
+    'enter_name' => 'Nhập tên sách',
 ];

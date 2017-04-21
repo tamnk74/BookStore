@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('books', 'BookController', ['middleware' => ['permission:book']]);
 
+    Route::get('search-book', 'BookController@searchBook');
+    Route::get('get-book', 'BookController@getBook');
+
     Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
 
     Route::group(['middleware' => 'permission:import-book'], function() {
@@ -44,12 +47,7 @@ Route::group(['middleware' => 'auth'], function()
         Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permission:import-book']);
     });
 
-    Route::group(['middleware' => 'permission:bill'], function() {
-        Route::resource('bills', 'BillController');
-        Route::get('search-book', 'BillController@searchBook');
-        Route::get('get-book', 'BillController@getBook');
-    });
-
+    Route::resource('bills', 'BillController', ['middleware' => ['permission:bill']]);
 
     Route::group(['middleware' => 'permission:other-items'], function()
     {
@@ -65,7 +63,6 @@ Route::group(['middleware' => 'auth'], function()
         Route::get('/quarterly', 'StatisticController@quarterly')->name('statistic.quarterly');
     });
 
-    Route::resource('employees', 'EmployeeController');
     Route::get('profiles', 'ProfileController@index')->name('profiles.index');
     Route::match(['put', 'patch'], 'profiles/update', 'ProfileController@update')->name('profiles.update');
     Route::get('profiles/edit', 'ProfileController@edit')->name('profiles.edit');

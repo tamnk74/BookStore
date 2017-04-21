@@ -1,7 +1,10 @@
 <!-- Book Id Field -->
 <div class="form-group col-sm-4">
-    {!! Form::label('book_id', __('import_books.label_select_book')) !!}
-    {!! Form::select('book_id', $books, null,  ['class' => 'form-control']) !!}
+    <label class="col-sm-12 col-md-12">@lang('bills.label_choose_book')</label>
+    <div class="col-sm-12 col-md-12">
+    <!--{!! Form::select('book_id', $books, null, ['class' => '', 'data-live-search' => 'true', 'title'=>_('bills.select_book')]) !!}-->
+        <select class="form-control selectpicker" name="book_id"></select>
+    </div>
 </div>
 
 <!-- Amount Field -->
