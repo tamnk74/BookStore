@@ -390,6 +390,39 @@ ul.multi-column-dropdown h6 {
 .cd-search input:focus {
 	outline: none;
 }
+.cd-search select {
+    border-radius: 0;
+    border: none;
+    background: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    padding: 0 5%;
+	-webkit-box-shadow: inset 0 1px 0 #e2e3df, 0 3px 6px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 0 #e2e3df, 0 3px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 #e2e3df, 0 3px 6px rgba(0, 0, 0, 0.05);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    font-size: 2em;
+    padding: 1em 2em;
+	color: #fff;
+}
+.cd-search select::-webkit-input-placeholder {
+	color: #fff !important;
+}
+.cd-search select::-moz-placeholder {
+	color: #fff !important;
+}
+.cd-search select:-moz-placeholder {
+	color: #fff !important;
+}
+.cd-search select:-ms-input-placeholder {
+	color: #fff !important;
+}
+.cd-search select:focus {
+	outline: none;
+}
 .cd-search.is-visible {
 	-moz-opacity: 1;
 	opacity: 1;
@@ -1768,7 +1801,7 @@ h2.typoh2{
     width: 50%;
 }
 .single-grid h4 {
-    font-size: 2em;
+    font-size: 1.2em;
     color: #222;
 	margin-bottom: 0.5em;
 }
@@ -1784,7 +1817,7 @@ h2.typoh2{
 	font-family: 'Cagliostro', sans-serif;
 }
 p.price {
-    font-size: 2em;
+    font-size: 1.5em;
     margin: 0.5em 0;
     color: #AF1D0D;
     font-weight: bold;
@@ -1802,7 +1835,7 @@ p.price {
     display: block;
 }
 .single-grid1 h3 {
-    font-size: 2.5em;
+    font-size: 2.0em;
     text-align: center;
 	color: #1565C0;
 	margin-bottom: 0.3em;
@@ -1847,7 +1880,7 @@ span.price-in1 {
     cursor: default;
     background-color: #AF1D0D   ;
     border: none !important;
-    border-bottom-color: none !important;
+    border-bottom-color: snow !important;
 }
 .nav > li > a:hover, .nav > li > a:focus {
     background: #AF1D0D   ;
@@ -2371,7 +2404,7 @@ a.item_add1 {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   padding: 10px 15px;
-  background: url(0) #f54d56;
+  background: #f54d56;
 }
 a.item_add1:hover{
 	background:rgb(3, 193, 167);
@@ -2397,7 +2430,7 @@ ul.qty li p{
 }
 li.bt-nn h6 {
   font-size: 1.2em;
-  text-align: r;
+  text-align: right;
   color: #621622;
   margin: 1em 0;
 }
@@ -2689,6 +2722,9 @@ h3.tittle1,h3.tittle {
 .product-grid1 {
     float: left;
     width: 60%;
+}
+.single-right h1{
+	color: #000088;
 }
 .single-grid1 {
     margin-top: 2em;
@@ -3035,6 +3071,10 @@ p.quote {
 .cd-search input{
 	font-size: 1.2em;
     padding: 0.5em;	
+}
+.cd-search select{
+	font-size: 1.2em;
+	padding: 0.5em;
 }
 .cd-search {
     top: 51%;

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/AdminLTE.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{asset('/css/datepicker3.css')}}">
     <link rel="stylesheet" href="{{asset('/css/daterangepicker.css')}}">
 
@@ -150,6 +151,7 @@
 
     <!-- AdminLTE App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/js/app.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
     <script src="{{ asset('js/jquery.inputmask.date.extensions.js') }}"></script>
     <script src="{{ asset('js/jquery.inputmask.extensions.js') }}"></script>

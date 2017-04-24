@@ -45,11 +45,11 @@
                 </ul> <!-- cd-header-buttons -->
                 <div id="cd-search" class="cd-search">
                 {!! Form::open(['route' => 'book', 'method' => 'GET'])!!}
-                   <input name="search" type="search" placeholder="Search...">
+                    <select id="searchbox" name="q" placeholder="Search products or categories..." class="form-control"></select>
                  {{ Form::close()}}
-</div>
-</div>
-</div>
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--header-->

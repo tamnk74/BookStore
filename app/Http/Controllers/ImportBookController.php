@@ -15,7 +15,6 @@ use Response;
 use Excel;
 use App\ImportBook;
 
-
 class ImportBookController extends AppBaseController
 {
     /** @var  ImportBookRepository */

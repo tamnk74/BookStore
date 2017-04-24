@@ -16,12 +16,16 @@ Route::name('homepage')->get('/', 'FrontEnd\HomeController@index');
 Route::name('contact')->get('/contact', 'FrontEnd\HomeController@contact');
 
 Route::name('show')->get('/show/{id}', 'FrontEnd\HomeController@show');
-
+Route::name('category')->get('/category/{id}', 'FrontEnd\HomeController@getBookByCategory');
 Route::name('book')->get('/book', 'FrontEnd\HomeController@listBook');
+Route::get('search', 'FrontEnd\HomeController@searchBook');
 
 Route::get('/admin', 'HomeController@index');
 
 Auth::routes();
+
+Route::get('search-book', 'BookController@searchBook');
+Route::get('get-book', 'BookController@getBook');
 
 Route::group(['middleware' => 'auth'], function()
 {
@@ -34,9 +38,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('roles', 'RoleController',['middleware' => 'permission:role-manager']);
 
     Route::resource('books', 'BookController', ['middleware' => ['permission:book']]);
-
-    Route::get('search-book', 'BookController@searchBook');
-    Route::get('get-book', 'BookController@getBook');
 
     Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
 
