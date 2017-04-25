@@ -16,11 +16,14 @@ class CreateImportBooksTable extends Migration
         Schema::create('import_books', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('book_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('supplier_id')->unsigned();
             $table->integer('amount')->unsigned();
             $table->integer('price')->unsigned();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
         });
     }

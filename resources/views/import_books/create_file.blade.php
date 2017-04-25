@@ -24,7 +24,7 @@
 				@endif
 
                 <div class="row" style="margin-left: 10px">
-                    {!! Form::open(['route' => 'importExcel', 'class' => 'form-inline', 'files'=> true]) !!}
+                    {!! Form::open(['route' => 'import_books.import', 'class' => 'form-inline', 'files'=> true]) !!}
                         <div class="form-group">
                             <label for="import_file">@lang('import_books.label_select_file')</label>
                             <input type="file" class="form-control" id="import_file" name="import_file">{{ csrf_field() }}
@@ -34,7 +34,7 @@
                 </div>
                 <h3>@lang('import_books.label_export_file')</h3>
                 <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;">
-					<a href="{{ url('importBooks/downloadExcel/xlsx') }}">
+					<a href="{{ route('import_books.export') }}">
                         <button class="btn btn-success btn-lg">@lang('buttons.btn_dowload_excel')</button>
                     </a>
 		    	</div>

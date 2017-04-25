@@ -12,8 +12,8 @@
         <label>@lang('bills.label_cashier')</label>
         <p>
             <strong>{!! $bill->user->name !!}</strong><br>
-            @lang('bills.label_address'): {{ $profile->address }}<br>
-            @lang('bills.label_phone_number'): {{ $profile->phone_number }}<br>
+            @lang('bills.label_address'): {{ isset($profile->address) ? $profile->address : ""}}<br>
+            @lang('bills.label_phone_number'): {{ isset($profile->phone_number)? $profile->phone_number : "" }}<br>
             @lang('bills.label_email'): {{ $user->email }}
         </p>
     </div>

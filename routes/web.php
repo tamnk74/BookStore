@@ -50,9 +50,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
 
     Route::group(['middleware' => 'permission:import-book'], function() {
-        Route::get('importBooks/create_file', 'ImportBookController@create_file')->name('import_books.file');;
-        Route::get('importBooks/downloadExcel/{type}', 'ImportBookController@downloadExcel')->name('import_books.export');;
-        Route::post('importBooks/importExcel', 'ImportBookController@importExcel')->name('import_books.import');;
+        Route::get('importBooks/create/file', 'ImportBookController@create_file')->name('import_books.file');;
+        Route::get('importBooks/download/excel', 'ImportBookController@downloadExcel')->name('import_books.export');;
+        Route::post('importBooks/import/excel', 'ImportBookController@importExcel')->name('import_books.import');;
         Route::resource('importBooks', 'ImportBookController');
     });
 
@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function()
         Route::resource('authors', 'AuthorController');
         Route::resource('suppliers', 'SupplierController');
         Route::resource('issuers', 'IssuerController');
+        Route::resource('languages', 'LanguageController');
     });
 
     Route::group(['prefix' => 'statistic', 'middleware' => ['permission:statistic']], function () {
@@ -81,4 +82,3 @@ Route::group(['middleware' => 'auth'], function()
 
 
 
-Route::resource('languages', 'LanguageController');

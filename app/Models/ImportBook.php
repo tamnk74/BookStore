@@ -24,6 +24,8 @@ class ImportBook extends Model
 
     public $fillable = [
         'book_id',
+        'user_id',
+        'supplier_id',
         'amount',
         'price'
     ];
@@ -46,6 +48,7 @@ class ImportBook extends Model
      */
     public static $rules = [
         'book_id' => 'required',
+        'supplier_id' => 'required',
         'amount' => 'required|numeric',
         'price' => 'required|numeric'
     ];
@@ -53,6 +56,16 @@ class ImportBook extends Model
     public function book()
     {
         return $this->belongsTo(Book::class, 'book_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
     
     public static function getByDay($date)

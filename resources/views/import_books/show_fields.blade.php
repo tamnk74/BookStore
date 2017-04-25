@@ -1,9 +1,9 @@
 <!-- Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('id', __('import_books.label_book_id')) !!}
-    <p>{!! $importBook->id !!}</p>
     {!! Form::label('book_id',  __('import_books.label_book_name')) !!}
     <p>{!! $importBook->book->name !!}</p>
+    {!! Form::label('user_id',  __('import_books.label_user_name')) !!}
+    <p>{!! $importBook->user->name !!}</p>
 </div>
 
 <!-- Amount Field -->

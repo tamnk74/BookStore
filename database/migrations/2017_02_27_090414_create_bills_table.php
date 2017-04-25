@@ -17,6 +17,7 @@ class CreateBillsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('client_name', 255);
+            $table->string('client_address', 255);
             $table->integer('total_price')->unsigned();
             $table->timestamps();
             $table->softDeletes();

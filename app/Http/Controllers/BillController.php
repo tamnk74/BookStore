@@ -85,9 +85,18 @@ class BillController extends AppBaseController
             $total_price = 0;
             for($i=0; $i<count($input['book_id']); $i++){
                 $book = $this->bookRepository->findWithoutFail($input['book_id'][$i]);
+                $bookstore = $this->storeRepository->findWithoutFail($input['book_id'][$i]);
                 if (empty($book)) {
                     Flash::error('Book not found in store');
                     return redirect(route('bills.index'));
+                }
+                if (empty($bookstore)) {
+                    Flash::error('Book not found in store');
+                    return redirect(route('bills.create'));
+                }
+                if ($bookstore->amount < $input['amount'][$i]) {
+                    Flash::error('The amount of the book '.$bookstore->book->name.' is not enough in store');
+                    return redirect(route('bills.create'));
                 }
                 $total_price += $book->price*$input['amount'][$i];
             }
@@ -97,15 +106,6 @@ class BillController extends AppBaseController
             $bill = $this->billRepository->create($input);
 
             for($i=0; $i<count($input['book_id']); $i++){
-                $bookstore = $this->storeRepository->findWithoutFail($input['book_id'][$i]);
-                if (empty($bookstore)) {
-                    Flash::error('Book not found in store');
-                    return redirect(route('bills.index'));
-                }
-                if ($bookstore->amount < $input['amount'][$i]) {
-                    Flash::error('The amount of the book '.$bookstore->book->name.' is not enough in store');
-                    return redirect(route('bills.index'));
-                }
                 $billDetail = $this->billDetailRepository->create([
                     'book_id' => $input['book_id'][$i],
                     'amount' => $input['amount'][$i],

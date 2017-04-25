@@ -32,6 +32,7 @@ return [
     'label_book_size' => 'Kích thước',
     'label_book_weight' => 'Trọng lượng',
     'label_book_page' => 'Số trang',
+    'label_page' => 'Số trang',
     'label_book_sale' => 'Giảm giá',
     'delete_confirm' => 'Bạn có chắc muốn xóa?',
     'btn_add_new' => 'Thêm mới',

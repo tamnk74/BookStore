@@ -108,7 +108,8 @@
 </li>
 @endpermission
 @permission('other-items')
-<li class="treeview {{ Request::is('categories*') || Request::is('types*') || Request::is('publishers*') || Request::is('authors*') ? 'active' : '' }}">
+<li class="treeview {{ Request::is('categories*') || Request::is('types*') || Request::is('publishers*') ||
+Request::is('authors*') || Request::is('suppliers*') || Request::is('issuers*') || Request::is('languages*')? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-plus-circle"></i>
         <span>@lang('layouts.menu_others')</span>
@@ -133,6 +134,19 @@
             <a href="{!! route('authors.index') !!}"><i class="fa fa-edit"></i><span>@lang('layouts.menu_authors')</span></a>
         </li>
 
+        <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
+            <a href="{!! route('suppliers.index') !!}"><i class="fa fa-edit"></i><span>Suppliers</span></a>
+        </li>
+
+        <li class="{{ Request::is('issuers*') ? 'active' : '' }}">
+            <a href="{!! route('issuers.index') !!}"><i class="fa fa-edit"></i><span>Issuers</span></a>
+        </li>
+
+        <li class="{{ Request::is('languages*') ? 'active' : '' }}">
+            <a href="{!! route('languages.index') !!}"><i class="fa fa-edit"></i><span>Languages</span></a>
+        </li>
+
+
     </ul>
 </li>
 @endpermission
@@ -141,16 +155,3 @@
     <a href="{!! route('employees.index') !!}"><i class="fa fa-edit"></i><span>Employees</span></a>
 </li>
 @endpermission
-
-<li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
-    <a href="{!! route('suppliers.index') !!}"><i class="fa fa-edit"></i><span>Suppliers</span></a>
-</li>
-
-<li class="{{ Request::is('issuers*') ? 'active' : '' }}">
-    <a href="{!! route('issuers.index') !!}"><i class="fa fa-edit"></i><span>Issuers</span></a>
-</li>
-
-<li class="{{ Request::is('languages*') ? 'active' : '' }}">
-    <a href="{!! route('languages.index') !!}"><i class="fa fa-edit"></i><span>Languages</span></a>
-</li>
-

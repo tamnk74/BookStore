@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateImportBookRequest;
 use App\Http\Requests\UpdateImportBookRequest;
+use App\Models\Supplier;
 use App\Repositories\ImportBookRepository;
 use App\Repositories\BookRepository;
 use App\Repositories\StoreRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\SupplierRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Excel;
-use App\ImportBook;
+use App\Models\Book;
+use App\Models\ImportBook;
+use Illuminate\Support\Facades\Auth;
 
 class ImportBookController extends AppBaseController
 {
@@ -21,15 +25,18 @@ class ImportBookController extends AppBaseController
     private $importBookRepository;
     private $bookRepository;
     private $storeRepository;
+    private $supplierRepository;
 
     public function __construct(
         ImportBookRepository $importBookRepo, 
         BookRepository $bookRepo,
-        StoreRepository $storeRepo)
+        StoreRepository $storeRepo,
+        SupplierRepository $supplierRepo)
     {
         $this->importBookRepository = $importBookRepo;
         $this->bookRepository = $bookRepo;
         $this->storeRepository = $storeRepo;
+        $this->supplierRepository = $supplierRepo;
     }
 
     /**
@@ -55,8 +62,9 @@ class ImportBookController extends AppBaseController
     public function create()
     {
         $books = $this->bookRepository->all()->pluck('name', 'id');
-        return view('import_books.create')
-        ->with('books', $books);
+        $supplier = $this->supplierRepository->all()->pluck('name', 'id');
+
+        return view('import_books.create', compact('books', 'supplier'));
     }
 
     public function create_file()
@@ -69,18 +77,21 @@ class ImportBookController extends AppBaseController
      *
      * @var array
      */
-	public function downloadExcel(Request $request, $type)
+	public function downloadExcel(Request $request)
 	{
-        $data = $this->importBookRepository->all()->toArray();
-        for($i=0; $i < count($data); $i++){
-            $data[$i] = array_except($data[$i], ['created_at', 'updated_at', 'deleted_at']);
-        }
+        $data = ImportBook::leftjoin('suppliers','suppliers.id', '=', 'import_books.supplier_id')
+                    ->leftjoin('books','books.id', '=', 'import_books.book_id')
+                    ->select('books.name AS book_name', 'suppliers.name AS supplier', 'amount', 'import_books.price AS price', 'import_books.created_at AS date')
+                    ->get()->toArray();
+        /*for($i=0; $i < count($data); $i++){
+            $data[$i] = array_except($data[$i], ['user_id', 'created_at', 'updated_at', 'deleted_at']);
+        }*/
 		return Excel::create('danh_sach_nhap_sach', function($excel) use ($data) {
 			$excel->sheet('mySheet', function($sheet) use ($data)
 	        {
 				$sheet->fromArray($data);
 	        });
-		})->download($type);
+		})->download('xlsx');
 	}
 
 	/**
@@ -101,7 +112,18 @@ class ImportBookController extends AppBaseController
                 $date = \Carbon\Carbon::today()->format('Y-m-d');
 				foreach ($data->toArray() as $key => $value) {
 					if(!empty($value)){
-                      $insert[] = ['book_id' => $value['ma_sach'], 'amount' => $value['so_luong'], 'price' => $value['gia_mua'], 'date' => $date];
+                        //Get supplier
+                        $value['supplier'] = trim($value['supplier']);
+                        $supplier = Supplier::where('name', $value['supplier'])->first();
+                        if($supplier == null) $supplier = Supplier::create(['name' => $value['supplier']]);
+
+                        //Get supplier
+                        $value['book_name'] = trim($value['book_name']);
+                        $book = Book::where('name', $value['book_name'])->first();
+                        if($book == null) $book = Book::create(['name' => $value['book_name']]);
+
+                      $insert[] = ['user_id' => Auth::user()->id, 'book_id' => $book->id, 'supplier_id' => $supplier->id, 'amount' => $value['amount'], 'price' => $value['price'], 'date' => $date];
+
 					}
 				}
 
@@ -136,9 +158,17 @@ class ImportBookController extends AppBaseController
             return redirect(route('importBooks.index'));
         }
 
+        $supplier = $this->supplierRepository->findWithoutFail($input['supplier_id']);
+
+        if (empty($supplier)) {
+            Flash::error('Supplier not found');
+            return redirect(route('importBooks.index'));
+        }
+
         $store = $this->storeRepository->findWithoutFail($input['book_id']);
 
-        $input['date'] = \Carbon\Carbon::today()->format('Y-m-d');     
+        $input['date'] = \Carbon\Carbon::today()->format('Y-m-d');
+        $input['user_id'] = Auth::user()->id;
         $importBook = $this->importBookRepository->create($input);
 
         Flash::success('Import Book saved successfully.');
@@ -182,10 +212,9 @@ class ImportBookController extends AppBaseController
             return redirect(route('importBooks.index'));
         }
         $books = $this->bookRepository->all()->pluck('name', 'id');
-        return view('import_books.edit')->with([
-            'importBook'=> $importBook,
-            'books'=> $books
-        ]);
+        $supplier = $this->supplierRepository->all()->pluck('name', 'id');
+
+        return view('import_books.edit', compact('importBook','books', 'supplier'));
     }
 
     /**

@@ -1816,7 +1816,7 @@ h2.typoh2{
     font-weight: bold;
 	font-family: 'Cagliostro', sans-serif;
 }
-p.price {
+span.price {
     font-size: 1.5em;
     margin: 0.5em 0;
     color: #AF1D0D;

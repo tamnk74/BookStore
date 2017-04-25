@@ -42,42 +42,29 @@
 							<div>
 								<h4>@lang('books.label_book_publisher'): {{$book->publisher->name}}</h4>
 							</div>
-							{{--<div class="block">
-								<div class="starbox small ghosting"> abc</div>
-							</div>--}}
-							<p class="price item_price">{{ $book->price }} VND</p>
+							<div>
+								<h4>@lang('books.label_book_issuer'): {{$book->issuer->name}}</h4>
+							</div>
+							<div>
+								@if($book->sale==0)
+								<p class="price item_price">{{ $book->price }} VND<p class="price item_price">
+								@else
+									<p><span class="price item_price">@lang('homepages.cover_price'):</span> <del>{{ $book->price }} VND</del><span class="price item_price">{{ $book->price*(100-$book->sale)/100 }} VND</span></p>
+								@endif
+							</div>
+							<div>
+								<p></p>
+							</div>
 							<div class="description">
 								<p><span>Quick Overview : </span> In cursus faucibus tortor eu vestibulum. Ut eget turpis ac justo porta varius. Donec vel felis ante, ac vehicula ipsum. Quisque sed diam metus. Quisque eget leo sit amet erat varius rutrum vitae dapibus lectus. Vivamus et sapien ante. Suspendisse potenti. Fusce in tellus est, ac consequat.</p>
 							</div>
-							<div class="color-quality">
-								<h6>Quality :</h6>
-									<div class="quantity">
-										<div class="quantity-select">
-											<div class="entry value-minus1">&nbsp;</div>
-											<div class="entry value1"><span>1</span></div>
-											<div class="entry value-plus1 active">&nbsp;</div>
-										</div>
-									</div>
-										<!--quantity-->
-												<script>
-												$('.value-plus1').on('click', function(){
-													var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)+1;
-													divUpd.text(newVal);
-												});
 
-												$('.value-minus1').on('click', function(){
-													var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10)-1;
-													if(newVal>=1) divUpd.text(newVal);
-												});
-												</script>
-											<!--quantity-->
-							</div>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
 				</div>
 				<div class="col-md-3 single-grid1">
-					<h3>Related Products</h3>
+					<h3>@lang('homepages.related_books')</h3>
 					@foreach($relatedBooks as $relatedBook)
 					<div class="recent-grids">
 						<div class="recent-left">
@@ -95,6 +82,95 @@
 				<div class="clearfix"> </div>
 			</div>
 
+
+			<div class="product-w3agile">
+				<h3 class="tittle1">@lang('homepages.product_description')</h3>
+				<div class="product-grids">
+					<div class="col-md-4 product-grid">
+						<div id="book_author">
+							<h4 class="text-center">@lang('homepages.book_author')</h4>
+							<h3>{{ $book->author->name }}</h3>
+						</div>
+					</div>
+					<div class="col-md-8 product-grid1">
+						<div class="tab-wl3">
+							<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+								<ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
+									<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
+									<li role="presentation" class=""><a href="#reviews" role="tab" id="reviews-tab" data-toggle="tab" aria-controls="reviews">Reviews (1)</a></li>
+								</ul>
+								<div id="myTabContent" class="tab-content">
+									<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+										<div class="descr">
+											<h4>{{ $book->name }}</h4>
+											<div class="description_book">
+												@if(empty($book->description))
+													@lang('homepages.no_data_to_display')
+												@else
+													{!! $book->description !!}
+												@endif
+											</div>
+											<div class="book_details">
+												<table class=" table table-bordered">
+													<tr>
+														<td>@lang('books.label_book_name')</td>
+														<td>{{ empty($book->name) ? @lang('homepages.no_data_to_display') : $book->name }}</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div role="tabpanel" class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
+										<div class="descr">
+											<div class="reviews-top">
+												<div class="reviews-left">
+													<img src="images/men3.jpg" alt=" " class="img-responsive">
+												</div>
+												<div class="reviews-right">
+													<ul>
+														<li><a href="#">Admin</a></li>
+														<li><a href="#"><i class="glyphicon glyphicon-share" aria-hidden="true"></i>Reply</a></li>
+													</ul>
+													<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit.</p>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+											<div class="reviews-bottom">
+												<h4>Add Reviews</h4>
+												<p>Your email address will not be published. Required fields are marked *</p>
+												<p>Your Rating</p>
+												<div class="block">
+													<div class="starbox small ghosting"><div class="positioner"><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
+												</div>
+												<form action="#" method="post">
+													<label>Your Review </label>
+													<textarea type="text" name="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+													<div class="row">
+														<div class="col-md-6 row-grid">
+															<label>Name</label>
+															<input type="text" value="Name" name="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+														</div>
+														<div class="col-md-6 row-grid">
+															<label>Email</label>
+															<input type="email" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+														</div>
+														<div class="clearfix"></div>
+													</div>
+													<input type="submit" value="SEND">
+												</form>
+											</div>
+										</div>
+									</div>
+									<div role="tabpanel" class="tab-pane fade" id="custom" aria-labelledby="custom-tab">
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
 		</div>
 	</div>
 @endsection

@@ -268,7 +268,7 @@ class BookController extends AppBaseController
             ->leftjoin('languages','languages.id', '=', 'books.language_id')
             ->leftjoin('types','types.id', '=', 'books.type_id')
             ->select('books.name AS name', 'authors.name AS author', 'publishers.name AS publisher',
-                'issuers.name AS issuer', 'size', 'page', 'weight', 'price', 'publishing_year', 'languages.name AS language',
+                'issuers.name AS issuer', 'size', 'page', 'weight', 'sale', 'price', 'front_cover', 'back_cover', 'publishing_year', 'languages.name AS language',
                 'categories.name AS category', 'types.name AS type', 'description')
             ->get()->toArray();
         //$data = $this->bookRepository->all()->toArray();
@@ -332,8 +332,11 @@ class BookController extends AppBaseController
                         if($type == null) $type = Type::create(['name' => $value['type']]);
 
                         $insert[] = ['name' => trim($value['name']), 'author_id' => $author->id, 'publisher_id' => $publisher->id,
-                            'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'], 'price' => $value['price'], 'publishing_year' => $value['publishing_year'],
-                            'page' => $value['page'], 'weight' => $value['weight'], 'language_id' => $language->id, 'category_id' => $category->id, 'type_id' => $type->id, ];
+                            'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'],
+                            'front_cover' => $value['front_cover'], 'back_cover' => $value['back_cover'],'price' => $value['price'],
+                            'publishing_year' => $value['publishing_year'], 'page' => $value['page'], 'sale' => $value['sale'],
+                            'weight' => $value['weight'], 'language_id' => $language->id, 'category_id' => $category->id,
+                            'type_id' => $type->id, ];
                     }
                 }
 

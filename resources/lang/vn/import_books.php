@@ -20,6 +20,8 @@ return [
     'label_export_file' => 'Xuất dữ liệu ra excel',
     'label_select_book' => 'Chọn sách',
     'label_book_number' => 'Số lượng sách',
+    'label_user_name' => 'Người nhập',
+    'label_supplier' => 'Nhà cung cấp',
     'label_import_detail' => 'Chi tiết nhập sách',
     'label_book_id' => 'Mã sách',
     'label_book_name' => 'Tên sách',
