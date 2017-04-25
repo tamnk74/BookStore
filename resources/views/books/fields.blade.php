@@ -30,13 +30,13 @@
 </div>
 <!-- size Field -->
 <div class="form-group col-sm-6">
-    <label for="size">@lang('books.label_book_size')</label>
+    <label for="size">@lang('books.label_book_size')(cm)</label>
     {!! Form::text('size', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- weight Field -->
 <div class="form-group col-sm-6">
-    <label for="weight">@lang('books.label_book_weight')</label>
+    <label for="weight">@lang('books.label_book_weight')(gram)</label>
     {!! Form::text('weight', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -48,7 +48,7 @@
 
 <!-- Price Field -->
 <div class="form-group col-sm-6">
-    <label for="price">@lang('books.label_book_price')</label>
+    <label for="price">@lang('books.label_book_price')(VND)</label>
     {!! Form::text('price', null, ['class' => 'form-control']) !!}
 </div>
 

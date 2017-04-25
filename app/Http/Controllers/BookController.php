@@ -8,6 +8,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Issuer;
+use App\Models\Language;
 use App\Models\Publisher;
 use App\Models\Type;
 use App\Repositories\BookRepository;
@@ -267,7 +268,7 @@ class BookController extends AppBaseController
             ->leftjoin('languages','languages.id', '=', 'books.language_id')
             ->leftjoin('types','types.id', '=', 'books.type_id')
             ->select('books.name AS name', 'authors.name AS author', 'publishers.name AS publisher',
-                'issuers.name AS issuer', 'size', 'page', 'weight', 'languages.name AS language',
+                'issuers.name AS issuer', 'size', 'page', 'weight', 'price', 'publishing_year', 'languages.name AS language',
                 'categories.name AS category', 'types.name AS type', 'description')
             ->get()->toArray();
         //$data = $this->bookRepository->all()->toArray();
@@ -308,36 +309,37 @@ class BookController extends AppBaseController
                         //Get publisher
                         $value['publisher'] = trim($value['publisher']);
                         $publisher = Publisher::where('name', $value['publisher'])->first();
-                        if($publisher == null) $publisher = Author::create(['name' => $value['publisher']]);
+                        if($publisher == null) $publisher = Publisher::create(['name' => $value['publisher']]);
 
                         //Get issuer
                         $value['issuer'] = trim($value['issuer']);
                         $issuer = Issuer::where('name', $value['issuer'])->first();
-                        if($issuer == null) $issuer = Author::create(['name' => $value['issuer']]);
+                        if($issuer == null) $issuer = Issuer::create(['name' => $value['issuer']]);
 
                         //Get language
                         $value['language'] = trim($value['language']);
-                        $language = Issuer::where('name', $value['language'])->first();
-                        if($language == null) $language = Author::create(['name' => $value['language']]);
+                        $language = Language::where('name', $value['language'])->first();
+                        if($language == null) $language = Language::create(['name' => $value['language']]);
 
                         //Get category
                         $value['category'] = trim($value['category']);
                         $category = Category::where('name', $value['category'])->first();
-                        if($category == null) $category = Author::create(['name' => $value['category']]);
+                        if($category == null) $category = Category::create(['name' => $value['category']]);
 
                         //Get type
                         $value['type'] = trim($value['type']);
                         $type = Type::where('name', $value['type'])->first();
-                        if($type == null) $type = Author::create(['name' => $value['type']]);
+                        if($type == null) $type = Type::create(['name' => $value['type']]);
+
                         $insert[] = ['name' => trim($value['name']), 'author_id' => $author->id, 'publisher_id' => $publisher->id,
-                            'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'],
+                            'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'], 'price' => $value['price'], 'publishing_year' => $value['publishing_year'],
                             'page' => $value['page'], 'weight' => $value['weight'], 'language_id' => $language->id, 'category_id' => $category->id, 'type_id' => $type->id, ];
                     }
                 }
-                dd($insert);
+
                 if(!empty($insert)){
                     foreach($insert as $input){
-                        $this->importBookRepository->create($input);
+                        $this->bookRepository->create($input);
                     }
                     return back()->with('success','Insert Record successfully.');
                 }

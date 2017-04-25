@@ -20,6 +20,7 @@ return [
     'label_book_author' => 'Tác giả',
     'label_book_publisher' => 'Nhà xuất bản',
     'label_book_price' => 'Giá bìa',
+    'label_book_language' => 'Ngôn ngữ',
     'label_book_front_cover' => 'Bìa trước',
     'label_book_back_cover' => 'Bìa sau',
     'label_book_cover' => 'Bìa sách',
