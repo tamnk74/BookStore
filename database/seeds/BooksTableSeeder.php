@@ -69,8 +69,8 @@ class BooksTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now()
             ]
         ];
-        foreach ($books as $book){
+        /*foreach ($books as $book){
             DB::table('books')->insert($book);
-        }
+        }*/
     }
 }

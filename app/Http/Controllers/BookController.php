@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Issuer;
+use App\Models\Publisher;
+use App\Models\Type;
 use App\Repositories\BookRepository;
 use App\Repositories\IssuerRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PublisherRepository;
 use App\Repositories\AuthorRepository;
+use App\Repositories\LanguageRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Excel;
@@ -27,6 +33,7 @@ class BookController extends AppBaseController
     private $publisherRepository;
     private $authorRepository;
     private $issuerRepository;
+    private $languageRepository;
 
     public function __construct(
         BookRepository $bookRepo,
@@ -34,7 +41,8 @@ class BookController extends AppBaseController
         CategoryRepository $categoryRepo,
         PublisherRepository $publisherRepo,
         AuthorRepository $authorRepo,
-        IssuerRepository $issuerRepo
+        IssuerRepository $issuerRepo,
+        LanguageRepository $languageRepo
     ){
         $this->bookRepository = $bookRepo;
         $this->categoryRepository = $categoryRepo;
@@ -42,6 +50,7 @@ class BookController extends AppBaseController
         $this->publisherRepository = $publisherRepo;
         $this->authorRepository = $authorRepo;
         $this->issuerRepository = $issuerRepo;
+        $this->languageRepository = $languageRepo;
     }
 
     /**
@@ -78,8 +87,9 @@ class BookController extends AppBaseController
         $publishes = $this->publisherRepository->all()->pluck('name','id');
         $categories = $this->categoryRepository->all()->pluck('name','id');
         $issuers = $this->issuerRepository->all()->pluck('name','id');
+        $languages = $this->languageRepository->all()->pluck('name','id');
         return view('books.create')
-            ->with(compact('types', 'authors', 'publishes', 'categories', 'issuers' ));
+            ->with(compact('types', 'authors', 'publishes', 'categories', 'issuers', 'languages' ));
     }
     /**
      * show the form to import books from excel file
@@ -136,7 +146,6 @@ class BookController extends AppBaseController
 
     public function show($id)
     {
-        dd('abf');
         $book = $this->bookRepository->findWithoutFail($id);
 
         if (empty($book)) {
@@ -163,6 +172,7 @@ class BookController extends AppBaseController
         $publishes = $this->publisherRepository->all()->pluck('name','id');
         $categories = $this->categoryRepository->all()->pluck('name','id');
         $issuers = $this->issuerRepository->all()->pluck('name','id');
+        $languages = $this->languageRepository->all()->pluck('name','id');
 
         if (empty($book)) {
             Flash::error(__('notification.not_found', ['attribute' => __('entities.book')]));
@@ -170,7 +180,7 @@ class BookController extends AppBaseController
             return redirect(route('books.index'));
         }
 
-        return view('books.edit')->with(compact('book', 'types', 'authors', 'publishes', 'categories', 'issuers' ));
+        return view('books.edit')->with(compact('book', 'types', 'authors', 'publishes', 'categories', 'issuers', 'languages' ));
     }
 
     /**
@@ -254,9 +264,11 @@ class BookController extends AppBaseController
             ->leftjoin('publishers','publishers.id', '=', 'books.publisher_id')
             ->leftjoin('issuers','issuers.id', '=', 'books.issuer_id')
             ->leftjoin('categories','categories.id', '=', 'books.category_id')
+            ->leftjoin('languages','languages.id', '=', 'books.language_id')
             ->leftjoin('types','types.id', '=', 'books.type_id')
             ->select('books.name AS name', 'authors.name AS author', 'publishers.name AS publisher',
-                'issuers.name AS issuer', 'size', 'page', 'weight', 'categories.name AS categoriy', 'types.name AS types', 'description')
+                'issuers.name AS issuer', 'size', 'page', 'weight', 'languages.name AS language',
+                'categories.name AS category', 'types.name AS type', 'description')
             ->get()->toArray();
         //$data = $this->bookRepository->all()->toArray();
 //        /*for($i=0; $i < count($data); $i++){
@@ -288,10 +300,41 @@ class BookController extends AppBaseController
                 $date = \Carbon\Carbon::today()->format('Y-m-d');
                 foreach ($data->toArray() as $key => $value) {
                     if(!empty($value)){
-                        $insert[] = ['book_id' => $value['ma_sach'], 'amount' => $value['so_luong'], 'price' => $value['gia_mua'], 'date' => $date];
+                        //Get author
+                        $value['author'] = trim($value['author']);
+                        $author = Author::where('name', $value['author'])->first();
+                        if($author == null) $author = Author::create(['name' => $value['author']]);
+
+                        //Get publisher
+                        $value['publisher'] = trim($value['publisher']);
+                        $publisher = Publisher::where('name', $value['publisher'])->first();
+                        if($publisher == null) $publisher = Author::create(['name' => $value['publisher']]);
+
+                        //Get issuer
+                        $value['issuer'] = trim($value['issuer']);
+                        $issuer = Issuer::where('name', $value['issuer'])->first();
+                        if($issuer == null) $issuer = Author::create(['name' => $value['issuer']]);
+
+                        //Get language
+                        $value['language'] = trim($value['language']);
+                        $language = Issuer::where('name', $value['language'])->first();
+                        if($language == null) $language = Author::create(['name' => $value['language']]);
+
+                        //Get category
+                        $value['category'] = trim($value['category']);
+                        $category = Category::where('name', $value['category'])->first();
+                        if($category == null) $category = Author::create(['name' => $value['category']]);
+
+                        //Get type
+                        $value['type'] = trim($value['type']);
+                        $type = Type::where('name', $value['type'])->first();
+                        if($type == null) $type = Author::create(['name' => $value['type']]);
+                        $insert[] = ['name' => trim($value['name']), 'author_id' => $author->id, 'publisher_id' => $publisher->id,
+                            'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'],
+                            'page' => $value['page'], 'weight' => $value['weight'], 'language_id' => $language->id, 'category_id' => $category->id, 'type_id' => $type->id, ];
                     }
                 }
-
+                dd($insert);
                 if(!empty($insert)){
                     foreach($insert as $input){
                         $this->importBookRepository->create($input);

@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function()
         Route::resource('books', 'BookController');
         Route::get('books/create/file', 'BookController@create_file')->name('books.file');
         Route::get('books/download/excel', 'BookController@downloadExcel')->name('books.export');
-        Route::post('books/importExcel', 'BookController@importExcel')->name('books.import');
+        Route::post('books/import/excel', 'BookController@importExcel')->name('books.import');
 
     });
 
@@ -79,3 +79,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('profiles/edit', 'ProfileController@edit')->name('profiles.edit');
 });
 
+
+
+Route::resource('languages', 'LanguageController');

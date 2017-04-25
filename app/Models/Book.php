@@ -24,6 +24,7 @@ class Book extends Model
         'name',
         'author_id',
         'publisher_id',
+        'issuer_id',
         'price',
         'sale',
         'description',
@@ -32,6 +33,7 @@ class Book extends Model
         'page',
         'front_cover',
         'back_cover',
+        'language_id',
         'category_id',
         'type_id',
         'publishing_year'
@@ -54,7 +56,8 @@ class Book extends Model
         'page' => 'integer',
         'front_cover' => 'string',
         'back_cover' => 'string',
-        'back_covver' => 'integer',
+        'language_id' => 'integer',
+        'category_id' => 'integer',
         'type_id' => 'integer',
         'publishing_year' => 'integer'
     ];
@@ -84,6 +87,16 @@ class Book extends Model
     public function publisher()
     {
         return $this->belongsTo(Publisher::class, 'publisher_id');
+    }
+
+    public function issuer()
+    {
+        return $this->belongsTo(Issuer::class, 'issuer_id');
+    }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
     }
 
     public function category()

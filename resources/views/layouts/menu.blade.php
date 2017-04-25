@@ -150,3 +150,7 @@
     <a href="{!! route('issuers.index') !!}"><i class="fa fa-edit"></i><span>Issuers</span></a>
 </li>
 
+<li class="{{ Request::is('languages*') ? 'active' : '' }}">
+    <a href="{!! route('languages.index') !!}"><i class="fa fa-edit"></i><span>Languages</span></a>
+</li>
+

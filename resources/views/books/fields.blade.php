@@ -63,6 +63,13 @@
     <label for="back_cover">@lang('books.label_book_back_cover')</label>
     {!! Form::file('back_cover', null, ['class' => 'form-control']) !!}
 </div>
+
+<!-- Category Id Field -->
+<div class="form-group col-sm-6">
+    <label for="language_id">@lang('books.label_book_language')</label>
+    {!! Form::select('language_id', $languages, null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Category Id Field -->
 <div class="form-group col-sm-6">
     <label for="category_id">@lang('books.label_book_category')</label>

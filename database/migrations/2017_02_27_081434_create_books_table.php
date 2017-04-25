@@ -19,6 +19,7 @@ class CreateBooksTable extends Migration
             $table->integer('author_id')->unsigned();
             $table->integer('publisher_id')->unsigned();
             $table->integer('issuer_id')->unsigned()->nullable();
+            $table->integer('language_id')->unsigned()->nullable();
             $table->integer('price')->unsigned();
             $table->integer('sale')->unsigned()->default(0);
             $table->text('description')->nullable();
@@ -37,6 +38,7 @@ class CreateBooksTable extends Migration
             $table->foreign('publisher_id')->references('id')->on('publishers');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('type_id')->references('id')->on('types');
+            $table->foreign('language_id')->references('id')->on('languages');
         });
     }
 
