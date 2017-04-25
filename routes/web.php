@@ -39,13 +39,21 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::resource('books', 'BookController', ['middleware' => ['permission:book']]);
 
+    Route::group(['middleware' => 'permission:book'], function() {
+        Route::resource('books', 'BookController');
+        Route::get('books/create/file', 'BookController@create_file')->name('books.file');
+        Route::get('books/download/excel', 'BookController@downloadExcel')->name('books.export');
+        Route::post('books/importExcel', 'BookController@importExcel')->name('books.import');
+
+    });
+
     Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
 
     Route::group(['middleware' => 'permission:import-book'], function() {
-        Route::get('importBooks/create_file', ['as' => 'create_file', 'uses' => 'ImportBookController@create_file']);
-        Route::get('importBooks/downloadExcel/{type}', ['as' => 'exportExcel', 'uses' => 'ImportBookController@downloadExcel']);
-        Route::post('importBooks/importExcel', ['as' => 'importExcel', 'uses' => 'ImportBookController@importExcel']);
-        Route::resource('importBooks', 'ImportBookController', ['middleware' => 'permission:import-book']);
+        Route::get('importBooks/create_file', 'ImportBookController@create_file')->name('import_books.file');;
+        Route::get('importBooks/downloadExcel/{type}', 'ImportBookController@downloadExcel')->name('import_books.export');;
+        Route::post('importBooks/importExcel', 'ImportBookController@importExcel')->name('import_books.import');;
+        Route::resource('importBooks', 'ImportBookController');
     });
 
     Route::resource('bills', 'BillController', ['middleware' => ['permission:bill']]);
@@ -56,6 +64,8 @@ Route::group(['middleware' => 'auth'], function()
         Route::resource('types', 'TypeController');
         Route::resource('publishers', 'PublisherController');
         Route::resource('authors', 'AuthorController');
+        Route::resource('suppliers', 'SupplierController');
+        Route::resource('issuers', 'IssuerController');
     });
 
     Route::group(['prefix' => 'statistic', 'middleware' => ['permission:statistic']], function () {
@@ -68,3 +78,4 @@ Route::group(['middleware' => 'auth'], function()
     Route::match(['put', 'patch'], 'profiles/update', 'ProfileController@update')->name('profiles.update');
     Route::get('profiles/edit', 'ProfileController@edit')->name('profiles.edit');
 });
+

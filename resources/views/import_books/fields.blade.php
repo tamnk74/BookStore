@@ -19,6 +19,12 @@
     {!! Form::text('price', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Issuer Field -->
+<div class="form-group col-sm-4">
+    {!! Form::label('issuer_id', __('import_books.label_issuer')) !!}
+    {!! Form::text('issuer_id', $issuers, null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit(__('buttons.btn_save'), ['class' => 'btn btn-primary']) !!}

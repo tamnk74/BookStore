@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePromotionsTable extends Migration
+class CreateIssuersTable extends Migration
 {
 
     /**
@@ -13,14 +13,12 @@ class CreatePromotionsTable extends Migration
      */
     public function up()
     {
-
-       /* Schema::create('promotions', function (Blueprint $table) {
-            $table->integer('book_id')->unsigned()->unique();
-            $table->integer('level');
+        Schema::create('issuers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('book_id')->references('id')->on('books');
-        });*/
+        });
     }
 
     /**
@@ -30,6 +28,6 @@ class CreatePromotionsTable extends Migration
      */
     public function down()
     {
-       /*Schema::drop('promotions');*/
+        Schema::drop('issuers');
     }
 }

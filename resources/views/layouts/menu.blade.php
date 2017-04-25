@@ -142,3 +142,11 @@
 </li>
 @endpermission
 
+<li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
+    <a href="{!! route('suppliers.index') !!}"><i class="fa fa-edit"></i><span>Suppliers</span></a>
+</li>
+
+<li class="{{ Request::is('issuers*') ? 'active' : '' }}">
+    <a href="{!! route('issuers.index') !!}"><i class="fa fa-edit"></i><span>Issuers</span></a>
+</li>
+

@@ -6,12 +6,14 @@ use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Repositories\BookRepository;
+use App\Repositories\IssuerRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PublisherRepository;
 use App\Repositories\AuthorRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Excel;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
@@ -24,19 +26,22 @@ class BookController extends AppBaseController
     private $categoryRepository;
     private $publisherRepository;
     private $authorRepository;
+    private $issuerRepository;
 
     public function __construct(
         BookRepository $bookRepo,
         TypeRepository $typeRepo,
         CategoryRepository $categoryRepo,
         PublisherRepository $publisherRepo,
-        AuthorRepository $authorRepo)
-    {
+        AuthorRepository $authorRepo,
+        IssuerRepository $issuerRepo
+    ){
         $this->bookRepository = $bookRepo;
         $this->categoryRepository = $categoryRepo;
         $this->typeRepository = $typeRepo;
         $this->publisherRepository = $publisherRepo;
         $this->authorRepository = $authorRepo;
+        $this->issuerRepository = $issuerRepo;
     }
 
     /**
@@ -72,8 +77,18 @@ class BookController extends AppBaseController
         $authors = $this->authorRepository->all()->pluck('name','id');
         $publishes = $this->publisherRepository->all()->pluck('name','id');
         $categories = $this->categoryRepository->all()->pluck('name','id');
+        $issuers = $this->issuerRepository->all()->pluck('name','id');
         return view('books.create')
-            ->with(compact('types', 'authors', 'publishes', 'categories' ));
+            ->with(compact('types', 'authors', 'publishes', 'categories', 'issuers' ));
+    }
+    /**
+     * show the form to import books from excel file
+     *
+     * @return Response
+     */
+    public function create_file()
+    {
+        return view('books.create_file');
     }
 
     /**
@@ -121,6 +136,7 @@ class BookController extends AppBaseController
 
     public function show($id)
     {
+        dd('abf');
         $book = $this->bookRepository->findWithoutFail($id);
 
         if (empty($book)) {
@@ -146,6 +162,7 @@ class BookController extends AppBaseController
         $authors = $this->authorRepository->all()->pluck('name','id');
         $publishes = $this->publisherRepository->all()->pluck('name','id');
         $categories = $this->categoryRepository->all()->pluck('name','id');
+        $issuers = $this->issuerRepository->all()->pluck('name','id');
 
         if (empty($book)) {
             Flash::error(__('notification.not_found', ['attribute' => __('entities.book')]));
@@ -153,7 +170,7 @@ class BookController extends AppBaseController
             return redirect(route('books.index'));
         }
 
-        return view('books.edit')->with(compact('book', 'types', 'authors', 'publishes', 'categories' ));
+        return view('books.edit')->with(compact('book', 'types', 'authors', 'publishes', 'categories', 'issuers' ));
     }
 
     /**
@@ -224,6 +241,67 @@ class BookController extends AppBaseController
         Flash::success(__('notification.deleted_success', ['attribute' => __('entities.book')]));
 
         return redirect(route('books.index'));
+    }
+
+    /**
+     * File Export Code
+     *
+     * @var array
+     */
+    public function downloadExcel(Request $request)
+    {
+        $data = Book::leftjoin('authors','authors.id', '=', 'books.author_id')
+            ->leftjoin('publishers','publishers.id', '=', 'books.publisher_id')
+            ->leftjoin('issuers','issuers.id', '=', 'books.issuer_id')
+            ->leftjoin('categories','categories.id', '=', 'books.category_id')
+            ->leftjoin('types','types.id', '=', 'books.type_id')
+            ->select('books.name AS name', 'authors.name AS author', 'publishers.name AS publisher',
+                'issuers.name AS issuer', 'size', 'page', 'weight', 'categories.name AS categoriy', 'types.name AS types', 'description')
+            ->get()->toArray();
+        //$data = $this->bookRepository->all()->toArray();
+//        /*for($i=0; $i < count($data); $i++){
+//            $data[$i] = array_except($data[$i], ['created_at', 'updated_at', 'deleted_at']);
+//        }*/
+        return Excel::create('danh_sach_sach', function($excel) use ($data) {
+            $excel->sheet('mySheet', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
+            });
+        })->download('xlsx');
+    }
+
+    /**
+     * Import file into database Code
+     *
+     * @var array
+     */
+    public function importExcel(Request $request)
+    {
+        //dd($request);
+        if($request->hasFile('import_file')){
+
+            $path = $request->file('import_file')->getRealPath();
+
+            $data = Excel::load($path, function($reader) {})->get();
+
+            if(!empty($data) && $data->count()){
+                $date = \Carbon\Carbon::today()->format('Y-m-d');
+                foreach ($data->toArray() as $key => $value) {
+                    if(!empty($value)){
+                        $insert[] = ['book_id' => $value['ma_sach'], 'amount' => $value['so_luong'], 'price' => $value['gia_mua'], 'date' => $date];
+                    }
+                }
+
+                if(!empty($insert)){
+                    foreach($insert as $input){
+                        $this->importBookRepository->create($input);
+                    }
+                    return back()->with('success','Insert Record successfully.');
+                }
+
+            }
+        }
+        return back()->with('error','Please Check your file, Something is wrong there.');
     }
 
     public function searchBook(Request $request){
