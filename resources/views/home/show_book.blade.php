@@ -47,7 +47,7 @@
 							</div>
 							<div>
 								@if($book->sale==0)
-								<p class="price item_price">{{ $book->price }} VND<p class="price item_price">
+									<p><span  class="price item_price">@lang('homepages.cover_price'): {{ $book->price }} VND</span></p>
 								@else
 									<p><span class="price item_price">@lang('homepages.cover_price'):</span> <del>{{ $book->price }} VND</del><span class="price item_price">{{ $book->price*(100-$book->sale)/100 }} VND</span></p>
 								@endif
@@ -56,7 +56,7 @@
 								<p></p>
 							</div>
 							<div class="description">
-								<p><span>Quick Overview : </span> In cursus faucibus tortor eu vestibulum. Ut eget turpis ac justo porta varius. Donec vel felis ante, ac vehicula ipsum. Quisque sed diam metus. Quisque eget leo sit amet erat varius rutrum vitae dapibus lectus. Vivamus et sapien ante. Suspendisse potenti. Fusce in tellus est, ac consequat.</p>
+								<p><span>Quick Overview : </span>{{ \Illuminate\Support\Str::words(strip_tags($book->description), 50, '...') }}</p>
 							</div>
 
 						</div>
@@ -86,13 +86,7 @@
 			<div class="product-w3agile">
 				<h3 class="tittle1">@lang('homepages.product_description')</h3>
 				<div class="product-grids">
-					<div class="col-md-4 product-grid">
-						<div id="book_author">
-							<h4 class="text-center">@lang('homepages.book_author')</h4>
-							<h3>{{ $book->author->name }}</h3>
-						</div>
-					</div>
-					<div class="col-md-8 product-grid1">
+					<div class="col-md-12 product-grid1">
 						<div class="tab-wl3">
 							<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 								<ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
@@ -109,13 +103,47 @@
 												@else
 													{!! $book->description !!}
 												@endif
-											</div>
+											</div><br>
+											<h5>@lang('homepages.detail_information')</h5><hr>
 											<div class="book_details">
-												<table class=" table table-bordered">
+												<table class="table table-bordered table-striped">
+													<colgroup>
+														<col style="width: 25%;"><col>
+													</colgroup>
+													<tbody>
 													<tr>
 														<td>@lang('books.label_book_name')</td>
-														<td>{{ empty($book->name) ? @lang('homepages.no_data_to_display') : $book->name }}</td>
+														<td>{{ $book->name }}</td>
 													</tr>
+													<tr>
+														<td>@lang('books.label_book_author')</td>
+														<td>{{ $book->author->name }}</td>
+													</tr>
+													<tr>
+														<td>@lang('books.label_book_publisher')</td>
+														<td>{{ $book->publisher->name }}</td>
+													</tr>
+													<tr>
+														<td>@lang('books.label_book_issuer')</td>
+														<td>{{ $book->issuer->name }}</td>
+													</tr>
+													<tr>
+														<td>@lang('books.label_book_publishing_year')</td>
+														<td>{{ $book->publishing_year }}</td>
+													</tr>
+													<tr>
+														<td>@lang('books.label_book_weight')</td>
+														<td>{{ $book->weight }} gram</td>
+													</tr>
+													<tr>
+														<td>@lang('books.label_page')</td>
+														<td>{{ $book->page }}</td>
+													</tr>
+													<tr>
+														<td>@lang('books.label_book_size')</td>
+														<td>{{ $book->size }} cm</td>
+													</tr>
+													</tbody>
 												</table>
 											</div>
 										</div>

@@ -37,9 +37,6 @@
 													</a>
 												</figure>
 											</div>
-											<div class="block">
-												<div class="starbox small ghosting"> </div>
-											</div>
 											<div class="women">
 												<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
 												<span class="size">{{$book->author->name}}</span>

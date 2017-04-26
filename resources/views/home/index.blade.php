@@ -12,7 +12,7 @@
 						<div class="grid-arr">
 							<div  class="grid-arrival">
 								<figure>
-									<a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+									<a href="{{ route('show', ['id'=> $book->id]) }}" class="new-gri">
 										<div class="grid-img">
 											<img  src="{{asset('images/books/'.$book->back_cover)}}"  width="100%" height="100%">
 										</div>
@@ -22,12 +22,11 @@
 									</a>
 								</figure>
 							</div>
-							<div class="ribben1">
-								<p>SALE</p>
-							</div>
-							<div class="block">
-								<div class="starbox small ghosting"> </div>
-							</div>
+							@if($book->sale>0)
+								<div class="ribben1">
+									<p>SALE {{ $book->sale }}%</p>
+								</div>
+							@endif
 							<div class="women">
 								<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
 								<span class="size">{{$book->author->name}}</span>
@@ -44,14 +43,11 @@
 	<!--new-arrivals-->
 	<!--accessories-->
 		<div class="accessories-w3l">
-				<div class="container">
-					<h3 class="tittle">20% Discount on</h3>
-					<span>REFERENCE BOOKS</span>
-					<div class="button">
-						<a href="#" class="button1"> Quick View</a>
-					</div>
-				</div>
+			<div class="container">
+				<h3 class="tittle">20% Discount on</h3>
+				<span>REFERENCE BOOKS</span>
 			</div>
+		</div>
 	<!--accessories-->
 	<!--Products-->
 		<div class="product-agile">
@@ -67,7 +63,7 @@
 										<div class="grid-arr">
 											<div  class="grid-arrival">
 												<figure>
-													<a href="show_book.blade.php">
+													<a href="{{ route('show', ['id'=> $book->id]) }}">
 														<div class="grid-img">
 															<img  src="{{asset('images/books/'.$book->back_cover)}}"  width="100%" height="100%">
 														</div>
@@ -76,9 +72,6 @@
 														</div>
 													</a>
 												</figure>
-											</div>
-											<div class="block">
-												<div class="starbox small ghosting"> </div>
 											</div>
 											<div class="women">
 												<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
@@ -108,7 +101,7 @@
 								<div class="grid-arr">
 									<div  class="grid-arrival">
 										<figure>		
-											<a href="show_book.blade.php">
+											<a href="{{ route('show', ['id'=> $book->id]) }}">
 												<div class="grid-img">
 													<img  src="{{asset('images/books/'.$book->back_cover)}}"  width="100%" height="100%">
 												</div>
@@ -118,15 +111,11 @@
 											</a>		
 										</figure>	
 									</div>
-									<div class="ribben">
-										<p>NEW</p>
-									</div>
+									@if($book->sale>0)
 									<div class="ribben1">
-										<p>SALE</p>
+										<p>SALE {{ $book->sale }}%</p>
 									</div>
-									<div class="block">
-										<div class="starbox small ghosting"> </div>
-									</div>
+									@endif
 									<div class="women">
 										<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
 										<span class="size">{{$book->author->name}}</span>

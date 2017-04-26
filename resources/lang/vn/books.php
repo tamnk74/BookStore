@@ -26,7 +26,7 @@ return [
     'label_book_cover' => 'Bìa sách',
     'label_book_category' => 'Chủ đề',
     'label_book_type' => 'Thể loại',
-    'label_book_pulishing_year' => 'Năm xuất bản',
+    'label_book_publishing_year' => 'Năm xuất bản',
     'label_book_issuer' => 'Nhà phát hành',
     'label_book_description' => 'Mô tả',
     'label_book_size' => 'Kích thước',
