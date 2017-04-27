@@ -6,6 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Nhà sách có quy mô vừa với nhiều thể loại sách phong phú trong và ngoai nước" />
 
+    <meta expr:content='data:blog.pageTitle' property='og:title'/>
+    <meta expr:content='data:blog.url' property='og:url'/>
+    <meta content='BookStore' property='og:site_name'/>
+    <meta content='Blog-Logo-Image' property='og:image'/>
+    <meta content='1747971682199772' property='fb:app_id'/>
+    <meta property="fb:admins" content="https://www.facebook.com/khac.tam.94"/>
+    <meta content='article' property='og:type'/>
     <!--css-->
     <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,400italic,300italic,300' rel='stylesheet' type='text/css'>

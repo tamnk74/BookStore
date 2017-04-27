@@ -22,36 +22,41 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="product-tab">
+									<div class="row">
 									@foreach($books as $book)
-									<div class="col-md-4 product-tab-grid simpleCart_shelfItem">
-										<div class="grid-arr">
-											<div  class="grid-arrival">
-												<figure>
-													<a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
-														<div class="grid-img">
-															<img  src="{{ asset('images/books/'.$book->back_cover) }}" alt="">
-														</div>
-														<div class="grid-img">
-															<img  src="{{ asset('images/books/'.$book->front_cover) }}" alt="">
-														</div>
-													</a>
-												</figure>
+										@if($loop->iteration %3 ==1 && $loop->iteration>1 )
 											</div>
-											<div class="women">
-												<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
-												<span class="size">{{$book->author->name}}</span>
-												<p>
-													@if($book->sale > 0)
-														<del>{{$book->price.' VND'}}</del><em class="item_price">{{($book->price*(100-$book->sale)/100).' VND'}}</em>
-													@else
-														<em class="item_price">{{$book->price.' VND'}}</em>
-													@endif
-												</p>
+											<div class="row">
+										@endif
+										<div class="col-md-4 product-tab-grid simpleCart_shelfItem">
+											<div class="grid-arr">
+												<div  class="grid-arrival">
+													<figure>
+														<a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+															<div class="grid-img">
+																<img  src="{{ asset('images/books/'.$book->back_cover) }}" alt="">
+															</div>
+															<div class="grid-img">
+																<img  src="{{ asset('images/books/'.$book->front_cover) }}" alt="">
+															</div>
+														</a>
+													</figure>
+												</div>
+												<div class="book-info">
+													<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
+													<span class="size">{{$book->author->name}}</span>
+													<p>
+														@if($book->sale > 0)
+															<del>{{$book->price.' VND'}}</del><em class="item_price">{{($book->price*(100-$book->sale)/100).' VND'}}</em>
+														@else
+															<em class="item_price">{{$book->price.' VND'}}</em>
+														@endif
+													</p>
+												</div>
 											</div>
-										</div>
 									</div>
 									@endforeach
-									<div class="clearfix"></div>
+									</div>
 								</div>
 								{{ $books->links() }}
 							</div>

@@ -84,7 +84,7 @@
 
 <!-- Publishing Year Field -->
 <div class="form-group col-sm-6">
-    <label for="publishing_year">@lang('books.label_book_pulishing_year')</label>
+    <label for="publishing_year">@lang('books.label_book_publishing_year')</label>
     {!! Form::text('publishing_year', null, ['class' => 'form-control']) !!}
 </div>
 

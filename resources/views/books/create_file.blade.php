@@ -34,7 +34,7 @@
                 </div>
                 <h3>@lang('import_books.label_export_file')</h3>
                 <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;">
-					<a href="{{ url('books/downloadExcel') }}">
+					<a href="{{ url('books/download/excel') }}">
                         <button class="btn btn-success btn-lg">@lang('buttons.btn_dowload_excel')</button>
                     </a>
 		    	</div>

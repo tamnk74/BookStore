@@ -61,13 +61,14 @@ class HomeController extends Controller
     {
         $book = $this->bookRepository->findWithoutFail($id);
         $relatedBooks = Book::where('category_id', $book->category_id)
-                        ->where('id', '<>', $book->id)->paginate(10);
+                        ->where('id', '<>', $book->id)->paginate(6);
+        $authoredBooks = Book::where('author_id', $book->author_id)->where('id', '<>', $book->id)->paginate(6);
         if (empty($book)) {
             Flash::error('Book not found');
             return redirect(route('book'));
         }
 
-        return view('home.show_book', compact('book', 'relatedBooks'));
+        return view('home.show_book', compact('book', 'relatedBooks', 'authoredBooks'));
     }
 
     /**
@@ -84,10 +85,10 @@ class HomeController extends Controller
         //Search form
         if ($request->has('search')) {
             $search = $request->input('search');
-            $books = Book::where('name','like','%'.$search.'%')->paginate(3);
+            $books = Book::where('name','like','%'.$search.'%')->paginate(12);
             return view('home.books', compact('books', 'categories'));
         } else {
-            $books = $this->bookRepository->paginate(3);
+            $books = $this->bookRepository->paginate(12);
             return view('home.books', compact('books', 'categories', 'total'));
             //return view('home.books')->with('books', $books)->with('categories', $categories)->
         }

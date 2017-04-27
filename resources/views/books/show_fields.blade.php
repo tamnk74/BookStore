@@ -28,7 +28,7 @@
     <p>{!! $book->category->name !!}</p>
     <label>@lang('books.label_book_type')</label>
     <p>{!! $book->type->name !!}</p>
-    <label>@lang('books.label_book_pulishing_year')</label>
+    <label>@lang('books.label_book_publishing_year')</label>
     <p>{!! $book->publishing_year !!}</p>
     <label>@lang('books.label_book_weight')</label>
     <p>{!! $book->weight !!} gram</p>

@@ -19,5 +19,6 @@ return [
      'related_books' => 'Sách liên quan',
      'cover_price' => 'Giá sách',
      'detail_information' => 'Thông tin chi tiết',
+     'authored_books' => 'Cùng tác giả',
 
 ];

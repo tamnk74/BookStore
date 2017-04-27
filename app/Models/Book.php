@@ -74,7 +74,7 @@ class Book extends Model
         'price' => 'required|integer',
         'weight' => 'numeric',
         'sale' => 'integer|min:0|max:100',
-        'size' => 'regex:/^[0-9]+(.[0-9]{1,2}){0,1}x[0-9]+(.[0-9]{1,2}){0,1}$/',
+        'size' => 'regex:/^[  \t]*[0-9]+(.[0-9]{1,2}){0,1}[ ]{0,1}x[ ]{0,1}[0-9]+(.[0-9]{1,2}){0,1}[  \t]*$/',
         'front_cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'back_cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'category_id' => 'required',

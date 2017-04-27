@@ -194,6 +194,7 @@ class BookController extends AppBaseController
      */
     public function update($id, UpdateBookRequest $request)
     {
+        //dd($request);
         $book = $this->bookRepository->findWithoutFail($id);
         $input = $request->all();
         if (empty($book)) {
@@ -206,7 +207,7 @@ class BookController extends AppBaseController
         
         $except = [];
         if ($request->hasFile('front_cover')) {
-            $input['front_cover'] = time().'.'.$request->front_cover->getClientOriginalExtension();
+            $input['front_cover'] = time().'front.'.$request->front_cover->getClientOriginalExtension();
             $request->front_cover->move(public_path('images/books '), $input['front_cover']);
         }
         else
@@ -215,14 +216,13 @@ class BookController extends AppBaseController
         }
 
         if ($request->hasFile('back_cover')) {
-            $input['back_cover'] = time().'.'.$request->back_cover->getClientOriginalExtension();
+            $input['back_cover'] = time().'back.'.$request->back_cover->getClientOriginalExtension();
             $request->back_cover->move(public_path('images/books '), $input['back_cover']);
         }
         else
         {
             $except[] = 'back_cover';
         }
-
         $book = $this->bookRepository->update(array_except($input, $except), $id);
 
         Flash::success(__('notification.updated_success', ['attribute' => __('entities.book')]));
@@ -302,6 +302,7 @@ class BookController extends AppBaseController
                 foreach ($data->toArray() as $key => $value) {
                     if(!empty($value)){
                         //Get author
+                        if(trim($value['name']) == '' || trim($value['name']) == null) continue;
                         $value['author'] = trim($value['author']);
                         $author = Author::where('name', $value['author'])->first();
                         if($author == null) $author = Author::create(['name' => $value['author']]);
@@ -344,7 +345,7 @@ class BookController extends AppBaseController
                     foreach($insert as $input){
                         $this->bookRepository->create($input);
                     }
-                    return back()->with('success','Insert Record successfully.');
+                    return back()->with('success','Inserted '.count($insert).' records successfully.');
                 }
 
             }

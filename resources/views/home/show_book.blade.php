@@ -86,12 +86,29 @@
 			<div class="product-w3agile">
 				<h3 class="tittle1">@lang('homepages.product_description')</h3>
 				<div class="product-grids">
-					<div class="col-md-12 product-grid1">
+					<div class="col-md-3 product-grid1">
+						<h3>@lang('homepages.authored_books')</h3>
+						@foreach($authoredBooks as $authoredBook)
+							<div class="recent-grids">
+								<div class="recent-left">
+									<a href="{{route('show', ['id'=>$authoredBook->id])}}"><img class="img-responsive " src="{{ asset('images/books/'.$authoredBook->front_cover) }}" alt=""></a>
+								</div>
+								<div class="recent-right" style="margin-top: 0">
+									<h6 class="best2"><a href="{{route('show', ['id'=>$authoredBook->id])}}">{{ $authoredBook->name }}</a></h6>
+									<h6>{{ $authoredBook->author->name }}</h6>
+									<span class=" price-in1">{{ $authoredBook->price*(100-$authoredBook->sale)/100 }} VND</span>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						@endforeach
+					</div>
+					<div class="col-md-9 product-grid1">
 						<div class="tab-wl3">
 							<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 								<ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
 									<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
-									<li role="presentation" class=""><a href="#reviews" role="tab" id="reviews-tab" data-toggle="tab" aria-controls="reviews">Reviews (1)</a></li>
+									<li role="presentation" class=""><a href="#reviews" role="tab" id="reviews-tab" data-toggle="tab" aria-controls="reviews" class="disabled">
+											Comments (<span class="fb-comments-count" data-href="https://developers.facebook.com/apps/1747971682199772/{{$book->id}}"></span>)</a></li>
 								</ul>
 								<div id="myTabContent" class="tab-content">
 									<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
@@ -150,43 +167,18 @@
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
 										<div class="descr">
-											<div class="reviews-top">
-												<div class="reviews-left">
-													<img src="images/men3.jpg" alt=" " class="img-responsive">
-												</div>
-												<div class="reviews-right">
-													<ul>
-														<li><a href="#">Admin</a></li>
-														<li><a href="#"><i class="glyphicon glyphicon-share" aria-hidden="true"></i>Reply</a></li>
-													</ul>
-													<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit.</p>
-												</div>
-												<div class="clearfix"></div>
-											</div>
-											<div class="reviews-bottom">
-												<h4>Add Reviews</h4>
-												<p>Your email address will not be published. Required fields are marked *</p>
-												<p>Your Rating</p>
-												<div class="block">
-													<div class="starbox small ghosting"><div class="positioner"><div class="stars"><div class="ghost" style="display: none; width: 0px;"></div><div class="colorbar" style="width: 0px;"></div><div class="star_holder"><div class="star star-0"></div><div class="star star-1"></div><div class="star star-2"></div><div class="star star-3"></div><div class="star star-4"></div></div></div></div></div>
-												</div>
-												<form action="#" method="post">
-													<label>Your Review </label>
-													<textarea type="text" name="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
-													<div class="row">
-														<div class="col-md-6 row-grid">
-															<label>Name</label>
-															<input type="text" value="Name" name="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-														</div>
-														<div class="col-md-6 row-grid">
-															<label>Email</label>
-															<input type="email" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-														</div>
-														<div class="clearfix"></div>
-													</div>
-													<input type="submit" value="SEND">
-												</form>
-											</div>
+											<!-- Load Facebook SDK for JavaScript -->
+											<div id="fb-root"></div>
+											<script>(function(d, s, id) {
+                                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                                    if (d.getElementById(id)) return;
+                                                    js = d.createElement(s); js.id = id;
+                                                    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=1747971682199772";
+                                                    fjs.parentNode.insertBefore(js, fjs);
+                                                }(document, 'script', 'facebook-jssdk'));</script>
+
+											<!-- Your embedded comments code -->
+											<div class="fb-comments" data-href="https://developers.facebook.com/apps/1747971682199772/{{$book->id}}" data-width="100%" data-numposts="5"></div>
 										</div>
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="custom" aria-labelledby="custom-tab">

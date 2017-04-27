@@ -662,15 +662,16 @@ h2.tittle {
     width: 70%;
     margin: 0 auto;
 }
-.women h6 {
+.book-info h6 {
     font-size: 1.4em;
     margin: 0.4em 0;
 }
-.women h6 a {
+.book-info h6 a {
     color: #1565C0;
+	font-size: 18px;
     text-decoration: none;
 }
-.women p {
+.book-info p {
     font-size: 1em;
     color: #999;
     margin: 0.9em 0;
@@ -1496,11 +1497,6 @@ ul.dropdown-menu6 li a {
     border-bottom: 1px solid #d6d5d5;
     padding: 0.5em 0;
 }
-.mens-toolbar p {
-    color: #000;
-    font-size: 1em;
-	    display: inline-block;
-}
 .mens-toolbar p  select {
     color: #000;
     font-size: 0.9em;
@@ -1513,8 +1509,8 @@ ul.dropdown-menu6 li a {
       padding: 2em 0;
 }
 .mens-toolbar p {
-    color: #777;
-    font-size: 1em;
+    color: #000;
+    font-size: 1.5em;
     display: inline-block;
 }
 .showing {
@@ -1828,7 +1824,7 @@ span.price {
     margin: 1em 0;
     font-weight: 600;
 }
-.women span {
+.book-info span {
     font-size: 1em;
     color: #000;
     margin: 1em 0;
@@ -1857,7 +1853,7 @@ span.price-in1 {
     display: block;
 }
 .best2 a {
-    font-size: 1.5em;
+    font-size: 1.1em;
     text-decoration: none;
     display: block;
     margin-bottom: 0.5em;
@@ -1891,6 +1887,10 @@ span.price-in1 {
 }
 .product-grids {
     margin-top: 4em;
+}
+.product-grids h3{
+	color: #1565C0;
+	margin-bottom: 20px;
 }
 .descr h4 {
     font-size: 2em;
@@ -2434,6 +2434,34 @@ li.bt-nn h6 {
   color: #621622;
   margin: 1em 0;
 }
+.product-tab>div{
+	padding-top: 20px;
+	height: 500px;
+}
+.product-tab .product-tab-grid, .product-tab-grid .grid-arr{
+	height: 100%;
+}
+.product-tab-grid .grid-arrival{
+	height: 60%;
+}
+.product-tab-grid .book-info{
+	margin-top: 30px;
+	height: 40%;
+}
+.arrivals-grids>div{
+	padding-top: 20px;
+	height: 500px;
+}
+.arrival-grid, .arrival-grid rid-arr{
+	height: 100%;
+}
+.arrival-grid .grid-arrival{
+	height: 60%;
+}
+.arrival-grid .book-info{
+	margin-top: 30px;
+	height: 40%;
+}
 /**responsive**/
 @media(max-width:1440px){
 	
@@ -2487,7 +2515,8 @@ li.bt-nn h6 {
 .ribben {
     left: -8%;
 }
-.women h6 {
+.book-info h6 {
+	text-align: center;
     font-size: 1.3em;
 }
 .ban-text1 {
@@ -2511,9 +2540,9 @@ li.bt-nn h6 {
     top: 85%;
 }
 .best2 a {
-    font-size: 1.37em;
+    font-size: 1.0em;
 }
-.description p,.descr p,.women p {
+.description p,.descr p,.book-info p {
     font-size: 0.965em;
 }
 .single-grid1 h3 {
@@ -3286,7 +3315,7 @@ h3.tittle1, h3.tittle {
 .single-left {
     width: 100%;
 }
-.description p, .descr p, .women p {
+.description p, .descr p, .book-info p {
     font-size: 0.95em;
 }
 .accessories-w3l {

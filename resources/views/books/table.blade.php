@@ -6,7 +6,7 @@
         <th>@lang('books.label_book_price')</th>
         <th>@lang('books.label_book_category')</th>
         <th>@lang('books.label_book_type')</th>
-        <th>@lang('books.label_book_pulishing_year')</th>
+        <th>@lang('books.label_book_publishing_year')</th>
         <th>@lang('books.label_book_sale')</th>
         <th colspan="3">Action</th>
     </thead>
