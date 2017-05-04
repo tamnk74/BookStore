@@ -19,6 +19,7 @@ return [
     'label_select_file' => 'Chọn file nhập sách',
     'label_export_file' => 'Xuất dữ liệu ra excel',
     'label_select_book' => 'Chọn sách',
+    'label_no' => 'STT',
     'label_book_number' => 'Số lượng sách',
     'label_user_name' => 'Người nhập',
     'label_supplier' => 'Nhà cung cấp',

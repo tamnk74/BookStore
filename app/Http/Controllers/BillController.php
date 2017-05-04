@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBillDetailRequest;
 use App\Http\Requests\UpdateBillDetailRequest;
+use App\Models\Bill;
 use App\Models\Profile;
+use App\Models\Store;
 use App\Repositories\BillDetailRepository;
 use App\Repositories\BillRepository;
 use App\Repositories\BookRepository;
@@ -46,17 +48,10 @@ class BillController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->billDetailRepository->pushCriteria(new RequestCriteria($request));
-        $billDetails = $this->billDetailRepository->all();
-
         $this->billRepository->pushCriteria(new RequestCriteria($request));
-        $bills = $this->billRepository->all();
+        $bills = $this->billRepository->paginate(30);
 
-        return view('bills.index')
-            ->with([
-                'billDetails' => $billDetails,
-                'bills' => $bills
-            ]);
+        return view('bills.index', compact('bills'));
     }
 
     /**
@@ -98,7 +93,7 @@ class BillController extends AppBaseController
                     Flash::error('The amount of the book '.$bookstore->book->name.' is not enough in store');
                     return redirect(route('bills.create'));
                 }
-                $total_price += $book->price*$input['amount'][$i];
+                $total_price += $book->price*((100-$book->sale)/100)*$input['amount'][$i];
             }
             $input['total_price'] = $total_price;
             $input['date'] = \Carbon\Carbon::today()->format('Y-m-d');

@@ -1,6 +1,30 @@
 $(function () {
 
-    $('#selft_quarter').highcharts({
+    $('#sale_quarter').highcharts({
+
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Thống kê quý ' + quarter + ' - ' + year
+        },
+        xAxis: {
+            categories: months
+        },
+        yAxis: {
+            title: {
+                text: 'Doanh số'
+            }
+        },
+        series: [{
+            name: 'Sách bán ra',
+            data: totalBill
+        },{
+            name: 'Sách nhập vào',
+            data: totalImport
+        }]
+    });
+    $('#revenue-quarter').highcharts({
 
         chart: {
             type: 'column'
@@ -17,14 +41,14 @@ $(function () {
             }
         },
         series: [{
-                name: 'bill',
-                data: totalBill
-            },{
-                name: 'import',
-                data: totalImport
-            }]
+            name: 'Doanh thu',
+            data: revenue
+        },{
+            name: 'Chi phí',
+            data: cost
+        }]
     });
-    
+
     // Build the chart
     Highcharts.chart('catagory', {
         chart: {
@@ -53,11 +77,11 @@ $(function () {
             }
         },
         series: [{
-                name: 'Brands',
-                data: categoryData
-            }]
+            name: 'Brands',
+            data: categoryData
+        }]
     });
-    
+
     $('#top-book').highcharts({
 
         chart: {
@@ -75,8 +99,22 @@ $(function () {
             }
         },
         series: [{
-                name: 'Tên sách',
-                data: dataTopBook
-            }]
+            name: 'Tên sách',
+            data: dataTopBook
+        }]
+    });
+
+    /* Morris.js Charts */
+    // Sales chart
+    var area = new Morris.Area({
+        element: 'revenue-chart',
+        resize: true,
+        data: revenueQuarters,
+        xkey: 'y',
+        ykeys: ['revenue', 'cost'],
+        labels: ['Doanh thu', 'Chi phí'],
+        lineColors: ['#a0d0e0', '#3c8dbc'],
+        pointSize: 2,
+        hideHover: 'auto'
     });
 })

@@ -6,10 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Nhà sách có quy mô vừa với nhiều thể loại sách phong phú trong và ngoai nước" />
 
-    <meta expr:content='data:blog.pageTitle' property='og:title'/>
-    <meta expr:content='data:blog.url' property='og:url'/>
     <meta content='BookStore' property='og:site_name'/>
-    <meta content='Blog-Logo-Image' property='og:image'/>
     <meta content='1747971682199772' property='fb:app_id'/>
     <meta property="fb:admins" content="https://www.facebook.com/khac.tam.94"/>
     <meta content='article' property='og:type'/>
@@ -19,8 +16,9 @@
     <link href="{{asset('frontend/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{asset('frontend/css/font-awesome.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
-    <link href="http://demos.maxoffsky.com/shop-search/vendor/selectize/css/selectize.bootstrap3.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css"> -->
+    <link href="{{ asset('plugins/select2/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/selectize.bootstrap3.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('frontend/css/jstarbox.css')}}" type="text/css" media="screen" charset="utf-8" />
     <link href="{{asset('frontend/css/coreSlider.css')}}" rel="stylesheet" type="text/css">
     <!--css-->
@@ -102,9 +100,9 @@
     });
 </script>
 <!--mycart-->
-<script type="text/javascript" src="{{asset('frontend/js/bootstrap-3.1.1.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
-
+<script type="text/javascript" src="{{ asset('frontend/js/bootstrap-3.1.1.min.js')}}"></script>
+<!-- select2 -->
+<script src="{{ asset('dist/css/alt/AdminLTE-select2.min.css')}}"></script>
 <!-- cart -->
 <script src="{{asset('frontend/js/simpleCart.min.js')}}"></script>
 <!-- cart -->
@@ -144,7 +142,8 @@
 </script>
 <!--//End-rate-->
 @yield('front-scripts')
-<script type="text/javascript" src='http://demos.maxoffsky.com/shop-search/vendor/selectize/js/standalone/selectize.min.js'></script>
+<!-- <script type="text/javascript" src='http://demos.maxoffsky.com/shop-search/vendor/selectize/js/standalone/selectize.min.js'></script> -->
+<script type="text/javascript" src="{{ asset('/js/selectize.min.js')}}"></script>
 <script type="text/javascript" src='{{asset('js/homepage/main.js')}}'></script>
 @yield('scripts')
 </body>

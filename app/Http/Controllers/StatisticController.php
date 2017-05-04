@@ -23,13 +23,12 @@ class StatisticController extends Controller
         } else {
             $date = $request['date-picker'];
         }
-        $data['date'] = $date; 
-        $data['import_books'] = ImportBook::getByDay($date);
-        $data['bills'] = Bill::getByDate($date);
-        $data['top_books_details'] = BillDetail::getBooksByDate($date);
-        $data['top_book'] = BillDetail::getTop5BookByDate($date);
+        $importBooks = ImportBook::getByDay($date);
+        $bills = Bill::getByDate($date);
+        $billsDetails = BillDetail::getBooksByDate($date);
+        $topBook = BillDetail::getTopBookByDate($date);
         //dd($data);
-        return view('statistics.daily')->with($data);
+        return view('statistics.daily')->with(compact('date', 'importBooks', 'bills', 'billsDetails', 'topBook'));
     }
     public function monthly(Request $request)
     {
@@ -41,21 +40,20 @@ class StatisticController extends Controller
             $year = intval(explode("-", $input['date_picker'])[0]);
         }
         //dd($month."-".$year);
-        $totalCost = Bill::whereYear('created_at', '=', $year)
-                    ->whereMonth('created_at', '=', $month)
-                    ->get()
-                    ->sum('price_amount');
-        $data['bill'] = Bill::getByMonth($year)->toArray();
-        $data['import_book'] = ImportBook::getByMonth($year)->toArray();
-        $data['bills'] = BillDetail::getByMonths($year)->toArray();
-        $data['import_books'] = ImportBook::getByMonths($year)->toArray();
-        $data['totalCost'] = $totalCost;
-        $data['top_books'] = BillDetail::getTop5Books($year, $month)->toArray();
-        $data['categories'] = BillDetail::getCategoriesByMonth($year, $month);
-        $data['month'] = $month;
-        $data['year'] = $year;
-        //dd($data);
-        return view('statistics.monthly')->with($data);
+        $report['revenue'] = Bill::getRevenueByMonth($year, $month);
+        $report['sale'] = BillDetail::getSaleByMonth($year, $month);
+        $report['cost'] = ImportBook::getCostByMonth($year, $month);
+        $report['import'] = ImportBook::getImportByMonth($year, $month);
+
+        $revenues = Bill::getRevenueByMonths($year);
+        $costs = ImportBook::getCostByMonths($year);
+        $sales = BillDetail::getSalesByMonths($year);
+
+        $totalImport = ImportBook::getTotalByMonths($year, $month);
+        $topBooks = BillDetail::getTopBookByMonth($year, $month);
+        $categories = BillDetail::getCategoriesByMonth($year, $month);
+        return view('statistics.monthly', compact('month', 'year', 'report', 'revenues', 'costs', 'sales',
+            'totalImport', 'categories', 'topBooks'));
     }
     public function quarterly(Request $request)
     {
@@ -69,21 +67,29 @@ class StatisticController extends Controller
         $year = intval($elements[0]);
         $quarter = intval($elements[1]);
         
-        $data['year'] = $year;
-        $data['quarter'] = $quarter;
+        $quatersList = ImportBook::getQuarterList();
         
-        $data['quatersList'] = ImportBook::getQuarterList();
+        $quarterRenevue = Bill::quarterRenevue($year, $quarter);
+        $quarterCost = ImportBook::quarterCost($year, $quarter);
+
+        $quaterlyTotalBill = BillDetail::quarterTotal($year, $quarter);
+        $quaterlyTotalImport = ImportBook::quarterTotal($year, $quarter);
         
-        $data['quaterlyTotalBill'] = Bill::quarterTotal($year, $quarter);
-        $data['quaterlyTotalImport'] = ImportBook::quarterTotal($year, $quarter);
-        
-        $data['categories'] = BillDetail::getCategoriesByQuarter($year, $quarter);
-        
-        $data['top_books'] = BillDetail::getTop10Books($year, $quarter)->toArray();
-        
-        $data['billGrowthIndexs'] = Bill::getGrowthIndex();
-        $data['importGrowthIndexs'] = ImportBook::getGrowthIndex();
-        //dd($data);
-        return view('statistics.quarterly')->with($data);
+        $categories = BillDetail::getCategoriesByQuarter($year, $quarter);
+        $categoriesPercent = BillDetail::getPercentCategoriesByQuarter($year, $quarter);
+
+        $topBooks = BillDetail::getTopBookByQuarters($year, $quarter);
+
+        $billQuarter = Bill::quarters($year, $quarter);
+        $importQuarter = ImportBook::quarters($year, $quarter);
+        $revenueQuarters = [];
+        for($i =0; $i< count($billQuarter); $i++){
+            $revenueQuarters[$i]['y'] = $billQuarter[$i]['year'].' Q'.$billQuarter[$i]['quarter'];
+            $revenueQuarters[$i]['revenue'] = $billQuarter[$i]['revenue'];
+            $revenueQuarters[$i]['cost'] = $importQuarter[$i]['cost'];
+        }
+        return view('statistics.quarterly', compact('quarter', 'year', 'quatersList', 'revenueQuarters',
+            'quaterlyTotalBill', 'quaterlyTotalImport', 'quarterRenevue', 'quarterCost','categories',
+            'categoriesPercent',  'topBooks' ));
     }
 }

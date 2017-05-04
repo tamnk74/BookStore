@@ -79,13 +79,45 @@ class Bill extends Model
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getByMonth($year)
+    public static function getRevenueByMonths($year)
     {
         return self::whereYear('created_at', $year)
                     ->select(DB::raw('MONTH(created_at) month, sum(total_price) as total'))
                     ->groupby('month')
                     ->orderBy('month', 'asc')
                     ->get();
+    }
+
+    /**
+     * Get all today's bills.
+     *
+     * @param string $date input date
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getRevenueByMonth($year, $month)
+    {
+        return self::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->get()
+            ->sum('total_price');
+    }
+
+    /**
+     * Get renevue by quarter.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function quarterRenevue($year, $quarter)
+    {
+        return self::selectRaw('month(created_at) as `month`, sum(total_price) as revenue')
+                   ->whereRaw('quarter(created_at) = '.$quarter.' and year(created_at) = '.$year)
+                   ->groupBy('month')
+                   ->orderByRaw('month asc')
+                   ->get();
     }
 
     /**
@@ -96,30 +128,12 @@ class Bill extends Model
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function quarterTotal($year, $quarter)
+    public static function quarters($year, $quarter)
     {
-        return self::selectRaw('year(created_at) as `year`, monthname(created_at) as `month`, sum(total_price) as total')
-                   ->whereRaw('QUARTER(created_at) = '.$quarter.' and year(created_at) = '.$year)
-                   ->groupBy('year', 'month')
-                   ->orderByRaw('`year` desc, `month` asc')
-                   ->get();
-    }
-    
-    /**
-     * Get index by quarter.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public static function getGrowthIndex()
-    {
-        $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(total_price) as sum')
-                          ->groupBy('year', 'quarter')
-                          ->orderByRaw('year(created_at) asc , QUARTER(created_at) asc')
-                          ->first();
-        $firstMonth = ($firstMonth == null) ? $firstMonth =0 : $firstMonth->sum;
-        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(total_price) / '.$firstMonth.') - 1, 2) as `index`')
-                    ->groupBy('year', 'quarter')
-                    ->orderByRaw('`year` desc, `quarter` desc')
-                    ->get();
+        return self::selectRaw('quarter(created_at) as `quarter`, year(created_at) as year, sum(total_price) as revenue')
+            ->whereRaw('year(created_at) >= '.max($year-2, 2016))
+            ->groupBy('quarter', 'year')
+            ->orderByRaw('year asc, quarter asc')
+            ->get();
     }
 }

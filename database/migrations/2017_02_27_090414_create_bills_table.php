@@ -21,7 +21,7 @@ class CreateBillsTable extends Migration
             $table->integer('total_price')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

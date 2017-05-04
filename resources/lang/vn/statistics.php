@@ -13,6 +13,13 @@ return [
     |
     */
 
+    'revenue' => 'Doanh thu',
+    'turnover' => 'Doanh số',
+    'cost' => 'Chi phí',
+    'sale' => 'Doanh số',
+    'profit' => 'Lợi nhuận',
+
+
     'daily_statistic' => 'Thống kê theo ngày',
     'daily_statistic_in' => 'Thống kê ngày',
     'daily_go' => 'Go',
@@ -29,10 +36,27 @@ return [
     'daily_total_price' => 'Tổng giá',
     'daily_import_no' => 'STT',
     'daily_price' => 'Tổng giá',
+    'daily_book_total_price' => 'Tổng giá',
     'daily_title_top_book' => 'Top 5 cuốn sách bán chạy',
 
     'monthly_statistic' => 'Thống kê theo tháng',
+    'monthly_report' => 'Báo cáo tháng',
+    'monthly_revenue' => 'Doanh thu',
+    'monthly_turnover' => 'Doanh số',
+    'monthly_top_book' => 'Sách ưa thích',
+    'monthly_top_categories' => 'Loại sách ưa thích',
 
+
+    'quarter' => 'Thống kê Quý ',
+    'year' => 'năm',
+    'select_quarter' => 'Chọn quý',
+    'quarterly_revenue' => 'Thống kê doanh thu theo quý',
+    'quarterly_sale' => 'Thống kê doanh số theo quý',
     'quarterly_statistic' => 'Thống kê theo quý',
+    'quarterly_top_categories' => 'Loại sách ưa thích',
+    'quarterly_top_books' => 'Sách ưa thích',
+    'quarterly' => 'Thống kê qua các quý',
+
+    'no_data' => 'Dữ liệu rỗng',
 
 ];

@@ -16,11 +16,11 @@ class CreateStoresTable extends Migration
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('book_id')->unsigned()->unique();
-            $table->integer('amount')->unsigned();
-            $table->integer('total_amount')->unsigned();
+            $table->unsignedInteger('amount');
+            $table->unsignedBigInteger('total_amount');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('book_id')->references('id')->on('books')->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

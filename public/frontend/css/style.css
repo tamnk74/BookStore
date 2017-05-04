@@ -1416,6 +1416,16 @@ h3.tittle1 {
 .latest-grid{
 	height: 100%;
 }
+.selectize-input{
+  top: 46px;
+  background-color: #088;
+  height: 60px;
+}
+.selectize-input input{
+  width: 100%;
+  height: 100%;
+  font-size: 1.5em;
+}
 /* webkit adjacent element selector bugfix */
 @media screen and (-webkit-min-device-pixel-ratio:0)
 {

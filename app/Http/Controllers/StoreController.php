@@ -30,7 +30,7 @@ class StoreController extends AppBaseController
     public function index(Request $request)
     {
         $this->storeRepository->pushCriteria(new RequestCriteria($request));
-        $stores = $this->storeRepository->all();
+        $stores = $this->storeRepository->paginate(20);
 
         return view('stores.index')
             ->with('stores', $stores);

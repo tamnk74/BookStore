@@ -26,43 +26,33 @@
                     </div>
                 </div>
                 <div class="row top-book">
-                    <div class="col-md-6">
-                        <div>
-                            <div class="content">
-                            @if(count($bills) > 0)
-                            <div id="top-book"></div>
-                            @else
-                                <div class="panel panel-default">
-                                    <div class="panel-body">Du lieu rong!</div>
-                                </div>
-                            @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div id="">
                             <h2>@lang('statistics.daily_details')</h2>
-                            <div class="content">
-                                @if(count($top_books_details) > 0)
+                            <div class="content" style="height: 300px; overflow-y: auto;">
+                                @if(count($billsDetails) > 0)
                                 <table class="table table-responsive" id="billDetails-table">
                                     <thead>
                                     <th>@lang('statistics.daily_book_no')</th>
                                     <th>@lang('statistics.daily_book_name')</th>
                                     <th>@lang('statistics.daily_book_total')</th>
+                                    <th>@lang('statistics.daily_book_total_price')</th>
                                     </thead>
                                     <tbody>
-                                    @foreach($top_books_details as $top_books_detail)
+
+                                    @foreach($billsDetails as $billsDetail)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $top_books_detail["name"] }}</td>
-                                            <td>{{ $top_books_detail["total"] }}</td>
+                                            <td style="width: 50%">{{ $billsDetail->name }}</td>
+                                            <td>{{ $billsDetail->total }}</td>
+                                            <td>{{ $billsDetail->total*$billsDetail->price*(100-$billsDetail->sale)/100 }} VND</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
                                 @else
                                     <div class="panel panel-default">
-                                        <div class="panel-body">Du lieu rong!</div>
+                                        <div class="panel-body">@lang('bills.no_data_to_display')</div>
                                     </div>
                                 @endif
                             </div>
@@ -83,7 +73,7 @@
                             </ul>
                             <div class="tab-content no-padding">
                                 <!-- Morris chart - Sales -->
-                                <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px; overflow-y: auto;">
                                     @if(count($bills) > 0)
                                         <table class="table table-responsive" id="billDetails-table">
                                             <thead>
@@ -110,12 +100,12 @@
                                         </table>
                                     @else
                                         <div class="panel panel-default">
-                                            <div class="panel-body">Du lieu rong!</div>
+                                            <div class="panel-body">@lang('bills.no_data_to_display')</div>
                                         </div>
                                     @endif
                                 </div>
-                                <div class="chart tab-pane" id="daily-import-book" style="position: relative; height: 300px;">
-                                    @if(count($top_book) > 0)
+                                <div class="chart tab-pane" id="daily-import-book" style="position: relative; height: 300px; overflow-y: auto;">
+                                    @if(count($topBook) > 0)
                                         <table class="table table-responsive" id="billDetails-table">
                                             <thead>
                                             <th>@lang('statistics.daily_import_no')</th>
@@ -124,24 +114,24 @@
                                             <th>@lang('statistics.daily_price')</th>
                                             </thead>
                                             <tbody>
-                                            @foreach($import_books as $import_book)
+                                            @foreach($importBooks as $importBook)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $import_book->book->name }}</td>
-                                                    <td>{{ $import_book->amount }}</td>
-                                                    <td>{{ $import_book->price }} VND</td>
+                                                    <td>{{ $importBook->book->name }}</td>
+                                                    <td>{{ $importBook->amount }}</td>
+                                                    <td>{{ $importBook->price }} VND</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
                                                 <td colspan="2" class="text-center"><b>Total</b></td>
-                                                <td><b>{{ array_sum(array_pluck($import_books, 'amount')) }} </b></td>
-                                                <td><b>{{ array_sum(array_pluck($import_books, 'price')) }} VND</b></td>
+                                                <td><b>{{ array_sum(array_pluck($importBooks, 'amount')) }} </b></td>
+                                                <td><b>{{ array_sum(array_pluck($importBooks, 'price')) }} VND</b></td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     @else
                                         <div class="panel panel-default">
-                                            <div class="panel-body">Du lieu rong!</div>
+                                            <div class="panel-body">@lang('bills.no_data_to_display')</div>
                                         </div>
                                     @endif
                                 </div>
@@ -158,9 +148,9 @@
 
 @section('scripts')
     <script type="text/javascript">
-        @if(count($top_book) >0)
-        var data_topbook = {!! json_encode(array_column($top_book, 'sum'), JSON_NUMERIC_CHECK)!!};
-        var categories_topbook = {!! json_encode(array_column($top_book, 'name'), JSON_NUMERIC_CHECK) !!};
+        @if(count($topBook) >0)
+        var data_topbook = {!! json_encode(array_column($topBook->toArray(), 'sum'), JSON_NUMERIC_CHECK)!!};
+        var categories_topbook = {!! json_encode(array_column($topBook->toArray(), 'name'), JSON_NUMERIC_CHECK) !!};
         var labelTopbook = '@lang('statistics.daily_title_top_book')';
         var numberOfBook = '@lang('statistics.daily_number')';
         var labelBookName = '@lang('statistics.daily_book_name')';

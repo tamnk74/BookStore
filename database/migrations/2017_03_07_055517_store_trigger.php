@@ -27,6 +27,13 @@ class StoreTrigger extends Migration
         FOR EACH ROW 
         DELETE FROM stores WHERE stores.book_id = OLD.id
         ');
+
+        DB::unprepared('
+        CREATE TRIGGER soft_delete_books_stores_trigger 
+        AFTER UPDATE ON books 
+        FOR EACH ROW 
+        UPDATE stores SET stores.deleted_at = NEW.deleted_at WHERE stores.book_id = OLD.id
+        ');
         //Trigger for update book into store when importing book
         DB::unprepared('
         CREATE TRIGGER import_store_trigger 

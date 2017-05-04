@@ -20,8 +20,8 @@ class CreateBillDetailsTable extends Migration
             $table->integer('amount')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('book_id')->references('book_id')->on('stores');
-            $table->foreign('bill_id')->references('id')->on('bills');
+            $table->foreign('book_id')->references('book_id')->on('stores')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('bill_id')->references('id')->on('bills')->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

@@ -66,15 +66,14 @@ class BillDetail extends Model {
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTop5BookByDate($date) {
+    public static function getTopBookByDate($date) {
         return self::leftJoin('books', 'books.id', '=', 'bill_details.book_id')
                         ->select('name', DB::raw('SUM(amount) as sum'))
                         ->whereDate('bill_details.created_at', $date)
                         ->groupBy('name')
                         ->orderBy('sum', 'desc')
                         ->limit(5)
-                        ->get()
-                        ->toArray();
+                        ->get();
     }
 
     /**
@@ -86,12 +85,11 @@ class BillDetail extends Model {
      */
     public static function getBooksByDate($date) {
         return self::join('books', 'bill_details.book_id', '=', 'books.id')
-                        ->select('books.id', 'books.name', DB::raw('sum(bill_details.amount) as total'))
+                        ->select('books.id', 'books.name', 'books.price', 'books.sale', DB::raw('sum(bill_details.amount) as total'), DB::raw('sum(bill_details.amount) as total'))
                         ->whereDate('bill_details.created_at', $date)
-                        ->groupBy('books.id', 'books.name')
+                        ->groupBy('books.id', 'books.name', 'books.price', 'books.sale')
                         ->orderBy('total', 'desc')
-                        ->get()
-                        ->toArray();
+                        ->get();
     }
 
     /**
@@ -102,13 +100,14 @@ class BillDetail extends Model {
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTop5Books($year, $month) {
+    public static function getTopBookByMonth($year, $month) {
         return self::join('books', 'bill_details.book_id', '=', 'books.id')
                         ->select('books.id', 'books.name', DB::raw('sum(bill_details.amount) as total'))
                         ->whereYear('bill_details.created_at', $year)
                         ->whereMonth('bill_details.created_at', $month)
                         ->groupBy('books.id', 'books.name')
                         ->orderBy('total', 'desc')
+                        ->limit(10)
                         ->get();
     }
     /**
@@ -119,13 +118,14 @@ class BillDetail extends Model {
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getTop10Books($year, $quarter) {
+    public static function getTopBookByQuarters($year, $quarter) {
         return self::join('books', 'bill_details.book_id', '=', 'books.id')
                         ->select('books.id', 'books.name', DB::raw('sum(bill_details.amount) as total'))
                         ->whereYear('bill_details.created_at', $year)
                         ->whereRaw('QUARTER(bill_details.created_at) = '.$quarter)
                         ->groupBy('books.id', 'books.name')
                         ->orderBy('total', 'desc')
+                        ->limit(10)
                         ->get();
     }
     /**
@@ -135,7 +135,7 @@ class BillDetail extends Model {
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public static function getByMonths($year)
+    public static function getSalesByMonths($year)
     {
         return self::whereYear('created_at', $year)
             ->select(DB::raw('MONTH(created_at) month, sum(amount) as total'))
@@ -143,7 +143,15 @@ class BillDetail extends Model {
             ->orderBy('month', 'asc')
             ->get();
     }
-    
+
+    public static function getSaleByMonth($year, $month)
+    {
+        return self::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->get()
+            ->sum('amount');
+    }
+
     public static function totalAmountByMonth($year, $month)
     {
         return self::whereYear('created_at', $year)
@@ -173,7 +181,23 @@ class BillDetail extends Model {
     }
     
     /**
-     * Get daily percentage of categories.
+     * Get quarterly percentage of categories.
+     *
+     * @param string $date input date
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getPercentCategoriesByQuarter($year, $quarter) {
+        return self::join('books', 'bill_details.book_id', '=', 'books.id')
+                        ->join('categories', 'books.category_id', '=', 'categories.id')
+                        ->whereRaw('QUARTER(bill_details.created_at) = '.$quarter.' and year(bill_details.created_at) = '.$year)
+                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bill_details.amount) / ' . self::totalAmountByQuarter($year, $quarter) . ' * ' . 100 . ', 2) as percentage'))
+                        ->groupBy('categories.id', 'categories.name')
+                        ->get();
+    }
+
+    /**
+     * Get quarterly of categories.
      *
      * @param string $date input date
      *
@@ -183,9 +207,26 @@ class BillDetail extends Model {
         return self::join('books', 'bill_details.book_id', '=', 'books.id')
                         ->join('categories', 'books.category_id', '=', 'categories.id')
                         ->whereRaw('QUARTER(bill_details.created_at) = '.$quarter.' and year(bill_details.created_at) = '.$year)
-                        ->select('categories.id', 'categories.name', DB::raw('round(sum(bill_details.amount) / ' . self::totalAmountByQuarter($year, $quarter) . ' * ' . 100 . ', 2) as percentage'))
+                        ->select('categories.name as label', DB::raw('sum(bill_details.amount) as value'))
                         ->groupBy('categories.id', 'categories.name')
+                        ->orderBy('value')
                         ->get();
     }
     
+    /**
+     * Get total by quarter.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function quarterTotal($year, $quarter)
+    {
+        return self::selectRaw('month(created_at) as `month`, sum(amount) as total')
+                   ->whereRaw('quarter(created_at) = '.$quarter.' and year(created_at) = '.$year)
+                   ->groupBy('month')
+                   ->orderByRaw('month asc')
+                   ->get();
+    }
 }

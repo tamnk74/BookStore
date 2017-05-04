@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateImportBookRequest;
 use App\Http\Requests\UpdateImportBookRequest;
+use App\Models\Store;
 use App\Models\Supplier;
 use App\Repositories\ImportBookRepository;
 use App\Repositories\BookRepository;
@@ -15,6 +16,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Excel;
+use Illuminate\Support\Facades\DB;
 use App\Models\Book;
 use App\Models\ImportBook;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +83,8 @@ class ImportBookController extends AppBaseController
 	{
         $data = ImportBook::leftjoin('suppliers','suppliers.id', '=', 'import_books.supplier_id')
                     ->leftjoin('books','books.id', '=', 'import_books.book_id')
-                    ->select('books.name AS book_name', 'suppliers.name AS supplier', 'amount', 'import_books.price AS price', 'import_books.created_at AS date')
+                    ->select('books.name AS book_name', 'suppliers.name AS supplier', 'amount',
+                        'import_books.price AS price', 'import_books.created_at AS date')
                     ->get()->toArray();
         /*for($i=0; $i < count($data); $i++){
             $data[$i] = array_except($data[$i], ['user_id', 'created_at', 'updated_at', 'deleted_at']);
@@ -122,7 +125,8 @@ class ImportBookController extends AppBaseController
                         $book = Book::where('name', $value['book_name'])->first();
                         if($book == null) $book = Book::create(['name' => $value['book_name']]);
 
-                      $insert[] = ['user_id' => Auth::user()->id, 'book_id' => $book->id, 'supplier_id' => $supplier->id, 'amount' => $value['amount'], 'price' => $value['price'], 'date' => $date];
+                      $insert[] = ['user_id' => Auth::user()->id, 'book_id' => $book->id, 'supplier_id' => $supplier->id,
+                          'amount' => $value['amount'], 'price' => $value['price'], 'date' => $date];
 
 					}
 				}
@@ -152,27 +156,48 @@ class ImportBookController extends AppBaseController
         $input = $request->all();
 
         $book = $this->bookRepository->findWithoutFail($input['book_id']);
-
         if (empty($book)) {
             Flash::error('Book not found');
             return redirect(route('importBooks.index'));
         }
 
         $supplier = $this->supplierRepository->findWithoutFail($input['supplier_id']);
-
         if (empty($supplier)) {
             Flash::error('Supplier not found');
             return redirect(route('importBooks.index'));
         }
 
         $store = $this->storeRepository->findWithoutFail($input['book_id']);
-
-        $input['date'] = \Carbon\Carbon::today()->format('Y-m-d');
+        if(empty($store)){
+            Store::create([
+                'book_id' => $input['book_id'],
+                'amount' => 0,
+                'total_amount' => 0
+                ]);
+        }
         $input['user_id'] = Auth::user()->id;
+
         $importBook = $this->importBookRepository->create($input);
 
         Flash::success('Import Book saved successfully.');
 
+        /*$books_id = $this->bookRepository->all()->pluck('id');
+        $suppliers_id = $this->supplierRepository->all()->pluck('id');
+        // Convert to timetamps
+        $min = strtotime('01 January 2016');
+        $max = strtotime('now');
+        $user_id = Auth::user()->id;
+        for($i=0; $i< 200; $i++){
+            $book_id = $books_id[rand(0, count($books_id)-1)];
+            $book = $this->bookRepository->find($book_id);
+            $amount = rand(1, 5)*10;
+            $price = $amount*($book->price*((100-$book->sale)/100)*90/100);
+            $supplier_id = $suppliers_id[rand(0, count($suppliers_id)-1)];
+            $created_at = date('Y-m-d H:i:s', rand($min, $max));
+            $updated_at = $created_at;
+
+            DB::table('import_books')->insert(compact('book_id', 'amount', 'price', 'supplier_id', 'user_id','created_at', 'updated_at'));
+        }*/
         return redirect(route('importBooks.index'));
     }
 

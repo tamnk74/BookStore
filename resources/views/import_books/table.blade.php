@@ -1,6 +1,6 @@
 <table class="table table-responsive" id="importBooks-table">
     <thead>
-        <th>@lang('import_books.label_book_id')</th>
+        <th>@lang('import_books.label_no')</th>
         <th>@lang('import_books.label_book_name')</th>
         <th>@lang('import_books.label_book_number')</th>
         <th>@lang('import_books.label_price')</th>
@@ -9,9 +9,10 @@
     </thead>
     <tbody>
     @foreach($importBooks as $importBook)
+        @if($importBook->book != null)
         <tr>
-            <td>{!! $importBook->book_id !!}</td>
-            <td>{!! $importBook->book->name !!}</td>
+            <td>{!! $loop->iteration !!}</td>
+            <td><a href="{{ route('books.show', ['id' => $importBook->book_id]) }}">{!! $importBook->book->name !!}</a></td>
             <td>{!! $importBook->amount !!}</td>
             <td>{!! $importBook->price !!} VND</td>
             <td>{!! $importBook->created_at !!}</td>
@@ -25,6 +26,7 @@
                 {!! Form::close() !!}
             </td>
         </tr>
+        @endif
     @endforeach
     </tbody>
 </table>

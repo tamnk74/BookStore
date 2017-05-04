@@ -108,7 +108,7 @@
 								<ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
 									<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
 									<li role="presentation" class=""><a href="#reviews" role="tab" id="reviews-tab" data-toggle="tab" aria-controls="reviews" class="disabled">
-											Comments (<span class="fb-comments-count" data-href="https://developers.facebook.com/apps/1747971682199772/{{$book->id}}"></span>)</a></li>
+											Comments (<span class="fb-comments-count" data-href="https://developers.facebook.com/apps/1747971682199772/{{str_slug($book->name)}}"></span>)</a></li>
 								</ul>
 								<div id="myTabContent" class="tab-content">
 									<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
@@ -178,7 +178,7 @@
                                                 }(document, 'script', 'facebook-jssdk'));</script>
 
 											<!-- Your embedded comments code -->
-											<div class="fb-comments" data-href="https://developers.facebook.com/apps/1747971682199772/{{$book->id}}" data-width="100%" data-numposts="5"></div>
+											<div class="fb-comments" data-href="https://developers.facebook.com/apps/1747971682199772/{{str_slug($book->name)}}" data-width="100%" data-numposts="5"></div>
 										</div>
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="custom" aria-labelledby="custom-tab">

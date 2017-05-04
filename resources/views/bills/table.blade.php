@@ -14,7 +14,7 @@
             <td>{!! $loop->iteration !!}</td>
             <td>{!! $bill->id !!}</td>
             <td>{!! $bill->client_name !!}</td>
-            <td>
+            <td style="width: 40%">
                 @foreach($bill->billdetail as $billdetail)
                 {!! $billdetail->book->name !!},
                 @endforeach
@@ -34,3 +34,4 @@
     @endforeach
     </tbody>
 </table>
+<div class="row text-center">{{$bills->links()}}</div>

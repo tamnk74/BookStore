@@ -22,9 +22,9 @@ class CreateImportBooksTable extends Migration
             $table->integer('price')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('book_id')->references('id')->on('books');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->foreign('book_id')->references('id')->on('books')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

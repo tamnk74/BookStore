@@ -117,6 +117,9 @@ $(function () {
                 data: data_imports
             }]
     });
+    $('#turnover').click(function () {
+        chart.reflow();
+    });
 
 
 });

@@ -33,12 +33,12 @@ class CreateBooksTable extends Migration
             $table->integer('publishing_year')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('author_id')->references('id')->on('authors');
-            $table->foreign('issuer_id')->references('id')->on('issuers');
-            $table->foreign('publisher_id')->references('id')->on('publishers');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('type_id')->references('id')->on('types');
-            $table->foreign('language_id')->references('id')->on('languages');
+            $table->foreign('author_id')->references('id')->on('authors')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('issuer_id')->references('id')->on('issuers')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('publisher_id')->references('id')->on('publishers')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('type_id')->references('id')->on('types')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('language_id')->references('id')->on('languages')->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

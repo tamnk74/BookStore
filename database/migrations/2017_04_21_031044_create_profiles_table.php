@@ -22,7 +22,7 @@ class CreateProfilesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->primary('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

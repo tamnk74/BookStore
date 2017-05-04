@@ -21,7 +21,6 @@ class ImportBook extends Model
 
     protected $dates = ['deleted_at'];
 
-
     public $fillable = [
         'book_id',
         'user_id',
@@ -73,7 +72,7 @@ class ImportBook extends Model
         return self::whereDate('created_at', $date)->get();
     }
     
-    public static function getByMonth($year)
+    public static function getCostByMonths($year)
     {
         return self::whereYear('created_at', $year)
                     ->select(DB::raw('MONTH(created_at) month, sum(price) as total'))
@@ -82,7 +81,7 @@ class ImportBook extends Model
                     ->get();
     }
 
-    public static function getByMonths($year)
+    public static function getTotalByMonths($year)
     {
         return self::whereYear('created_at', $year)
             ->select(DB::raw('MONTH(created_at) month, sum(amount) as total'))
@@ -90,6 +89,24 @@ class ImportBook extends Model
             ->orderBy('month', 'asc')
             ->get();
     }
+
+    public static function getCostByMonth($year, $month)
+    {
+        return self::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->get()
+            ->sum('price');
+
+    }
+
+    public static function getImportByMonth($year, $month)
+    {
+        return self::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->get()
+            ->sum('amount');
+    }
+
     /**
      * Get all order amount by quarter.
      *
@@ -104,7 +121,7 @@ class ImportBook extends Model
     }
     
     /**
-     * Get total cost by quarter.
+     * Get total by quarter.
      *
      * @param int $year    year
      * @param int $quarter quarter
@@ -113,28 +130,44 @@ class ImportBook extends Model
      */
     public static function quarterTotal($year, $quarter)
     {
-        return self::selectRaw('year(created_at) as `year`, monthname(created_at) as `month`, sum(amount) as total')
-                   ->whereRaw('QUARTER(created_at) = '.$quarter.' and year(created_at) = '.$year)
-                   ->groupBy('year', 'month')
-                   ->orderByRaw('`year` desc, `month` asc')
+        return self::selectRaw('month(created_at) as `month`, sum(amount) as total')
+                   ->whereRaw('quarter(created_at) = '.$quarter.' and year(created_at) = '.$year)
+                   ->groupBy('month')
+                   ->orderByRaw('month asc')
                    ->get();
     }
-    
-    /**
-     * Get index by quarter.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public static function getGrowthIndex()
-    {
-        $firstMonth = self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, sum(price) as sum')
-                          ->groupBy('year', 'quarter')
-                          ->orderByRaw('year(created_at) asc , QUARTER(created_at) asc')
-                          ->first();
-        $firstMonth = ($firstMonth == null) ? $firstMonth =0 : $firstMonth->sum;
 
-        return self::selectRaw('year(created_at) as `year`, quarter(created_at) as `quarter`, round((sum(price) - '.$firstMonth.')/'.$firstMonth.', 2) as `index`')
-                   ->groupBy('year', 'quarter')
-                   ->orderByRaw('`year` desc, `quarter` desc');
+    /**
+     * Get total cost by quarter.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function quarterCost($year, $quarter)
+    {
+        return self::selectRaw('month(created_at) as `month`, sum(price) as cost')
+                   ->whereRaw('quarter(created_at) = '.$quarter.' and year(created_at) = '.$year)
+                   ->groupBy('month')
+                   ->orderByRaw('month asc')
+                   ->get();
+    }
+
+    /**
+     * Get total by each quarter.
+     *
+     * @param int $year    year
+     * @param int $quarter quarter
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function quarters($year, $quarter)
+    {
+        return self::selectRaw('quarter(created_at) as `quarter`, year(created_at) as year, sum(price) as cost')
+            ->whereRaw('year(created_at) >= '.max($year-2, 2016))
+            ->groupBy('quarter', 'year')
+            ->orderByRaw('year asc', 'quarter asc')
+            ->get();
     }
 }

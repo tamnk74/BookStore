@@ -29,6 +29,7 @@ return [
     'daily_total_price' => 'Total price',
     'daily_import_no' => 'No',
     'daily_price' => 'Total price',
+    'daily_book_total_price' => 'Total price',
     'daily_title_top_book' => 'Top 5 books',
 
     'monthly_statistic' => 'Monthly Statistic',
