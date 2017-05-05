@@ -10,14 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//front-end page
 Route::name('homepage')->get('/', 'FrontEnd\HomeController@index');
 
 Route::name('contact')->get('/contact', 'FrontEnd\HomeController@contact');
 
 Route::name('show')->get('/show/{id}', 'FrontEnd\HomeController@show');
 Route::name('category')->get('/category/{id}', 'FrontEnd\HomeController@getBookByCategory');
-Route::name('book')->get('/book', 'FrontEnd\HomeController@listBook');
+Route::name('list-books')->get('/list-books', 'FrontEnd\HomeController@listBook');
 Route::get('search', 'FrontEnd\HomeController@searchBook');
 
 Route::get('/admin', 'HomeController@index');
@@ -27,6 +27,7 @@ Auth::routes();
 Route::get('search-book', 'BookController@searchBook');
 Route::get('get-book', 'BookController@getBook');
 
+//back-end page
 Route::group(['middleware' => 'auth'], function()
 {
     Route::get('/home', 'HomeController@index');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use App\Models\BillDetail;
 use App\Models\Category;
 use App\Repositories\AuthorRepository;
 use App\Repositories\BookRepository;
@@ -11,6 +12,7 @@ use App\Repositories\TypeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
 
 class HomeController extends Controller
@@ -44,10 +46,17 @@ class HomeController extends Controller
  */
     public function index(Request $request)
     {
-        $books = $this->bookRepository->paginate(8);
-        //dd($books);
-        return view('home.index')
-            ->with('books', $books);
+        $newBooks = Book::orderByRaw('created_at desc')->paginate(8);
+        $topBooks = BillDetail::where('created_at','>', '(NOW() - INTERVAL 1 MONTH)')
+                ->selectRaw('book_id, sum(amount) as total')
+                ->groupBy('book_id')
+                ->orderBy('total', 'asc')
+                ->paginate(8);
+        $bestSellerBooks = BillDetail::selectRaw('book_id, sum(amount) as total')
+            ->groupBy('book_id')
+            ->orderBy('total', 'asc')
+            ->paginate(8);
+        return view('home.index', compact('newBooks', 'topBooks', 'bestSellerBooks'));
     }
 
     /**
@@ -107,7 +116,7 @@ class HomeController extends Controller
         $categories = Category::take(20)->get();
         //Search form
         $total = Book::where('category_id', $id)->count();
-        $books = Book::where('category_id', $id)->paginate(1);
+        $books = Book::where('category_id', $id)->paginate(9);
         return view('home.books', compact('books', 'categories', 'total'));
     }
 

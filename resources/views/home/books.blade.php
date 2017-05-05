@@ -1,12 +1,12 @@
 @extends('home.layouts.app')
 @section('content')
 	<div class="products-agileinfo">
-		<h2 class="tittle">ALL BOOKS</h2>
+		<h2 class="tittle">Tất cả sách</h2>
 					<div class="container">
 						<div class="product-agileinfo-grids w3l">
 							<div class="col-md-3 product-agileinfo-grid">
 								<div class="categories">
-									<h3>Categories</h3>
+									<h3>Thể loại sách</h3>
 									<ul class="tree-list-pad">
 										@foreach($categories as $category)
 											<li>
@@ -18,7 +18,7 @@
 							</div>
 							<div class="col-md-9 product-agileinfon-grid1 w3l">
 								<div class="mens-toolbar">
-									<p >Showing {{count($books)}} books of {{ $total }} results</p>
+									<p >Hiển thị {{count($books)}} cuốn sách của {{ $total }} kết quả</p>
 									<div class="clearfix"></div>
 								</div>
 								<div class="product-tab">

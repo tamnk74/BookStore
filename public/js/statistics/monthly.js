@@ -37,7 +37,7 @@ $(function () {
     }());
 
 // Build the chart
-    Highcharts.chart('catagory', {
+    var cateChart = Highcharts.chart('catagory', {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -117,8 +117,11 @@ $(function () {
                 data: data_imports
             }]
     });
-    $('#turnover').click(function () {
-        chart.reflow();
+    $('#sale-tab').click(function () {
+        $('#turnover').highcharts().reflow();
+    });
+    $('#cate-chart').click(function () {
+        cateChart.reflow();
     });
 
 

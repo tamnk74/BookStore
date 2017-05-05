@@ -2,9 +2,16 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            @lang('books.label_create_book')
-        </h1>
+        <div class="row">
+            <div class="col-md-10">
+                <h1>
+                    @lang('books.label_create_book')
+                </h1>
+            </div>
+            <div class="col-md-2">
+                <a href="{{route('books.file')}}" class="btn btn-primary pull-right">@lang('buttons.btn_add_file')</a>
+            </div>
+        </div>
     </section>
     <div class="content">
         @include('adminlte-templates::common.errors')

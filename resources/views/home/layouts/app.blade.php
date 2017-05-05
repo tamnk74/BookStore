@@ -102,7 +102,7 @@
 <!--mycart-->
 <script type="text/javascript" src="{{ asset('frontend/js/bootstrap-3.1.1.min.js')}}"></script>
 <!-- select2 -->
-<script src="{{ asset('dist/css/alt/AdminLTE-select2.min.css')}}"></script>
+<script src="{{ asset('plugins/select2/select2.full.min.js')}}"></script>
 <!-- cart -->
 <script src="{{asset('frontend/js/simpleCart.min.js')}}"></script>
 <!-- cart -->

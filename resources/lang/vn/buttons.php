@@ -20,5 +20,6 @@ return [
     'btn_edit' => 'Chỉnh sửa',
     'btn_remove' => 'Xóa',
     'btn_import' => 'Nhập dữ liệu',
+    'btn_add_file' => 'Nhập từ file',
     'btn_dowload_excel' => 'Tải về file excel',
 ];

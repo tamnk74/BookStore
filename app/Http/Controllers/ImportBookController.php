@@ -106,39 +106,43 @@ class ImportBookController extends AppBaseController
 	{
         //dd($request);
 		if($request->hasFile('import_file')){
-            
-			$path = $request->file('import_file')->getRealPath();
+            try {
+                $path = $request->file('import_file')->getRealPath();
 
-			$data = Excel::load($path, function($reader) {})->get();
-           
-			if(!empty($data) && $data->count()){
-                $date = \Carbon\Carbon::today()->format('Y-m-d');
-				foreach ($data->toArray() as $key => $value) {
-					if(!empty($value)){
-                        //Get supplier
-                        $value['supplier'] = trim($value['supplier']);
-                        $supplier = Supplier::where('name', $value['supplier'])->first();
-                        if($supplier == null) $supplier = Supplier::create(['name' => $value['supplier']]);
+                $data = Excel::load($path, function ($reader) {
+                })->get();
 
-                        //Get supplier
-                        $value['book_name'] = trim($value['book_name']);
-                        $book = Book::where('name', $value['book_name'])->first();
-                        if($book == null) $book = Book::create(['name' => $value['book_name']]);
+                if (!empty($data) && $data->count()) {
+                    $date = \Carbon\Carbon::today()->format('Y-m-d');
+                    foreach ($data->toArray() as $key => $value) {
+                        if (!empty($value)) {
+                            //Get supplier
+                            $value['supplier'] = trim($value['supplier']);
+                            $supplier = Supplier::where('name', $value['supplier'])->first();
+                            if ($supplier == null) $supplier = Supplier::create(['name' => $value['supplier']]);
 
-                      $insert[] = ['user_id' => Auth::user()->id, 'book_id' => $book->id, 'supplier_id' => $supplier->id,
-                          'amount' => $value['amount'], 'price' => $value['price'], 'date' => $date];
+                            //Get supplier
+                            $value['book_name'] = trim($value['book_name']);
+                            $book = Book::where('name', $value['book_name'])->first();
+                            if ($book == null) $book = Book::create(['name' => $value['book_name']]);
 
-					}
-				}
+                            $insert[] = ['user_id' => Auth::user()->id, 'book_id' => $book->id, 'supplier_id' => $supplier->id,
+                                'amount' => $value['amount'], 'price' => $value['price'], 'date' => $date];
 
-				if(!empty($insert)){
-                    foreach($insert as $input){
-                        $this->importBookRepository->create($input);
+                        }
                     }
-					return back()->with('success','Insert Record successfully.');
-				}
 
-			}
+                    if (!empty($insert)) {
+                        foreach ($insert as $input) {
+                            $this->importBookRepository->create($input);
+                        }
+                        return back()->with('success', 'Insert Record successfully.');
+                    }
+
+                }
+            }catch(\Exception $e){
+                return back()->with('error','Please Check your file, Something is wrong there.');
+            }
 		}
 		return back()->with('error','Please Check your file, Something is wrong there.');
 	}
@@ -181,23 +185,6 @@ class ImportBookController extends AppBaseController
 
         Flash::success('Import Book saved successfully.');
 
-        /*$books_id = $this->bookRepository->all()->pluck('id');
-        $suppliers_id = $this->supplierRepository->all()->pluck('id');
-        // Convert to timetamps
-        $min = strtotime('01 January 2016');
-        $max = strtotime('now');
-        $user_id = Auth::user()->id;
-        for($i=0; $i< 200; $i++){
-            $book_id = $books_id[rand(0, count($books_id)-1)];
-            $book = $this->bookRepository->find($book_id);
-            $amount = rand(1, 5)*10;
-            $price = $amount*($book->price*((100-$book->sale)/100)*90/100);
-            $supplier_id = $suppliers_id[rand(0, count($suppliers_id)-1)];
-            $created_at = date('Y-m-d H:i:s', rand($min, $max));
-            $updated_at = $created_at;
-
-            DB::table('import_books')->insert(compact('book_id', 'amount', 'price', 'supplier_id', 'user_id','created_at', 'updated_at'));
-        }*/
         return redirect(route('importBooks.index'));
     }
 

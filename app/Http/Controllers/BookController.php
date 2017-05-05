@@ -292,62 +292,66 @@ class BookController extends AppBaseController
     {
         //dd($request);
         if($request->hasFile('import_file')){
+            try {
+                $path = $request->file('import_file')->getRealPath();
 
-            $path = $request->file('import_file')->getRealPath();
+                $data = Excel::load($path, function ($reader) {
+                })->get();
 
-            $data = Excel::load($path, function($reader) {})->get();
+                if (!empty($data) && $data->count()) {
+                    $date = \Carbon\Carbon::today()->format('Y-m-d');
+                    foreach ($data->toArray() as $key => $value) {
+                        if (!empty($value)) {
+                            //Get author
+                            if (trim($value['name']) == '' || trim($value['name']) == null) continue;
+                            $value['author'] = trim($value['author']);
+                            $author = Author::where('name', $value['author'])->first();
+                            if ($author == null) $author = Author::create(['name' => $value['author']]);
 
-            if(!empty($data) && $data->count()){
-                $date = \Carbon\Carbon::today()->format('Y-m-d');
-                foreach ($data->toArray() as $key => $value) {
-                    if(!empty($value)){
-                        //Get author
-                        if(trim($value['name']) == '' || trim($value['name']) == null) continue;
-                        $value['author'] = trim($value['author']);
-                        $author = Author::where('name', $value['author'])->first();
-                        if($author == null) $author = Author::create(['name' => $value['author']]);
+                            //Get publisher
+                            $value['publisher'] = trim($value['publisher']);
+                            $publisher = Publisher::where('name', $value['publisher'])->first();
+                            if ($publisher == null) $publisher = Publisher::create(['name' => $value['publisher']]);
 
-                        //Get publisher
-                        $value['publisher'] = trim($value['publisher']);
-                        $publisher = Publisher::where('name', $value['publisher'])->first();
-                        if($publisher == null) $publisher = Publisher::create(['name' => $value['publisher']]);
+                            //Get issuer
+                            $value['issuer'] = trim($value['issuer']);
+                            $issuer = Issuer::where('name', $value['issuer'])->first();
+                            if ($issuer == null) $issuer = Issuer::create(['name' => $value['issuer']]);
 
-                        //Get issuer
-                        $value['issuer'] = trim($value['issuer']);
-                        $issuer = Issuer::where('name', $value['issuer'])->first();
-                        if($issuer == null) $issuer = Issuer::create(['name' => $value['issuer']]);
+                            //Get language
+                            $value['language'] = trim($value['language']);
+                            $language = Language::where('name', $value['language'])->first();
+                            if ($language == null) $language = Language::create(['name' => $value['language']]);
 
-                        //Get language
-                        $value['language'] = trim($value['language']);
-                        $language = Language::where('name', $value['language'])->first();
-                        if($language == null) $language = Language::create(['name' => $value['language']]);
+                            //Get category
+                            $value['category'] = trim($value['category']);
+                            $category = Category::where('name', $value['category'])->first();
+                            if ($category == null) $category = Category::create(['name' => $value['category']]);
 
-                        //Get category
-                        $value['category'] = trim($value['category']);
-                        $category = Category::where('name', $value['category'])->first();
-                        if($category == null) $category = Category::create(['name' => $value['category']]);
+                            //Get type
+                            $value['type'] = trim($value['type']);
+                            $type = Type::where('name', $value['type'])->first();
+                            if ($type == null) $type = Type::create(['name' => $value['type']]);
 
-                        //Get type
-                        $value['type'] = trim($value['type']);
-                        $type = Type::where('name', $value['type'])->first();
-                        if($type == null) $type = Type::create(['name' => $value['type']]);
-
-                        $insert[] = ['name' => trim($value['name']), 'author_id' => $author->id, 'publisher_id' => $publisher->id,
-                            'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'],
-                            'front_cover' => $value['front_cover'], 'back_cover' => $value['back_cover'],'price' => $value['price'],
-                            'publishing_year' => $value['publishing_year'], 'page' => $value['page'], 'sale' => $value['sale'],
-                            'weight' => $value['weight'], 'language_id' => $language->id, 'category_id' => $category->id,
-                            'type_id' => $type->id, ];
+                            $insert[] = ['name' => trim($value['name']), 'author_id' => $author->id, 'publisher_id' => $publisher->id,
+                                'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'],
+                                'front_cover' => $value['front_cover'], 'back_cover' => $value['back_cover'], 'price' => $value['price'],
+                                'publishing_year' => $value['publishing_year'], 'page' => $value['page'], 'sale' => $value['sale'],
+                                'weight' => $value['weight'], 'language_id' => $language->id, 'category_id' => $category->id,
+                                'type_id' => $type->id,];
+                        }
                     }
-                }
 
-                if(!empty($insert)){
-                    foreach($insert as $input){
-                        $this->bookRepository->create($input);
+                    if (!empty($insert)) {
+                        foreach ($insert as $input) {
+                            $this->bookRepository->create($input);
+                        }
+                        return back()->with('success', 'Inserted ' . count($insert) . ' records successfully.');
                     }
-                    return back()->with('success','Inserted '.count($insert).' records successfully.');
-                }
 
+                }
+            }catch(\Exception $e){
+                return back()->with('error','Please Check your file, Something is wrong there.');
             }
         }
         return back()->with('error','Please Check your file, Something is wrong there.');

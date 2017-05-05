@@ -14,7 +14,10 @@ return [
     */
 
     'app_title' => 'Nhà sách Đà Nẵng',
+    'book' => 'Sách',
     'app_home' => 'Trang chủ',
+    'contact' => 'Liên hệ',
+    'books' => 'Sách',
     'app_login' => 'Đăng nhập',
     'app_register' => 'Đăng kí',
     'menu_book_management' => 'Quản lí sách',

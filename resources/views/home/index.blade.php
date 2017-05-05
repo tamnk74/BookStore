@@ -5,10 +5,11 @@
 <!--new-arrivals-->
 <div class="new-arrivals-w3agile">
 	<div class="container">
-		<h2 class="tittle">Top Hot Books</h2>
+		<h2 class="tittle">Sách bán chạy trong tháng</h2>
 		<div class="arrivals-grids">
 			<div class="row">
-				@foreach($books as $book)
+				@foreach($topBooks as $book)
+                    <?php $book = $book->book;?>
 					@if($loop->iteration %4 ==1 && $loop->iteration>1 )
 					</div>
 					<div class="row">
@@ -29,13 +30,19 @@
 					</div>
 					@if($book->sale>0)
 						<div class="ribben1">
-							<p>SALE {{ $book->sale }}%</p>
+							<p>Sale {{ $book->sale }}%</p>
 						</div>
 					@endif
 					<div class="book-info">
 						<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
 						<span class="size">{{$book->author->name}}</span>
-						<p><em class="item_price">{{$book->price.' VND'}}</em></p>
+						<p>
+							@if($book->sale > 0)
+								<del>{{$book->price.' VND'}}</del><em class="item_price">{{($book->price*(100-$book->sale)/100).' VND'}}</em>
+							@else
+								<em class="item_price">{{$book->price.' VND'}}</em>
+							@endif
+						</p>
 					</div>
 				</div>
 			</div>
@@ -48,18 +55,17 @@
 <!--accessories-->
 <div class="accessories-w3l">
 	<div class="container">
-		<h3 class="tittle">20% Discount on</h3>
-		<span>REFERENCE BOOKS</span>
+		<span>Nhà sách đang giảm giá nhiều loại sách</span>
 	</div>
 </div>
 <!--accessories-->
 <!--Products-->
 <div class="product-agile">
 	<div class="container">
-		<h3 class="tittle1"> New Books</h3>
+		<h3 class="tittle1">Sách mới nhập về</h3>
 		<div class="arrivals-grids">
 			<div class="row">
-				@foreach($books as $book)
+				@foreach($newBooks as $book)
 					@if($loop->iteration %4 ==1 && $loop->iteration>1 )
 			</div>
 			<div class="row">
@@ -86,7 +92,13 @@
 						<div class="book-info">
 							<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
 							<span class="size">{{$book->author->name}}</span>
-							<p><em class="item_price">{{$book->price.' VND'}}</em></p>
+							<p>
+								@if($book->sale > 0)
+									<del>{{$book->price.' VND'}}</del><em class="item_price">{{($book->price*(100-$book->sale)/100).' VND'}}</em>
+								@else
+									<em class="item_price">{{$book->price.' VND'}}</em>
+								@endif
+							</p>
 						</div>
 					</div>
 				</div>
@@ -99,10 +111,11 @@
 
 <div class="new-arrivals-w3agile">
 	<div class="container">
-		<h3 class="tittle1">Best Sellers</h3>
+		<h3 class="tittle1">Sách bán chạy</h3>
 		<div class="arrivals-grids">
 			<div class="row">
-				@foreach($books as $book)
+				@foreach($bestSellerBooks as $book)
+					<?php $book = $book->book;?>
 					@if($loop->iteration %4 ==1 && $loop->iteration>1 )
 			</div>
 			<div class="row">
@@ -129,7 +142,13 @@
 						<div class="book-info">
 							<h6><a href="{{route('show', ['id'=>$book->id])}}">{{$book->name}}</a></h6>
 							<span class="size">{{$book->author->name}}</span>
-							<p><em class="item_price">{{$book->price.' VND'}}</em></p>
+							<p>
+								@if($book->sale > 0)
+									<del>{{$book->price.' VND'}}</del><em class="item_price">{{($book->price*(100-$book->sale)/100).' VND'}}</em>
+								@else
+									<em class="item_price">{{$book->price.' VND'}}</em>
+								@endif
+							</p>
 						</div>
 					</div>
 				</div>
