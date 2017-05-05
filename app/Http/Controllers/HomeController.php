@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
+use App\Models\User;
+use App\Models\ImportBook;
+use App\Models\BillDetail;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $numberOfBooks = Book::count();
+        $numberOfSelledBooks = BillDetail::sum('amount');
+        $numberOfImportBooks = ImportBook::sum('amount');
+        $numberOfUsers = User::count()-1;
+        return view('home', compact('numberOfBooks', 'numberOfSelledBooks', 'numberOfImportBooks', 'numberOfUsers'));
     }
 }

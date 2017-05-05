@@ -18,3 +18,4 @@
     @endforeach
     </tbody>
 </table>
+<div class="text-center">{{ $stores->links() }}</div>

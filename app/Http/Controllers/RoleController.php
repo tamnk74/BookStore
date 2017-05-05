@@ -141,11 +141,10 @@ class RoleController extends AppBaseController
 
         $role = $this->roleRepository->update($request->all(), $id);
 
-        PermissionRole::where("permission_role.role_id",$id)
-            ->delete();
+
 
         foreach ($request->input('permission') as $key => $value) {
-            $role->attachPermission($value);
+            $role->sync($value);
         }
         
         Flash::success('Role updated successfully.');

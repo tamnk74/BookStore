@@ -334,10 +334,10 @@ class BookController extends AppBaseController
                             if ($type == null) $type = Type::create(['name' => $value['type']]);
 
                             $insert[] = ['name' => trim($value['name']), 'author_id' => $author->id, 'publisher_id' => $publisher->id,
-                                'issuer_id' => $issuer->id, 'description' => $value['description'], 'size' => $value['size'],
-                                'front_cover' => $value['front_cover'], 'back_cover' => $value['back_cover'], 'price' => $value['price'],
-                                'publishing_year' => $value['publishing_year'], 'page' => $value['page'], 'sale' => $value['sale'],
-                                'weight' => $value['weight'], 'language_id' => $language->id, 'category_id' => $category->id,
+                                'issuer_id' => $issuer->id, 'description' => trim($value['description']), 'size' => $value['size'],
+                                'front_cover' => $value['front_cover'], 'back_cover' => $value['back_cover'], 'price' => floatval($value['price']),
+                                'publishing_year' => intval($value['publishing_year']), 'page' => intval($value['page']), 'sale' => intval($value['sale']),
+                                'weight' => intval($value['weight']), 'language_id' => $language->id, 'category_id' => $category->id,
                                 'type_id' => $type->id,];
                         }
                     }

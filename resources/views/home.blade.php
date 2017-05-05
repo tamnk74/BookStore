@@ -20,8 +20,8 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-book"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Books</span>
-                    <span class="info-box-number">41,410</span>
+                    <span class="info-box-text">Sách</span>
+                    <span class="info-box-number">{{ $numberOfBooks }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -37,8 +37,21 @@
                 <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Sales</span>
-                    <span class="info-box-number">760</span>
+                    <span class="info-box-text">Sách đã nhập</span>
+                    <span class="info-box-number">{{ $numberOfImportBooks }}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Sách đã bán</span>
+                    <span class="info-box-number">{{ $numberOfSelledBooks }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -50,8 +63,8 @@
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Members</span>
-                    <span class="info-box-number">10</span>
+                    <span class="info-box-text">Thành viên</span>
+                    <span class="info-box-number">{{ $numberOfUsers }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
