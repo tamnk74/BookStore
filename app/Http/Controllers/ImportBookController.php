@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Book;
 use App\Models\ImportBook;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ImportBookController extends AppBaseController
 {
@@ -81,18 +82,42 @@ class ImportBookController extends AppBaseController
      */
 	public function downloadExcel(Request $request)
 	{
-        $data = ImportBook::leftjoin('suppliers','suppliers.id', '=', 'import_books.supplier_id')
+	    $date = Carbon::now();
+	    if($request->has('date')) $date = $request->input('date');
+        $import = ImportBook::leftjoin('suppliers','suppliers.id', '=', 'import_books.supplier_id')
                     ->leftjoin('books','books.id', '=', 'import_books.book_id')
-                    ->select('books.name AS book_name', 'suppliers.name AS supplier', 'amount',
-                        'import_books.price AS price', 'import_books.created_at AS date')
-                    ->get()->toArray();
+                    ->where('import_books.created_at', $date)
+                    ->select('books.name AS Tên sách', 'suppliers.name AS Nhà cung cấp', 'amount AS Số lượng',
+                        'import_books.price AS Giá cả(VND)', 'import_books.created_at AS Ngày nhập')
+                    ->get();
+        $data= $import->toArray();
+        for($i =0; $i< count($data); $i++){
+            $data[$i] =  ['STT' => $i+1] + $data[$i];
+        }
+        array_push($data, ['', 'Danh sách các đợt nhập sách ngày '.$date]);
+        array_push($data, ['', 'Tổng sô sách: ', $import->sum('Số lượng').' cuốn sách']);
+        array_push($data, ['', 'Tổng chi phí: ', $import->sum('Giá cả(VND)').' VND']);
+
+
+        //dd($data);
         /*for($i=0; $i < count($data); $i++){
             $data[$i] = array_except($data[$i], ['user_id', 'created_at', 'updated_at', 'deleted_at']);
         }*/
 		return Excel::create('danh_sach_nhap_sach', function($excel) use ($data) {
-			$excel->sheet('mySheet', function($sheet) use ($data)
+
+            $excel->sheet('mySheet', function($sheet) use ($data)
 	        {
 				$sheet->fromArray($data);
+                // Set black background
+                $sheet->row(1, function($row) {
+                    // call cell manipulation methods
+                    $row->setBackground('#1ad1ff');
+                    $row->setFontSize(16);
+                    $row->setFontWeight('bold');
+                });
+                $sheet->row(count($data)-1, function($row) {
+                    $row->setFontWeight('bold');
+                });
 	        });
 		})->download('xlsx');
 	}

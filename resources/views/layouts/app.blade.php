@@ -58,19 +58,19 @@
                                          class="img-circle" alt="User Image"/>
                                     <p>
                                         {!! Auth::user()->name !!}
-                                        <small>Member since {!! Auth::user()->created_at !!}</small>
+                                        <small>Thành viên từ ngày {!! Auth::user()->created_at !!}</small>
                                     </p>
 
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="{{route('profiles.index')}}" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="{{route('profiles.index')}}" class="btn btn-default btn-flat">Tài khoản cá nhân</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Sign out
+                                            Đăng xuất
                                         </a>
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}

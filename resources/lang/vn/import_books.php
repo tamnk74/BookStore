@@ -17,6 +17,7 @@ return [
     'label_import_book_update' => 'Cập nhật nhập sách',
     'label_import_book_file' => 'Nhập sách từ file',
     'label_select_file' => 'Chọn file nhập sách',
+    'label_select_date' => 'Chọn ngày nhập sách',
     'label_export_file' => 'Xuất dữ liệu ra excel',
     'label_select_book' => 'Chọn sách',
     'label_no' => 'STT',

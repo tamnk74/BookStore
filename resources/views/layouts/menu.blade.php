@@ -98,12 +98,14 @@
         <li class="{{ Request::is('users*') ? 'active' : '' }}">
             <a href="{{ route('users.index') }}"><i class="fa fa-users"></i><span>@lang('layouts.menu_users')</span></a>
         </li>
+        @permission('role-manager')
         <li class="{{ Request::is('roles*') ? 'active' : '' }}">
             <a href="{{ route('roles.index') }}"><i class="fa fa-user-md"></i><span>@lang('layouts.menu_roles')</span></a>
         </li>
         <li class="{{ Request::is('permissions*') ? 'active' : '' }}">
             <a href="{{ route('permissions.index') }}"><i class="fa fa-hand-o-right"></i><span>@lang('layouts.menu_permissions')</span></a>
         </li>
+        @endpermission
     </ul>
 </li>
 @endpermission

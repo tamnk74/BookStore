@@ -22,7 +22,7 @@
 						{{ Session::get('error') }}
 					</div>
 				@endif
-
+                    <h3>@lang('import_books.label_import_book_file')</h3>
                 <div class="row" style="margin-left: 10px">
                     {!! Form::open(['route' => 'import_books.import', 'class' => 'form-inline', 'files'=> true]) !!}
                         <div class="form-group">
@@ -33,11 +33,15 @@
                     {!! Form::close() !!}
                 </div>
                 <h3>@lang('import_books.label_export_file')</h3>
-                <div style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 20px;">
-					<a href="{{ route('import_books.export') }}">
-                        <button class="btn btn-success btn-lg">@lang('buttons.btn_dowload_excel')</button>
-                    </a>
-		    	</div>
+                <div class="row" style="margin-left: 10px">
+                    {!! Form::open(['route' => 'import_books.export', 'class' => 'form-inline', 'method' => 'GET']) !!}
+                    <div class="form-group">
+                        <label for="import_file">@lang('import_books.label_select_date')</label>
+                        <input type="date" class="form-control" id="date" name="date">{{ csrf_field() }}
+                    </div>
+                    <button type="submit" class="btn btn-success">@lang('buttons.btn_dowload_excel')</button>
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
     </div>
