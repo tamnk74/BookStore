@@ -17,11 +17,11 @@
 </div>
 
 <div class="form-group col-sm-6 col-sm-offset-1">
-        {!! Form::label('permission', __('roles.label_permission')) !!}
+        {!! Form::label('permissions', __('roles.label_permission')) !!}
         <div class="row">
-            @foreach($permission as $value)
+            @foreach($permissions as $value)
                 <div class=" col-sm-6 col-md-6 col-xs-6">
-                    <label>{{ Form::checkbox('permission[]', $value->id, (!isset($rolePermissions) || !in_array($value->id, $rolePermissions) )? false : true, array('class' => 'name')) }}
+                    <label>{{ Form::checkbox('permissions[]', $value->id, (!isset($rolePermissions) || !in_array($value->id, $rolePermissions) )? false : true, array('class' => 'name')) }}
                     {{ $value->display_name }}</label>
                 </div>
             @endforeach

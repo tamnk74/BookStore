@@ -1,5 +1,6 @@
 <table class="table table-responsive" id="books-table">
     <thead>
+        <th>@lang('books.label_book_no')</th>
         <th>@lang('books.label_book_name')</th>
         <th>@lang('books.label_book_author')</th>
         <th>@lang('books.label_book_publisher')</th>
@@ -13,7 +14,8 @@
     <tbody>
     @foreach($books as $book)
         <tr>
-            <td>{{ $book->name }}</td>
+            <td>{{ $loop->iteration }}</td>
+            <td style="width: 25%">{{ $book->name }}</td>
             <td>{{ $book->author->name }}</td>
             <td>{{ $book->publisher->name }}</td>
             <td>{{ $book->price }} VND</td>

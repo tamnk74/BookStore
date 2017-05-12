@@ -15,6 +15,7 @@ return [
 
     'label_create_book' => 'Thêm mới sách',
     'label_update_book' => 'Cập nhật sách',
+    'label_book_no' => 'STT',
     'label_book_id' => 'Mã sách',
     'label_book_name' => 'Tên sách',
     'label_book_author' => 'Tác giả',
@@ -34,9 +35,10 @@ return [
     'label_book_page' => 'Số trang',
     'label_page' => 'Số trang',
     'label_book_sale' => 'Giảm giá',
+    'search_results' => 'Hiển thị :count sách của :total kết quả',
     'delete_confirm' => 'Bạn có chắc muốn xóa?',
     'btn_add_new' => 'Thêm mới',
     'list_book' => 'Danh sách sách',
     'label_book_detail' => 'Chi tiết sách',
-    'enter_name' => 'Nhập tên sách',
+    'enter_name' => 'Nhập tên sách, tác giả',
 ];

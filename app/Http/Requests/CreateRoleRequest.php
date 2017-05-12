@@ -29,7 +29,7 @@ class CreateRoleRequest extends FormRequest
             'name' => 'required|unique:roles,name',
             'display_name' => 'required',
             'description' => 'required',
-            'permission' => 'required'
+            'permissions' => 'required'
         );
     }
 }

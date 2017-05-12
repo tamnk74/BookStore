@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
+use App\Models\Category;
+use App\Models\Book;
+use App\Models\Store;
 use App\Repositories\StoreRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -30,10 +33,28 @@ class StoreController extends AppBaseController
     public function index(Request $request)
     {
         $this->storeRepository->pushCriteria(new RequestCriteria($request));
-        $stores = $this->storeRepository->paginate(20);
-
-        return view('stores.index')
-            ->with('stores', $stores);
+        $categories = [null => 'Tất cả'];
+        $key = '';
+        $category_id = null;
+        foreach(Category::all()->pluck('name','id') as $id => $name) {
+            $categories[$id] = $name;
+        }
+        //Search form
+        $stores = Store::leftjoin('books', 'books.id', 'book_id')
+                ->leftjoin('authors', 'authors.id', 'author_id');
+        $category_id = $request->input('category_id');
+        $key = $request->input('key');
+        $stores = $stores->where(function($query) use ($key, $category_id){
+            $query->where('books.name','like', '%'.$key.'%');
+            if($category_id != null) $query->where('category_id', $category_id);
+        })
+            ->orWhere(function($query) use ($key, $category_id){
+                $query->where('authors.name','like', '%'.$key.'%');
+                if($category_id != null) $query->where('category_id', $category_id);
+            })
+            ->select('stores.*')->paginate(15);
+        //dd(DB::getQueryLog());
+        return view('stores.index', compact('stores', 'key', 'categories', 'category_id'));
     }
 
     /**

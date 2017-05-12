@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function()
         Route::get('books/create/file', 'BookController@create_file')->name('books.file');
         Route::get('books/download/excel', 'BookController@downloadExcel')->name('books.export');
         Route::post('books/import/excel', 'BookController@importExcel')->name('books.import');
+        Route::post('books/updateSale', 'BookController@updateSale')->name('books.updateSale');
 
     });
 

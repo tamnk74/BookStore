@@ -29,7 +29,7 @@ class UpdateRoleRequest extends FormRequest
                 'name' => 'required',
                 'display_name' => 'required',
                 'description' => 'required',
-                'permission' => 'required'
+                'permissions' => 'required'
             );
     }
 }

@@ -16,8 +16,12 @@ return [
     'label_no' => 'STT',
     'label_book_id' => 'Mã sách',
     'label_book_name' => 'Tên sách',
-    'label_book_number' => 'Số lượng sách hiện có',
-    'label_book_total_number' => 'Số lượng sách đã nhập',
+    'label_book_author' => 'Tác giả',
+    'label_book_category' => 'Thể loại',
+    'label_book_sale' => 'Giảm giá',
+    'label_book_price' => 'Giá bìa',
+    'label_book_number' => 'Sách hiện có',
+    'label_book_total_number' => 'Sách đã nhập',
 
 
 ];

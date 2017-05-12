@@ -47,8 +47,8 @@ class RoleController extends AppBaseController
      */
     public function create()
     {
-        $permission = Permission::get();
-        return view('roles.create', compact('permission'));
+        $permissios = Permission::get();
+        return view('roles.create', compact('permissions'));
     }
 
     /**
@@ -64,7 +64,7 @@ class RoleController extends AppBaseController
 
         $role = $this->roleRepository->create($input);
 
-        foreach ($request->input('permission') as $key => $value) {
+        foreach ($request->input('permissions') as $key => $value) {
             $role->attachPermission($value);
         }
 
@@ -113,12 +113,12 @@ class RoleController extends AppBaseController
             return redirect(route('roles.index'));
         }
 
-        $permission = Permission::get();
+        $permissions = Permission::get();
 
         $rolePermissions = PermissionRole::where("permission_role.role_id",$id)
             ->get()->pluck('permission_id')->toArray();
 
-        return view('roles.edit',compact('role','permission','rolePermissions'));
+        return view('roles.edit',compact('role','permissions','rolePermissions'));
     }
 
     /**
@@ -141,10 +141,8 @@ class RoleController extends AppBaseController
 
         $role = $this->roleRepository->update($request->all(), $id);
 
-
-
-        foreach ($request->input('permission') as $key => $value) {
-            $role->sync($value);
+        if($request->has('permissions')) {
+            $role->permissions()->sync($request->input('permissions'));
         }
         
         Flash::success('Role updated successfully.');

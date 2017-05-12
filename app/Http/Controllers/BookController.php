@@ -24,6 +24,7 @@ use Excel;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends AppBaseController
 {
@@ -63,17 +64,28 @@ class BookController extends AppBaseController
     public function index(Request $request)
     {
         $this->bookRepository->pushCriteria(new RequestCriteria($request));
-        //Search form
-        if ($request->has('key')) {
-            $key = $request->input('key');
-            $books = Book::where('name','like', '%'.$key.'%')->paginate(10);
-            return view('books.index')
-                ->with('books', $books)->with('key',$key);
-        } else {
-            $books = $this->bookRepository->paginate(10);
-            return view('books.index')
-                ->with('books', $books);
+        //DB::enableQueryLog();
+        $categories = [null => 'Tất cả'];
+        $key = '';
+        $category_id = null;
+        foreach($this->categoryRepository->all()->pluck('name','id') as $id => $name) {
+            $categories[$id] = $name;
         }
+        //Search form
+        $books = Book::leftjoin('authors', 'authors.id', 'author_id');
+        $category_id = $request->input('category_id');
+        $key = $request->input('key');
+        $books = $books->where(function($query) use ($key, $category_id){
+                            $query->where('books.name','like', '%'.$key.'%');
+                            if($category_id != null) $query->where('category_id', $category_id);
+                        })
+                        ->orWhere(function($query) use ($key, $category_id){
+                            $query->where('authors.name','like', '%'.$key.'%');
+                            if($category_id != null) $query->where('category_id', $category_id);
+                        })
+                        ->select('books.*')->paginate(10);
+        //dd(DB::getQueryLog());
+        return view('books.index', compact('books', 'key', 'categories', 'category_id'));
     }
 
     /**
@@ -230,6 +242,19 @@ class BookController extends AppBaseController
         return redirect(route('books.index'));
     }
 
+    public function updateSale(Request $request)
+    {
+        if($request->has('id') && $request->has('sale')){
+            $id = intval($request->input('id'));
+            $sale = intval($request->input('sale'));
+            $book = $this->bookRepository->find($id);
+            if($book == null) return $this->sendError(false);
+            if($sale < 0 || $sale > 100) return $this->sendError('Dữ liệu không hợp lệ!');
+            $book->update(['sale' => $sale]);
+            return $this->sendResponse($book, 'Updated book successfully');
+        }
+        else return $this->sendError('Dữ liệu không hợp lệ!');
+    }
     /**
      * Remove the specified Book from storage.
      *
