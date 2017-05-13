@@ -24,7 +24,7 @@ return [
     'label_email' => 'Email',
     'label_choose_book' => 'Chọn sách',
     'label_remove' => 'Xóa',
-    'label_bill_detail' => 'Chi tiết háo đơn',
+    'label_bill_detail' => 'Chi tiết hóa đơn',
     'select_book' => 'Hãy chọn một cuốn sách',
     'book_number' => 'Số lượng',
     'customer_name' => 'Khách hàng',

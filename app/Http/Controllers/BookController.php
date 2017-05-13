@@ -292,9 +292,10 @@ class BookController extends AppBaseController
             ->leftjoin('categories','categories.id', '=', 'books.category_id')
             ->leftjoin('languages','languages.id', '=', 'books.language_id')
             ->leftjoin('types','types.id', '=', 'books.type_id')
-            ->select('books.name AS name', 'authors.name AS author', 'publishers.name AS publisher',
-                'issuers.name AS issuer', 'size', 'page', 'weight', 'sale', 'price', 'front_cover', 'back_cover', 'publishing_year', 'languages.name AS language',
-                'categories.name AS category', 'types.name AS type', 'description')
+            ->select('books.name AS Tên sách', 'authors.name AS Tác giả', 'publishers.name AS Nhà xuất bản',
+                'issuers.name AS Nhà phát hành', 'size as Kích thước', 'page as Số trang', 'weight as Khối lượng',
+                'sale as Giảm giá', 'price as Giá bìa', 'front_cover as Bìa trước', 'back_cover as Bìa sau', 'publishing_year as Năm xuất bản', 'languages.name AS Ngôn ngữ',
+                'categories.name AS Chủ đề', 'types.name AS Thể loại', 'description AS Mô tả')
             ->get()->toArray();
         //$data = $this->bookRepository->all()->toArray();
 //        /*for($i=0; $i < count($data); $i++){
@@ -322,48 +323,70 @@ class BookController extends AppBaseController
 
                 $data = Excel::load($path, function ($reader) {
                 })->get();
-
+                //dd($data);
                 if (!empty($data) && $data->count()) {
                     $date = \Carbon\Carbon::today()->format('Y-m-d');
                     foreach ($data->toArray() as $key => $value) {
                         if (!empty($value)) {
+                            //Check book name
+
+                            if(!isset($value['ten_sach'])) continue;
+                            $bookName = trim($value['ten_sach']);
+                            if($this->bookRepository->findByField('name', $bookName)->first() != null) continue;
+
                             //Get author
-                            if (trim($value['name']) == '' || trim($value['name']) == null) continue;
-                            $value['author'] = trim($value['author']);
-                            $author = Author::where('name', $value['author'])->first();
-                            if ($author == null) $author = Author::create(['name' => $value['author']]);
+                            if (!isset($value['tac_gia']) || empty(trim($value['tac_gia']))) continue;
+                            $value['tac_gia'] = trim($value['tac_gia']);
+                            $author = Author::where('name', $value['tac_gia'])->first();
+                            if ($author == null) $author = Author::create(['name' => $value['tac_gia']]);
 
                             //Get publisher
-                            $value['publisher'] = trim($value['publisher']);
-                            $publisher = Publisher::where('name', $value['publisher'])->first();
-                            if ($publisher == null) $publisher = Publisher::create(['name' => $value['publisher']]);
+                            if (!isset($value['nha_xuat_ban']) || empty(trim($value['nha_xuat_ban']))) continue;
+                            $value['nha_xuat_ban'] = trim($value['nha_xuat_ban']);
+                            $publisher = Publisher::where('name', $value['nha_xuat_ban'])->first();
+                            if ($publisher == null) $publisher = Publisher::create(['name' => $value['nha_xuat_ban']]);
 
                             //Get issuer
-                            $value['issuer'] = trim($value['issuer']);
-                            $issuer = Issuer::where('name', $value['issuer'])->first();
-                            if ($issuer == null) $issuer = Issuer::create(['name' => $value['issuer']]);
+                            if (!isset($value['nha_phat_hanh']) || empty(trim($value['nha_phat_hanh']))) continue;
+                            $value['nha_phat_hanh'] = trim($value['nha_phat_hanh']);
+                            $issuer = Issuer::where('name', $value['nha_phat_hanh'])->first();
+                            if ($issuer == null) $issuer = Issuer::create(['name' => $value['nha_phat_hanh']]);
 
                             //Get language
-                            $value['language'] = trim($value['language']);
-                            $language = Language::where('name', $value['language'])->first();
-                            if ($language == null) $language = Language::create(['name' => $value['language']]);
+                            if (!isset($value['ngon_ngu']) || empty(trim($value['ngon_ngu']))) continue;
+                            $value['ngon_ngu'] = trim($value['ngon_ngu']);
+                            $language = Language::where('name', $value['ngon_ngu'])->first();
+                            if ($language == null) $language = Language::create(['name' => $value['ngon_ngu']]);
 
                             //Get category
-                            $value['category'] = trim($value['category']);
-                            $category = Category::where('name', $value['category'])->first();
-                            if ($category == null) $category = Category::create(['name' => $value['category']]);
+                            if (!isset($value['chu_de']) || empty(trim($value['chu_de']))) continue;
+                            $value['chu_de'] = trim($value['chu_de']);
+                            $category = Category::where('name', $value['chu_de'])->first();
+                            if ($category == null) $category = Category::create(['name' => $value['chu_de']]);
 
                             //Get type
-                            $value['type'] = trim($value['type']);
-                            $type = Type::where('name', $value['type'])->first();
-                            if ($type == null) $type = Type::create(['name' => $value['type']]);
+                            if (!isset($value['the_loai']) || empty(trim($value['the_loai']))) continue;
+                            $value['the_loai'] = trim($value['the_loai']);
+                            $type = Type::where('name', $value['the_loai'])->first();
+                            if ($type == null) $type = Type::create(['name' => $value['the_loai']]);
 
-                            $insert[] = ['name' => trim($value['name']), 'author_id' => $author->id, 'publisher_id' => $publisher->id,
-                                'issuer_id' => $issuer->id, 'description' => trim($value['description']), 'size' => $value['size'],
-                                'front_cover' => $value['front_cover'], 'back_cover' => $value['back_cover'], 'price' => floatval($value['price']),
-                                'publishing_year' => intval($value['publishing_year']), 'page' => intval($value['page']), 'sale' => intval($value['sale']),
-                                'weight' => intval($value['weight']), 'language_id' => $language->id, 'category_id' => $category->id,
+                            $description = isset($value['mo_ta']) ? trim($value['mo_ta']): '';
+                            $size = isset($value['kich_thuoc']) ? trim($value['kich_thuoc']): '';
+                            $front_cover = isset($value['bia_truoc']) ? trim($value['bia_truoc']): '';
+                            $back_cover = isset($value['bia_sau']) ? trim($value['bia_sau']): '';
+                            $price = isset($value['giavnd']) ? floatval($value['giavnd']): 0;
+                            $publishing_year = isset($value['nam_xuat_ban']) ? intval($value['nam_xuat_ban']): 0;
+                            $page = isset($value['so_trang']) ? intval($value['so_trang']): 0;
+                            $sale = isset($value['giam_gia']) ? intval($value['giam_gia']): 0;
+                            $weight = isset($value['khoi_luong']) ? intval($value['khoi_luong']): 0;
+
+                            $insert[] = ['name' => $bookName, 'author_id' => $author->id, 'publisher_id' => $publisher->id,
+                                'issuer_id' => $issuer->id, 'description' => $description, 'size' => $size,
+                                'front_cover' => $front_cover, 'back_cover' => $back_cover, 'price' => $price,
+                                'publishing_year' => $publishing_year, 'page' => $page, 'sale' => $sale,
+                                'weight' => $weight, 'language_id' => $language->id, 'category_id' => $category->id,
                                 'type_id' => $type->id,];
+
                         }
                     }
 
@@ -371,15 +394,17 @@ class BookController extends AppBaseController
                         foreach ($insert as $input) {
                             $this->bookRepository->create($input);
                         }
-                        return back()->with('success', 'Inserted ' . count($insert) . ' records successfully.');
+                        return back()->with('success', 'Thêm thành công ' . count($insert) . ' cuốn sách.');
+                    }else{
+                        return back()->with('error','Dữ liệu không đúng!.');
                     }
 
                 }
             }catch(\Exception $e){
-                return back()->with('error','Please Check your file, Something is wrong there.');
+                return back()->with('error','File sai định dạng.');
             }
         }
-        return back()->with('error','Please Check your file, Something is wrong there.');
+        return back()->with('error','Không tìm thấy file');
     }
 
     public function searchBook(Request $request){
