@@ -129,47 +129,50 @@ class ImportBookController extends AppBaseController
      */
 	public function importExcel(Request $request)
 	{
-        //dd($request);
 		if($request->hasFile('import_file')){
             try {
                 $path = $request->file('import_file')->getRealPath();
 
                 $data = Excel::load($path, function ($reader) {
                 })->get();
-
+                //dd($data->toArray());
                 if (!empty($data) && $data->count()) {
                     $date = \Carbon\Carbon::today()->format('Y-m-d');
                     foreach ($data->toArray() as $key => $value) {
                         if (!empty($value)) {
                             //Get supplier
-                            $value['supplier'] = trim($value['supplier']);
-                            $supplier = Supplier::where('name', $value['supplier'])->first();
-                            if ($supplier == null) $supplier = Supplier::create(['name' => $value['supplier']]);
+                            $supplierName = trim($value['nha_cung_cap']);
+                            if(empty($supplierName)) continue;
+                            $supplier = Supplier::where('name', $supplierName)->first();
+                            if ($supplier == null) $supplier = Supplier::create(['name' => $supplierName]);
 
-                            //Get supplier
-                            $value['book_name'] = trim($value['book_name']);
-                            $book = Book::where('name', $value['book_name'])->first();
-                            if ($book == null) $book = Book::create(['name' => $value['book_name']]);
+                            //Get book
+                            $bookName = trim($value['ten_sach']);
+                            if(empty($bookName)) continue;
+                            $book = Book::where('name', $bookName)->first();
+                            if ($book == null) continue;
+
+                            if(!isset($value['so_luong']) || !isset($value['gia_cavnd'])) continue;
 
                             $insert[] = ['user_id' => Auth::user()->id, 'book_id' => $book->id, 'supplier_id' => $supplier->id,
-                                'amount' => $value['amount'], 'price' => $value['price'], 'date' => $date];
-
+                                'amount' => intval($value['so_luong']), 'price' => intval($value['gia_cavnd']), 'date' => $date];
                         }
                     }
-
                     if (!empty($insert)) {
+                        $sum = 0;
                         foreach ($insert as $input) {
                             $this->importBookRepository->create($input);
+                            $sum += $input['amount'];
                         }
-                        return back()->with('success', 'Insert Record successfully.');
+                        return back()->with('success', 'Nhập thành công '.count($insert).' đợt sách(bao gồm '.$sum.' cuốn sách)!');
                     }
 
                 }
             }catch(\Exception $e){
-                return back()->with('error','Please Check your file, Something is wrong there.');
+                return back()->with('error','File nhập vào không đúng định dạng');
             }
 		}
-		return back()->with('error','Please Check your file, Something is wrong there.');
+		return back()->with('error','File nhập vào không đúng');
 	}
 
 

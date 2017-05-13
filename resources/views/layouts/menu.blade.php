@@ -1,7 +1,7 @@
 @permission('import-book')
 <li class="treeview {{ Request::is('importBooks*') ? 'active' : '' }}">
     <a href="#">
-        <i class="fa fa-upload"></i>
+        <i class="fa fa-download"></i>
         <span>@lang('layouts.menu_import_book')</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
