@@ -52,9 +52,11 @@
 									<p><span class="price item_price">@lang('homepages.cover_price'):</span> <del>{{ $book->price }} VND</del><span class="price item_price">{{ $book->price*(100-$book->sale)/100 }} VND</span></p>
 								@endif
 							</div>
+							<br>
 							<div>
-								<p></p>
+								<h4>Tình trạng: {!! $book->store->amount == 0 ? '<label class="label label-danger"><b>hết hàng</b></label>' : '<label class="label label-info"><b>còn hàng</b></label>' !!}</h4>
 							</div>
+							<br>
 							<div class="description">
 								<p><span>Quick Overview : </span>{{ \Illuminate\Support\Str::words(strip_tags($book->description), 50, '...') }}</p>
 							</div>

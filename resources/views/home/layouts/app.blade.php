@@ -37,9 +37,6 @@
                 <div class="core-slider_viewport">
                     <div class="core-slider_list">
                         <div class="core-slider_item">
-                            <img src="{{asset('frontend/images/b1.jpg')}}">
-                        </div>
-                        <div class="core-slider_item">
                             <img src="{{asset('frontend/images/b2.jpg')}}">
                         </div>
                         <div class="core-slider_item">

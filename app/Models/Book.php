@@ -111,4 +111,10 @@ class Book extends Model
     {
         return $this->belongsTo(Type::class, 'type_id');
     }
+
+    public function store()
+    {
+        return $this->hasOne(Store::class, 'book_id');
+    }
+
 }
