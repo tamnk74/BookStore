@@ -49,7 +49,7 @@ class BillController extends AppBaseController
     public function index(Request $request)
     {
         $this->billRepository->pushCriteria(new RequestCriteria($request));
-        $bills = $this->billRepository->paginate(30);
+        $bills = Bill::orderBy('created_at', 'desc')->paginate(30);
 
         return view('bills.index', compact('bills'));
     }

@@ -51,7 +51,7 @@ class ImportBookController extends AppBaseController
     public function index(Request $request)
     {
         $this->importBookRepository->pushCriteria(new RequestCriteria($request));
-        $importBooks = $this->importBookRepository->paginate(10);
+        $importBooks = ImportBook::orderBy('created_at', 'desc')->paginate(10);
 
         return view('import_books.index')
             ->with('importBooks', $importBooks);

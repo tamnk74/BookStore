@@ -114,8 +114,8 @@ class ProfileController extends AppBaseController
             'password' => 'same:confirm-password',
             'full_name' => 'min:0|max:100',
             'address' => 'min:0|max:255',
-            'birthday' => 'date',
-            'phone_number' => 'regex:/^[0]{1}[19]{1}[0-9]{8,9}$/'
+            'birthday' => 'sometimes|nullable|date',
+            'phone_number' => 'sometimes|nullable|regex:/^[0]{1}[19]{1}[0-9]{8,9}$/'
         ]);
         $input = $request->all();
         if(!empty($input['password'])){

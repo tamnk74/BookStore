@@ -3,7 +3,7 @@
 
         <!-- Profile Image -->
         <div class="box box-primary">
-            <li class="box-body box-profile">
+            <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="{{asset('images/avatar.png')}}" alt="User profile picture">
 
                 <h3 class="profile-username text-center">{!! $user->name !!}</h3>
@@ -17,6 +17,10 @@
                 </p>
 
                 <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <b>{!! Form::label('email', __('users.label_email')) !!}</b>
+                        <a class="pull-right">{!! $user->email !!}</a>
+                    </li>
                     @if(isset($profile->full_name))
                         <li class="list-group-item">
                             <b>{!! Form::label('full_name', __('users.label_full_name')) !!}</b>
@@ -43,7 +47,7 @@
                     @endif
                 </ul>
                 <a href="{!! route('profiles.edit') !!}" class="btn btn-primary btn-block"><b>@lang('buttons.btn_edit')</b></a>
-            </li>
+            </div>
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
