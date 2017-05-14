@@ -49,8 +49,9 @@ class Profile extends Model
     public static $rules = [
         'user_id' => 'required|unique',
         'full_name' => 'min:0|max:100',
-        'phone_number' => 'min:9|max:11'
-
+        'phone_number' => 'min:9|max:11',
+        'birthday' => 'date|after:1960-01-01|before:2010-01-01',
+        'address' => 'min:0|max:191',
     ];
 
     

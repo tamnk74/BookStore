@@ -43,7 +43,7 @@
         <!-- Birthday Field -->
         <div class="form-group">
             {!! Form::label('birthday', __('users.label_birthday')) !!}
-            {!! Form::date('birthday', isset($profile->birthday) ? $profile->birthday : null, ['class' => 'form-control']) !!}
+            {!! Form::text('birthday', isset($profile->birthday) ? $profile->birthday : null, ['class' => 'form-control', 'id' => 'datepicker']) !!}
         </div>
     </div>
 </div>

@@ -79,6 +79,7 @@ class ProfileController extends AppBaseController
     public function show()
     {
         $user = User::find(Auth::user()->id);
+        dd($user);
         return view('profiles.show',compact('user'));
     }
 
@@ -113,8 +114,8 @@ class ProfileController extends AppBaseController
             'email' => 'required|email|unique:users,email,'.Auth::user()->id,
             'password' => 'same:confirm-password',
             'full_name' => 'min:0|max:100',
-            'address' => 'min:0|max:255',
-            'birthday' => 'sometimes|nullable|date',
+            'address' => 'min:0|max:191',
+            'birthday' => 'sometimes|nullable|date|after:1960-01-01|before:tomorrow',
             'phone_number' => 'sometimes|nullable|regex:/^[0]{1}[19]{1}[0-9]{8,9}$/'
         ]);
         $input = $request->all();
@@ -131,7 +132,7 @@ class ProfileController extends AppBaseController
         $profile->update($input);
 
         return redirect()->route('profiles.index')
-            ->with('success','Profile updated successfully');
+            ->with('success','Cập nhật hồ sơ thành công');
     }
 
     /**

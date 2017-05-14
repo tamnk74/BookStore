@@ -21,3 +21,15 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+       //Money Euro
+    $("[data-mask]").inputmask();
+    //Date picker
+    $('#datepicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    });
+</script>
+@endsection

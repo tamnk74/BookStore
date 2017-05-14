@@ -27,13 +27,13 @@
                             <a class="pull-right">{!! $profile->full_name !!}</a>
                         </li>
                     @endif
-                    @if(isset($profile->full_name))
+                    @if(isset($profile->birthday))
                         <li class="list-group-item">
                             <b>{!! Form::label('full_name', __('users.label_birthday')) !!}</b>
                             <a class="pull-right">{!! $profile->birthday !!}</a>
                         </li>
                     @endif
-                    @if(isset($profile->full_name))
+                    @if(isset($profile->phone_number))
                         <li class="list-group-item">
                             <b>{!! Form::label('full_name', __('users.label_phone_number')) !!}</b>
                             <a class="pull-right">{!! $profile->phone_number !!}</a>

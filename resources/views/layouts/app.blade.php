@@ -157,6 +157,10 @@
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
 
+    <!-- InputMask -->
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <!-- daterangepicker -->
     <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
