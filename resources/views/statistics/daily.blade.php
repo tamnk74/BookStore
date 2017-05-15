@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="text-center"><b>@lang('statistics.daily_statistic_in') {{ $date}}</b></h1>
+        <h1 class="text-center"><b>@lang('statistics.daily_statistic_in') {{ $date->format('d/m/Y')}}</b></h1>
     </section>
     <div class="content">
         <div class="clearfix"></div>
@@ -15,7 +15,7 @@
                         <form class="form-inline">
                             <div class="form-group">
                                 <div class="input-group date" id="datetimepicker">
-                                    <input type="date" class="form-control" name="date-picker"/>
+                                    <input type="text" class="form-control" name="date-picker" value="{{ $date->format('d/m/Y')}}"/>
                                     <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -31,7 +31,7 @@
                             <h2>@lang('statistics.daily_details')</h2>
                             <div class="content" style="height: 300px; overflow-y: auto;">
                                 @if(count($billsDetails) > 0)
-                                <table class="table table-responsive" id="billDetails-table">
+                                <table class="table table-responsive table-bordered" id="billDetails-table">
                                     <thead>
                                     <th>@lang('statistics.daily_book_no')</th>
                                     <th>@lang('statistics.daily_book_name')</th>
@@ -75,9 +75,10 @@
                                 <!-- Morris chart - Sales -->
                                 <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px; overflow-y: auto;">
                                     @if(count($bills) > 0)
-                                        <table class="table table-responsive" id="billDetails-table">
+                                        <table class="table table-responsive table-bordered" id="billDetails-table">
                                             <thead>
                                             <th>@lang('statistics.daily_bill_no')</th>
+                                            <th>@lang('statistics.daily_cashier_name')</th>
                                             <th>@lang('statistics.daily_customer_name')</th>
                                             <th>@lang('statistics.daily_number')</th>
                                             <th>@lang('statistics.daily_total_price')</th>
@@ -86,14 +87,15 @@
                                             @foreach($bills as $bill)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $bill->user->name }}</td>
                                                     <td>{{ $bill->client_name }}</td>
                                                     <td>{{ $bill->billdetail->count() }}</td>
                                                     <td>{{ $bill->total_price }} VND</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
-                                                <td colspan="2" class="text-center"><b>Total</b></td>
-                                                <td></td>
+                                                <td colspan="3" class="text-center"><b>Total</b></td>
+                                                <td>{{ $billsDetails->sum('total') }}</td>
                                                 <td><b>{{ array_sum(array_pluck($bills, 'total_price')) }} VND</b></td>
                                             </tr>
                                             </tbody>
@@ -109,6 +111,7 @@
                                         <table class="table table-responsive" id="billDetails-table">
                                             <thead>
                                             <th>@lang('statistics.daily_import_no')</th>
+                                            <th>@lang('statistics.daily_user_name')</th>
                                             <th>@lang('statistics.daily_book_name')</th>
                                             <th>@lang('statistics.daily_number')</th>
                                             <th>@lang('statistics.daily_price')</th>
@@ -117,6 +120,7 @@
                                             @foreach($importBooks as $importBook)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $importBook->user->name }}</td>
                                                     <td>{{ $importBook->book->name }}</td>
                                                     <td>{{ $importBook->amount }}</td>
                                                     <td>{{ $importBook->price }} VND</td>
@@ -147,6 +151,14 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            });
+        });
+    </script>
     <script type="text/javascript">
         @if(count($topBook) >0)
         var data_topbook = {!! json_encode(array_column($topBook->toArray(), 'sum'), JSON_NUMERIC_CHECK)!!};

@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use App\Models\Bill;
 
 /**
  * Class BillDetail
@@ -47,7 +48,7 @@ class BillDetail extends Model {
     ];
 
     public function bill() {
-        return $this->belongsTo('App\Bill');
+        return $this->belongsTo(Bill::class, 'bill_id');
     }
 
     public function book() {

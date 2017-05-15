@@ -18,15 +18,17 @@ class StatisticController extends Controller
     }
     public function daily(Request $request)
     {
+        $date = "";
         if (!isset($request['date-picker'])) {
-            $date = Carbon::today()->format('Y-m-d');
+            $date = Carbon::today();
         } else {
-            $date = $request['date-picker'];
+            $date = Carbon::createFromFormat('d/m/Y', $request['date-picker']);
         }
-        $importBooks = ImportBook::getByDay($date);
-        $bills = Bill::getByDate($date);
-        $billsDetails = BillDetail::getBooksByDate($date);
-        $topBook = BillDetail::getTopBookByDate($date);
+        $dateString = $date->toDateString();
+        $importBooks = ImportBook::getByDay($dateString);
+        $bills = Bill::getByDate($dateString);
+        $billsDetails = BillDetail::getBooksByDate($dateString);
+        $topBook = BillDetail::getTopBookByDate($dateString);
         //dd($data);
         return view('statistics.daily')->with(compact('date', 'importBooks', 'bills', 'billsDetails', 'topBook'));
     }
@@ -36,8 +38,8 @@ class StatisticController extends Controller
         $month = Carbon::now()->month;
         $input = request()->all();
         if (isset($input['date_picker'])) {
-            $month = intval(explode("-", $input['date_picker'])[1]);
-            $year = intval(explode("-", $input['date_picker'])[0]);
+            $month = intval(explode("/", $input['date_picker'])[0]);
+            $year = intval(explode("/", $input['date_picker'])[1]);
         }
         //dd($month."-".$year);
         $report['revenue'] = Bill::getRevenueByMonth($year, $month);

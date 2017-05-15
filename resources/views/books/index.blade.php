@@ -23,7 +23,7 @@
                     </span>
                     <input type="text" class="form-control" name="key" value="{{ isset($key) ? $key : "" }}" placeholder="{{__('books.enter_name')}}">
                     <span class="input-group-btn">
-                        <button type="submit" class="btn btn-info btn-flat">Search</button>
+                        <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
                     </span>
                 </div>
                 {!! Form::close() !!}

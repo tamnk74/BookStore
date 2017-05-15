@@ -13,16 +13,16 @@
             
             <div class="row month-picker">
                 <div class="col-md-12 col-md-offset-4">
-                    <form class="form-inline">
-                    <div class="form-group">
-                        <div class="input-group date" id="datetimepicker">                         
-                            <input type="date" class="form-control" name="date_picker" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                    <form class="form-inline" action="{{ route('statistic.monthly') }}" method="GET">
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker'>
+                                <input type='text' class="form-control" name="date_picker" value="{{ $month.'/'.$year  }}"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-default">Go</button>
+                        <button type="submit" class="btn btn-default">@lang('statistics.daily_go')</button>
                     </form>
                 </div>
             </div>
@@ -156,6 +156,16 @@
 
 @section('scripts')
 <script type="text/javascript">
+    $(function () {
+        $('#datetimepicker').datepicker({
+            autoclose: true,
+            viewMode: "months",
+            minViewMode: "months",
+            format: 'mm/yyyy'
+        });
+    });
+</script>
+<script type="text/javascript">
     var data_topbook = {{ json_encode(array_column($topBooks->toArray(), 'total'), JSON_NUMERIC_CHECK)}};
     var categories_topbook = {!! json_encode(array_column($topBooks->toArraY(), 'name'), JSON_NUMERIC_CHECK)!!};
     
@@ -170,7 +180,8 @@
                 {name: '{{ $category->name }}', y: {{ $category -> percentage }}},
             @endforeach ];
     var month = {{$month}};
-    var year = {{ $year}};</script>
+    var year = {{ $year}};
+</script>
 <script src="/js/statistics/highcharts.js"></script>
 <script src="/js/statistics/monthly.js"></script>
 <script src="/js/statistics/Chart.min.js"></script>
