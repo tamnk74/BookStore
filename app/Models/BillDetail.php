@@ -23,6 +23,7 @@ class BillDetail extends Model {
     public $fillable = [
         'book_id',
         'amount',
+        'price',
         'bill_id'
     ];
 
@@ -34,6 +35,7 @@ class BillDetail extends Model {
     protected $casts = [
         'book_id' => 'integer',
         'amount' => 'integer',
+        'price' => 'integer',
         'bill_id' => 'integer'
     ];
 

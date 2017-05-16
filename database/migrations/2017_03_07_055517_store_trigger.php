@@ -14,7 +14,7 @@ class StoreTrigger extends Migration
     public function up()
     {
         //Trigger for update book into store when inserting book
-        DB::unprepared('
+        /*DB::unprepared('
         CREATE TRIGGER books_stores_trigger 
         AFTER INSERT 
         ON books 
@@ -63,7 +63,7 @@ class StoreTrigger extends Migration
         FOR EACH ROW 
         UPDATE stores SET stores.amount = stores.amount + NEW.amount - OLD.amount, stores.total_amount = stores.total_amount 
         WHERE stores.book_id = NEW.book_id
-        ');
+        ');*/
         
 
     }
@@ -75,7 +75,7 @@ class StoreTrigger extends Migration
      */
     public function down()
     {
-        DB::unprepared('
+        /*DB::unprepared('
         DROP TRIGGER update_import_store_trigger;
         ');
         DB::unprepared('
@@ -86,7 +86,7 @@ class StoreTrigger extends Migration
         ');
         DB::unprepared('
         DROP TRIGGER books_stores_trigger;
-        ');
+        ');*/
         
     }
 }

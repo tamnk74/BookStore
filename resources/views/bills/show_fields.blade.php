@@ -29,7 +29,7 @@
     <div class="col-xs-4">
         <b>@lang('bills.label_invoice') #{!! $bill->id !!}</b><br>
         <br>
-        <b>@lang('bills.label_date'):</b> {!! $bill->created_at !!}<br>
+        <b>@lang('bills.label_date'):</b> {!! $bill->created_at->format('d/m/Y') !!}<br>
     </div>
     <!-- /.col -->
 </div>
@@ -43,6 +43,7 @@
             <th>@lang('bills.label_book_code')</th>
             <th>@lang('bills.label_book_name')</th>
             <th>@lang('bills.label_book_number')</th>
+            <th>@lang('bills.label_book_price')</th>
             <th>@lang('bills.label_subtotal')</th>
         </tr>
         @foreach($bill->billdetail as $billdetail)
@@ -51,14 +52,15 @@
             <td>{!! $billdetail->book_id !!}</td>
             <td>{!! $billdetail->book->name !!}</td>
             <td>{!! $billdetail->amount !!}</td>
-            <td>{{ $billdetail->amount*$billdetail->book->price.' VND' }}</td>
+            <td>{!! $billdetail->price !!}</td>
+            <td>{{ $billdetail->amount*$billdetail->price.' VND' }}</td>
         </tr>
         @endforeach
     </table>
 </div>
 
 <div class="col-xs-6 col-xs-offset-6">
-    <p class="lead">@lang('bills.label_date'): {!! $bill->created_at !!}</p>
+    <p class="lead">@lang('bills.label_date'): {!! $bill->created_at->format('d/m/Y') !!}</p>
 
     <div class="table-responsive">
         <table class="table">

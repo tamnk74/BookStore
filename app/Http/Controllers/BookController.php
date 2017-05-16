@@ -11,6 +11,7 @@ use App\Models\Issuer;
 use App\Models\Language;
 use App\Models\Publisher;
 use App\Models\Type;
+use App\Models\Store;
 use App\Repositories\BookRepository;
 use App\Repositories\IssuerRepository;
 use App\Repositories\TypeRepository;
@@ -19,6 +20,7 @@ use App\Repositories\PublisherRepository;
 use App\Repositories\AuthorRepository;
 use App\Repositories\LanguageRepository;
 use App\Http\Controllers\AppBaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Excel;
 use Flash;
@@ -293,18 +295,18 @@ class BookController extends AppBaseController
             ->leftjoin('languages','languages.id', '=', 'books.language_id')
             ->leftjoin('types','types.id', '=', 'books.type_id')
             ->select('books.name AS Tên sách', 'authors.name AS Tác giả', 'publishers.name AS Nhà xuất bản',
-                'issuers.name AS Nhà phát hành', 'size as Kích thước', 'page as Số trang', 'weight as Khối lượng',
-                'sale as Giảm giá', 'price as Giá bìa', 'front_cover as Bìa trước', 'back_cover as Bìa sau', 'publishing_year as Năm xuất bản', 'languages.name AS Ngôn ngữ',
+                'issuers.name AS Nhà phát hành', 'size as Kích thước(cm)', 'page as Số trang', 'weight as Khối lượng(gram)',
+                'sale as Giảm giá(%)', 'price as Giá bìa(VND)', 'front_cover as Bìa trước', 'back_cover as Bìa sau', 'publishing_year as Năm xuất bản', 'languages.name AS Ngôn ngữ',
                 'categories.name AS Chủ đề', 'types.name AS Thể loại', 'description AS Mô tả')
             ->get()->toArray();
         //$data = $this->bookRepository->all()->toArray();
 //        /*for($i=0; $i < count($data); $i++){
 //            $data[$i] = array_except($data[$i], ['created_at', 'updated_at', 'deleted_at']);
 //        }*/
-        return Excel::create('danh_sach_sach', function($excel) use ($data) {
+        return Excel::create('danh_sach_sach'.Carbon::now()->format('dmY'), function($excel) use ($data) {
             $excel->sheet('mySheet', function($sheet) use ($data)
             {
-                $sheet->fromArray($data);
+                $sheet->fromArray($data, null, 'A1', true);
             });
         })->download('xlsx');
     }
@@ -329,10 +331,11 @@ class BookController extends AppBaseController
                     foreach ($data->toArray() as $key => $value) {
                         if (!empty($value)) {
                             //Check book name
-
+                            $status = true;
                             if(!isset($value['ten_sach'])) continue;
                             $bookName = trim($value['ten_sach']);
-                            if($this->bookRepository->findByField('name', $bookName)->first() != null) continue;
+                            $book = $this->bookRepository->findByField('name', $bookName)->first();
+                            if( $book != null) continue;
 
                             //Get author
                             if (!isset($value['tac_gia']) || empty(trim($value['tac_gia']))) continue;
@@ -371,30 +374,35 @@ class BookController extends AppBaseController
                             if ($type == null) $type = Type::create(['name' => $value['the_loai']]);
 
                             $description = isset($value['mo_ta']) ? trim($value['mo_ta']): '';
-                            $size = isset($value['kich_thuoc']) ? trim($value['kich_thuoc']): '';
+                            $size = isset($value['kich_thuoccm']) ? trim($value['kich_thuoccm']): '';
                             $front_cover = isset($value['bia_truoc']) ? trim($value['bia_truoc']): '';
                             $back_cover = isset($value['bia_sau']) ? trim($value['bia_sau']): '';
-                            $price = isset($value['giavnd']) ? floatval($value['giavnd']): 0;
+                            $price = isset($value['gia_biavnd']) ? floatval($value['gia_biavnd']): 0;
                             $publishing_year = isset($value['nam_xuat_ban']) ? intval($value['nam_xuat_ban']): 0;
                             $page = isset($value['so_trang']) ? intval($value['so_trang']): 0;
                             $sale = isset($value['giam_gia']) ? intval($value['giam_gia']): 0;
-                            $weight = isset($value['khoi_luong']) ? intval($value['khoi_luong']): 0;
+                            $weight = isset($value['khoi_luonggram']) ? intval($value['khoi_luonggram']): 0;
 
                             $insert[] = ['name' => $bookName, 'author_id' => $author->id, 'publisher_id' => $publisher->id,
                                 'issuer_id' => $issuer->id, 'description' => $description, 'size' => $size,
                                 'front_cover' => $front_cover, 'back_cover' => $back_cover, 'price' => $price,
                                 'publishing_year' => $publishing_year, 'page' => $page, 'sale' => $sale,
                                 'weight' => $weight, 'language_id' => $language->id, 'category_id' => $category->id,
-                                'type_id' => $type->id,];
+                                'type_id' => $type->id];
 
                         }
                     }
 
                     if (!empty($insert)) {
+                        $books = array();
                         foreach ($insert as $input) {
-                            $this->bookRepository->create($input);
+                            $book = $this->bookRepository->create($input);
+                            if($book != null) {
+                                $books[] = $book;
+                                Store::create(['book_id' => $book->id, 'amount' => 0, 'total_amount' => 0]);
+                            }
                         }
-                        return back()->with('success', 'Thêm thành công ' . count($insert) . ' cuốn sách.');
+                        return back()->with('books', $books)->with('success', 'Thêm thành công ' . count($insert) . ' cuốn sách.');
                     }else{
                         return back()->with('error','Dữ liệu không đúng!.');
                     }

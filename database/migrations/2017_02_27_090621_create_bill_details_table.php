@@ -15,13 +15,14 @@ class CreateBillDetailsTable extends Migration
     {
         Schema::create('bill_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('book_id')->unsigned();;
-            $table->integer('bill_id')->unsigned();;
+            $table->integer('book_id')->unsigned();
+            $table->integer('bill_id')->unsigned();
+            $table->integer('price')->unsigned();
             $table->integer('amount')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('book_id')->references('book_id')->on('stores')->onUpdate('cascade')->onDelete('cascade');;
-            $table->foreign('bill_id')->references('id')->on('bills')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('book_id')->references('book_id')->on('stores')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('bill_id')->references('id')->on('bills')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -31,6 +31,7 @@ return [
     'label_bill_id' => 'Mã số',
     'label_book_name' => 'Tên sách',
     'label_book_number' => 'Số lượng',
+    'label_book_price' => 'Đơn giá',
     'delete_confirm' => 'Bạn có chắc muốn xóa?',
     'list_bill' => 'Danh sách hóa đơn',
     'label_cashier' => 'Thu ngân',

@@ -78,25 +78,26 @@ class BillController extends AppBaseController
         try {
             $input = $request->all();
             $total_price = 0;
+            $bookPrice =[];
             for($i=0; $i<count($input['book_id']); $i++){
                 $book = $this->bookRepository->findWithoutFail($input['book_id'][$i]);
                 $bookstore = $this->storeRepository->findWithoutFail($input['book_id'][$i]);
                 if (empty($book)) {
-                    Flash::error('Book not found in store');
+                    Flash::error('Sách không tìm thấy trong cửa hàng');
                     return redirect(route('bills.index'));
                 }
                 if (empty($bookstore)) {
-                    Flash::error('Book not found in store');
+                    Flash::error('Sách không tìm thấy trong cửa hàng');
                     return redirect(route('bills.create'));
                 }
                 if ($bookstore->amount < $input['amount'][$i]) {
-                    Flash::error('The amount of the book '.$bookstore->book->name.' is not enough in store');
+                    Flash::error('Số lượng sách '.$bookstore->book->name.' không đủ trong cửa hàng');
                     return redirect(route('bills.create'));
                 }
-                $total_price += $book->price*((100-$book->sale)/100)*$input['amount'][$i];
+                $bookPrice[$i] = $book->price*((100-$book->sale)/100);
+                 $total_price += $bookPrice[$i]*$input['amount'][$i];
             }
             $input['total_price'] = $total_price;
-            $input['date'] = \Carbon\Carbon::today()->format('Y-m-d');
             $input['user_id'] = Auth::user()->id;
             $bill = $this->billRepository->create($input);
 
@@ -104,15 +105,20 @@ class BillController extends AppBaseController
                 $billDetail = $this->billDetailRepository->create([
                     'book_id' => $input['book_id'][$i],
                     'amount' => $input['amount'][$i],
+                    'price' => $bookPrice[$i],
                     'bill_id' => $bill->id
                 ]);
+                if($billDetail != null){
+                    $store = Store::where('book_id', $billDetail->book_id)->first();
+                    $store->update(['amount' => $store->amount - $billDetail->amount]);
+                }
             }
 
-            Flash::success('Bill saved successfully.');
+            Flash::success('Lưu hóa đơn thành công');
             return redirect(route('bills.show', [$bill->id]));
         }
         catch (ModelNotFoundException $saveException) {
-            Flash::error('Error in create bill!');
+            Flash::error('Lỗi trong khi tạo hóa đơn');
             return redirect(route('bills.index'));
         }
     }
@@ -129,7 +135,7 @@ class BillController extends AppBaseController
         $bill = $this->billRepository->findWithoutFail($id);
 
         if (empty($bill)) {
-            Flash::error('Bill not found');
+            Flash::error('Không tìm thấy hóa đơn');
 
             return redirect(route('bills.index'));
         }
@@ -150,7 +156,7 @@ class BillController extends AppBaseController
         $bill = $this->billRepository->findWithoutFail($id);
         $books = $this->bookRepository->all()->pluck('name', 'id');
         if (empty($bill)) {
-            Flash::error('Bill not found');
+            Flash::error('Không tìm thấy hóa đơn');
 
             return redirect(route('bills.index'));
         }
@@ -175,40 +181,50 @@ class BillController extends AppBaseController
             $bill = $this->billRepository->findWithoutFail($id);
 
             if (empty($bill)) {
-                Flash::error('Bill not found');
+                Flash::error('Không tìm thấy hóa đơn');
 
                 return redirect(route('bills.index'));
             }
-
+            // Delete old bill details
             foreach ($bill->billDetail as $billDetail) {
-                $this->billDetailRepository->delete($billDetail->id);
+                $book_id = $billDetail->book_id;
+                $oldNumber = $billDetail->amount;
+                $status = $this->billDetailRepository->delete($billDetail->id);
+                if($status == 1) {
+                    $store = Store::where('book_id', $book_id);
+                    $store->update(['amount' => $store->amount + $oldNumber]);
+                }
             }
 
             $input = $request->all();
+            //Calculate total price
             $total_price = 0;
             for($i=0; $i<count($input['book_id']); $i++){
                 $book = $this->bookRepository->findWithoutFail($input['book_id'][$i]);
+                $bookstore = $this->storeRepository->findWithoutFail($input['book_id'][$i]);
                 if (empty($book)) {
-                    Flash::error('Book not found in store');
+                    Flash::error('Sách không tìm thấy trong cửa hàng');
                     return redirect(route('bills.index'));
                 }
-                $total_price += $book->price*$input['amount'][$i];
+                if (empty($bookstore)) {
+                    Flash::error('Sách không tìm thấy trong cửa hàng');
+                    return redirect(route('bills.create'));
+                }
+                if ($bookstore->amount < $input['amount'][$i]) {
+                    Flash::error('Số lượng sách '.$bookstore->book->name.' không đủ trong cửa hàng');
+                    return redirect(route('bills.create'));
+                }
+                $total_price += $book->price*((100-$book->sale)/100)*$input['amount'][$i];
             }
-            $bill = $this->billRepository->update([
-                'client_name' => $input['client_name'],
-                'total_price' => $total_price,
-                'date' => \Carbon\Carbon::today()->format('Y-m-d')
-            ],  $id);
+            //create bill
+            $input['total_price'] = $total_price;
+            $input['user_id'] = Auth::user()->id;
+            $bill = $this->billRepository->update($input,  $id);
+            //Create bill details
             for($i=0; $i<count($input['book_id']); $i++){
                 $bookstore = $this->storeRepository->findWithoutFail($input['book_id'][$i]);
                 if (empty($bookstore)) {
-                    Flash::error('Book not found in store');
-
-                    return redirect(route('bills.index'));
-                }
-                if ($bookstore->amount < $input['amount'][$i]) {
-
-                    Flash::error('The amount of this book is not enough in store');
+                    Flash::error('Sách không tìm thấy trong cửa hàng');
 
                     return redirect(route('bills.index'));
                 }
@@ -217,13 +233,17 @@ class BillController extends AppBaseController
                     'amount' => $input['amount'][$i],
                     'bill_id' => $bill->id
                 ]);
+                if($billDetail != null){
+                    $store = Store::where('book_id', $billDetail->book_id)->first();
+                    $store->update(['amount' => $store->amount - $billDetail->amount]);
+                }
             }
 
-            Flash::success('Bill saved successfully.');
+            Flash::success('Lưu hóa đơn thành công.');
             return redirect(route('bills.show', [$id]));
         }
         catch (ModelNotFoundException $saveException) {
-            Flash::error('Error in create bill!');
+            Flash::error('Lỗi trong khi tạo hóa đơn');
             return redirect(route('bills.index'));
         }
     }
@@ -240,19 +260,25 @@ class BillController extends AppBaseController
         $bill = $this->billRepository->findWithoutFail($id);
 
         if (empty($bill)) {
-            Flash::error('Bill not found');
+            Flash::error('Không tìm thấy hóa đơn');
 
             return redirect(route('bills.index'));
         }
 
-        //$bill->billDetail
+        // Delete old bill details
         foreach ($bill->billDetail as $billDetail) {
-            $this->billDetailRepository->delete($billDetail->id);
+            $book_id = $billDetail->book_id;
+            $oldNumber = $billDetail->amount;
+            $status = $this->billDetailRepository->delete($billDetail->id);
+            if($status == 1) {
+                $store = Store::where('book_id', $book_id);
+                $store->update(['amount' => $store->amount + $oldNumber]);
+            }
         }
 
         $this->billRepository->delete($id);
 
-        Flash::success('Bill has been deleted successfully.');
+        Flash::success('Hóa đơn vừa được xóa thành công');
 
         return redirect(route('bills.index'));
     }

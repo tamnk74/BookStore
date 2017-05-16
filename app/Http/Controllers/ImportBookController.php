@@ -189,13 +189,13 @@ class ImportBookController extends AppBaseController
 
         $book = $this->bookRepository->findWithoutFail($input['book_id']);
         if (empty($book)) {
-            Flash::error('Book not found');
+            Flash::error('Không tìm thấy sách!');
             return redirect(route('importBooks.index'));
         }
 
         $supplier = $this->supplierRepository->findWithoutFail($input['supplier_id']);
         if (empty($supplier)) {
-            Flash::error('Supplier not found');
+            Flash::error('Không tìm thấy nhà cung cấp');
             return redirect(route('importBooks.index'));
         }
 
@@ -210,7 +210,10 @@ class ImportBookController extends AppBaseController
         $input['user_id'] = Auth::user()->id;
 
         $importBook = $this->importBookRepository->create($input);
-
+        if($importBook != null){
+            $store = Store::where('book_id', $importBook->book_id)->first();
+            $store->update(['amount' => $store->amount + $importBook->amount, 'total_amount' => $store->total_amount + $importBook->amount]);
+        }
         Flash::success('Import Book saved successfully.');
 
         return redirect(route('importBooks.index'));
@@ -228,7 +231,7 @@ class ImportBookController extends AppBaseController
         $importBook = $this->importBookRepository->findWithoutFail($id);
 
         if (empty($importBook)) {
-            Flash::error('Import Book not found');
+            Flash::error('Không tìm thấy đợt nhập sách cần cập nhật');
 
             return redirect(route('importBooks.index'));
         }
@@ -247,10 +250,11 @@ class ImportBookController extends AppBaseController
     {
         $importBook = $this->importBookRepository->findWithoutFail($id);
         if (empty($importBook)) {
-            Flash::error('Import Book not found');
+            Flash::error('Không tìm thấy đợt nhập sách cần cập nhật');
 
             return redirect(route('importBooks.index'));
         }
+
         $books = $this->bookRepository->all()->pluck('name', 'id');
         $supplier = $this->supplierRepository->all()->pluck('name', 'id');
 
@@ -270,14 +274,18 @@ class ImportBookController extends AppBaseController
         $importBook = $this->importBookRepository->findWithoutFail($id);
 
         if (empty($importBook)) {
-            Flash::error('Import Book not found');
+            Flash::error('Không tìm thấy đợt nhập sách cần cập nhật');
 
             return redirect(route('importBooks.index'));
         }
-
+        $oldNumber = $importBook->amount;
         $importBook = $this->importBookRepository->update($request->all(), $id);
-
-        Flash::success('Import Book updated successfully.');
+        $newNumber = $importBook->amount;
+        if($importBook != null){
+            $store = Store::where('book_id', $importBook->book_id)->first();
+            $store->update(['amount' => $store->amount + $oldNumber - $newNumber, 'total_amount' => $store->total_amount + $oldNumber - $newNumber]);
+        }
+        Flash::success('Cập nhật đợt nhập sách thành công.');
 
         return redirect(route('importBooks.index'));
     }
@@ -294,13 +302,16 @@ class ImportBookController extends AppBaseController
         $importBook = $this->importBookRepository->findWithoutFail($id);
 
         if (empty($importBook)) {
-            Flash::error('Import Book not found');
+            Flash::error('Không tìm thấy đợt nhập sách cần cập nhật');
 
             return redirect(route('importBooks.index'));
         }
-
-        $this->importBookRepository->delete($id);
-
+        $oldNumber = $importBook->amount;
+        $status = $this->importBookRepository->delete($id);
+        if($status == 1) {
+            $store = Store::where('book_id', $importBook->book_id)->first();
+            $store->update(['amount' => $store->amount - $oldNumber, 'total_amount' => $store->total_amount - $oldNumber]);
+        }
         Flash::success('Import Book deleted successfully.');
 
         return redirect(route('importBooks.index'));

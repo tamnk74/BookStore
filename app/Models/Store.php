@@ -22,8 +22,8 @@ class Store extends Model
 
     public $fillable = [
         'book_id',
-        'current_amount',
-        'amount'
+        'amount',
+        'total_amount'
     ];
 
     /**
@@ -33,8 +33,8 @@ class Store extends Model
      */
     protected $casts = [
         'book_id' => 'integer',
-        'current_amount' => 'integer',
-        'amount' => 'integer'
+        'amount' => 'integer',
+        'total_amount' => 'integer'
     ];
 
     /**
@@ -44,8 +44,8 @@ class Store extends Model
      */
     public static $rules = [
         'book_id' => 'required',
-        'current_amount' => 'required',
-        'amount' => 'required'
+        'amount' => 'required',
+        'total_amount' => 'required'
     ];
     
     public function book()

@@ -33,7 +33,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <button class="btn btn-success">Go</button>
+                                    <button class="btn btn-success">@lang('statistics.daily_go')</button>
                                 </fieldset>
                             </form>
                         </div>

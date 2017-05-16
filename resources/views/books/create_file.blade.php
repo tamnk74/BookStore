@@ -38,6 +38,36 @@
                     <button class="btn btn-success">@lang('buttons.btn_dowload_excel')</button>
                 </a>
                 </div>
+                @if ($books = Session::get('books'))
+                    <table class="table table-responsive" id="books-table">
+                        <thead>
+                        <th>@lang('books.label_book_no')</th>
+                        <th>@lang('books.label_book_name')</th>
+                        <th>@lang('books.label_book_author')</th>
+                        <th>@lang('books.label_book_publisher')</th>
+                        <th>@lang('books.label_book_price')</th>
+                        <th>@lang('books.label_book_category')</th>
+                        <th>@lang('books.label_book_type')</th>
+                        <th>@lang('books.label_book_publishing_year')</th>
+                        <th>@lang('books.label_book_sale')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($books as $book)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td style="width: 25%">{{ $book->name }}</td>
+                                <td>{{ $book->author->name }}</td>
+                                <td>{{ $book->publisher->name }}</td>
+                                <td>{{ $book->price }} VND</td>
+                                <td>{{ $book->category->name }}</td>
+                                <td>{{ $book->type->name }}</td>
+                                <td>{{ $book->publishing_year }}</td>
+                                <td>{{ $book->sale }}%</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </div>
     </div>
