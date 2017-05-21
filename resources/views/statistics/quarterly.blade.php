@@ -16,7 +16,7 @@
                     <div class="col-md-6 col-sm-6 col-xs-12 pull-right">
                         <!--selectbox-->
                         <div class="form-group pull-right btn-block">
-                            <form id="quater-selector" class="form-inline pull-right" action="{{ route('statistic.quarterly') }}">
+                            <form id="quater-selector" class="form-inline pull-right" action="{{ route('statistics.quarterly') }}">
                                 <fieldset>
                                     <div class="form-group">
                                         <div class="input-prepend input-group">

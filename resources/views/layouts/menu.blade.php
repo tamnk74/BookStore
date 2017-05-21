@@ -11,10 +11,10 @@
         <li class="{{ Request::is('importBooks.create*') ? 'active' : '' }}">
             <a href="{!! route('importBooks.create') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_import_book_handwork')</a>
         </li>
-        <li class="{{ Request::is('importBooks*') ? 'active' : '' }}">
-            <a href="{!! action('ImportBookController@create_file') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_import_book_file')</a>
+        <li class="{{ Request::is('importBooks/create/file') ? 'active' : '' }}">
+            <a href="{!! action('ImportBookController@createFile') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_import_book_file')</a>
         </li>
-        <li class="{{ Request::is('importBooks*') ? 'active' : '' }}">
+        <li class="{{ Request::is('importBooks/index') ? 'active' : '' }}">
             <a href="{!! route('importBooks.index') !!}"><i class="fa fa-circle-o"></i>@lang('layouts.menu_list_imported_book')</a>
         </li>
     </ul>
@@ -30,10 +30,10 @@
             </span>
     </a>
     <ul class="treeview-menu">
-        <li class="{{ Request::is('bills*') ? 'active' : '' }}">
+        <li class="{{ Request::is('bills/create') ? 'active' : '' }}">
             <a href="{!! route('bills.create') !!}"><i class="fa fa-plus-square-o"></i>@lang('layouts.menu_create_bill')</a>
         </li>
-        <li cclass="{{ Request::is('bills*') ? 'active' : '' }}">
+        <li cclass="{{ Request::is('bills/index') ? 'active' : '' }}">
             <a href="{!! route('bills.index') !!}"><i class="fa fa-navicon"></i>@lang('layouts.menu_show_bill')</a>
         </li>
     </ul>
@@ -54,14 +54,14 @@
         </span>
     </a>
     <ul class="treeview-menu">
-        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.daily') !!}"><i class="fa fa-bar-chart"></i>@lang('layouts.menu_daily_statistic')</a>
+        <li class="{{ Request::is('statistics/daily') ? 'active' : '' }}">
+            <a href="{!! route('statistics.daily') !!}"><i class="fa fa-bar-chart"></i>@lang('layouts.menu_daily_statistic')</a>
         </li>
-        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.monthly') !!}"><i class="fa fa-area-chart"></i>@lang('layouts.menu_monthly_statistic')</a>
+        <li class="{{ Request::is('statistics/monthly') ? 'active' : '' }}">
+            <a href="{!! route('statistics.monthly') !!}"><i class="fa fa-area-chart"></i>@lang('layouts.menu_monthly_statistic')</a>
         </li>
-        <li class="{{ Request::is('statistics*') ? 'active' : '' }}">
-            <a href="{!! route('statistic.quarterly') !!}"><i class="fa pie-chart"></i>@lang('layouts.menu_quarterly_statistic')</a>
+        <li class="{{ Request::is('statistics/quarterly') ? 'active' : '' }}">
+            <a href="{!! route('statistics.quarterly') !!}"><i class="fa fa-pie-chart"></i>@lang('layouts.menu_quarterly_statistic')</a>
         </li>
     </ul>
 </li>
@@ -92,7 +92,7 @@
         <span>@lang('layouts.menu_account')</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+        </span>
     </a>
     <ul class="treeview-menu">
         <li class="{{ Request::is('users*') ? 'active' : '' }}">

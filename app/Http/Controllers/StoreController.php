@@ -52,6 +52,7 @@ class StoreController extends AppBaseController
                 $query->where('authors.name','like', '%'.$key.'%');
                 if($category_id != null) $query->where('category_id', $category_id);
             })
+            ->orderBy('amount', 'desc')
             ->select('stores.*')->paginate(15);
         //dd(DB::getQueryLog());
         return view('stores.index', compact('stores', 'key', 'categories', 'category_id'));

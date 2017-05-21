@@ -13,7 +13,7 @@
             
             <div class="row month-picker">
                 <div class="col-md-12 col-md-offset-4">
-                    <form class="form-inline" action="{{ route('statistic.monthly') }}" method="GET">
+                    <form class="form-inline" action="{{ route('statistics.monthly') }}" method="GET">
                         <div class="form-group">
                             <div class='input-group date' id='datetimepicker'>
                                 <input type='text' class="form-control" name="date_picker" value="{{ $month.'/'.$year  }}"/>
@@ -91,7 +91,7 @@
                         <ul class="nav nav-tabs pull-right ui-sortable-handle">
                             <li class="active" id="revenue-tab"><a href="#revenue-chart" data-toggle="tab" aria-expanded="true">@lang('statistics.monthly_revenue')</a></li>
                             <li class="" id="sale-tab"><a href="#turnover-chart" data-toggle="tab" aria-expanded="false">@lang('statistics.monthly_turnover')</a></li>
-                            <li class="header pull-left"><i class="fa fa-database"></i> Monthly</li>
+                            <li class="header pull-left"><i class="fa fa-database"></i> Thống kê theo tháng</li>
                         </ul>
                         <div class="tab-content no-padding">
                             <!-- Morris chart - Sales -->
@@ -125,7 +125,7 @@
                         <ul class="nav nav-tabs pull-right ui-sortable-handle">
                             <li class="active"><a href="#top-book-chart" data-toggle="tab" aria-expanded="true">@lang('statistics.monthly_top_book')</a></li>
                             <li class="" id="cate-chart"><a href="#top-category-chart" data-toggle="tab" aria-expanded="false">@lang('statistics.monthly_top_categories')</a></li>
-                            <li class="header pull-left"><i class="fa fa-database"></i> Monthly</li>
+                            <li class="header pull-left"><i class="fa fa-database"></i> Thống kê tháng</li>
                         </ul>
                         <div class="tab-content no-padding">
                             <!-- Morris chart - Sales -->

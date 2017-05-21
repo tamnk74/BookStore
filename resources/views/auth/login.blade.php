@@ -73,8 +73,6 @@
             </div>
         </form>
 
-        <a href="{{ url('/password/reset') }}">Quên mật khẩu</a><br>
-
     </div>
     <!-- /.login-box-body -->
 </div>

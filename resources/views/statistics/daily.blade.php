@@ -12,7 +12,7 @@
             <div class="box-body">
                 <div class="row date-picker">
                     <div class="col-md-12 col-md-offset-4">
-                        <form class="form-inline">
+                        <form class="form-inline"  action="{{ route('statistics.daily') }}" method="GET">
                             <div class="form-group">
                                 <div class="input-group date" id="datetimepicker">
                                     <input type="text" class="form-control" name="date-picker" value="{{ $date->format('d/m/Y')}}"/>
@@ -69,7 +69,7 @@
                             <ul class="nav nav-tabs pull-right ui-sortable-handle">
                                 <li class="active"><a href="#revenue-chart" data-toggle="tab" aria-expanded="true">@lang('statistics.daily_bills')</a></li>
                                 <li class=""><a href="#daily-import-book" data-toggle="tab" aria-expanded="false">@lang('statistics.daily_import_book')</a></li>
-                                <li class="header pull-left"><i class="fa fa-database"></i> Daily</li>
+                                <li class="header pull-left"><i class="fa fa-database"></i>Thống kê trong ngày</li>
                             </ul>
                             <div class="tab-content no-padding">
                                 <!-- Morris chart - Sales -->

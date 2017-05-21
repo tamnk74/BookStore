@@ -45,14 +45,14 @@ Route::group(['middleware' => 'auth'], function()
         Route::get('books/create/file', 'BookController@create_file')->name('books.file');
         Route::get('books/download/excel', 'BookController@downloadExcel')->name('books.export');
         Route::post('books/import/excel', 'BookController@importExcel')->name('books.import');
-        Route::post('books/updateSale', 'BookController@updateSale')->name('books.updateSale');
 
     });
 
     Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
+    Route::post('books/updateSale', 'BookController@updateSale', ['middleware' => ['permission:store-view']])->name('books.updateSale');
 
     Route::group(['middleware' => 'permission:import-book'], function() {
-        Route::get('importBooks/create/file', 'ImportBookController@create_file')->name('import_books.file');;
+        Route::get('importBooks/create/file', 'ImportBookController@createFile')->name('import_books.file');;
         Route::get('importBooks/download/excel', 'ImportBookController@downloadExcel')->name('import_books.export');;
         Route::post('importBooks/import/excel', 'ImportBookController@importExcel')->name('import_books.import');;
         Route::resource('importBooks', 'ImportBookController');
@@ -71,10 +71,10 @@ Route::group(['middleware' => 'auth'], function()
         Route::resource('languages', 'LanguageController');
     });
 
-    Route::group(['prefix' => 'statistic', 'middleware' => ['permission:statistic']], function () {
-        Route::get('/daily', 'StatisticController@daily')->name('statistic.daily');
-        Route::get('/monthly', 'StatisticController@monthly')->name('statistic.monthly');
-        Route::get('/quarterly', 'StatisticController@quarterly')->name('statistic.quarterly');
+    Route::group(['prefix' => 'statistics', 'middleware' => ['permission:statistic']], function () {
+        Route::get('/daily', 'StatisticController@daily')->name('statistics.daily');
+        Route::get('/monthly', 'StatisticController@monthly')->name('statistics.monthly');
+        Route::get('/quarterly', 'StatisticController@quarterly')->name('statistics.quarterly');
     });
 
     Route::get('profiles', 'ProfileController@index')->name('profiles.index');

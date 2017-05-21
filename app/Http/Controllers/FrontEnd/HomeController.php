@@ -68,7 +68,9 @@ class HomeController extends Controller
      */
     public function show($id)
     {
+        $id = intval($id);
         $book = $this->bookRepository->findWithoutFail($id);
+        if($book == null) return back();
         $relatedBooks = Book::where('category_id', $book->category_id)
                         ->where('id', '<>', $book->id)->paginate(6);
         $authoredBooks = Book::where('author_id', $book->author_id)->where('id', '<>', $book->id)->paginate(6);

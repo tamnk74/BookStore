@@ -70,7 +70,7 @@ class ImportBookController extends AppBaseController
         return view('import_books.create', compact('books', 'supplier'));
     }
 
-    public function create_file()
+    public function createFile()
     {
         return view('import_books.create_file');
     }
@@ -103,7 +103,7 @@ class ImportBookController extends AppBaseController
         /*for($i=0; $i < count($data); $i++){
             $data[$i] = array_except($data[$i], ['user_id', 'created_at', 'updated_at', 'deleted_at']);
         }*/
-		return Excel::create('danh_sach_nhap_sach', function($excel) use ($data) {
+		return Excel::create('danh_sach_nhap_sach'.$date, function($excel) use ($data) {
 
             $excel->sheet('mySheet', function($sheet) use ($data)
 	        {

@@ -58,9 +58,8 @@
 							</div>
 							<br>
 							<div class="description">
-								<p><span>Quick Overview : </span>{{ \Illuminate\Support\Str::words(strip_tags($book->description), 50, '...') }}</p>
+								<p><span>Giới thiệu : </span>{{ \Illuminate\Support\Str::words(strip_tags($book->description), 50, '...') }}</p>
 							</div>
-
 						</div>
 						<div class="clearfix"> </div>
 					</div>
