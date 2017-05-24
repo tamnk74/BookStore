@@ -81,7 +81,7 @@ $().ready(function() {
                         + "<td>" + bookName + "<input name='book_id[]' type='hidden' value='" + bookId + "'>"
                         + "<td>" + bookAmount + "<input name='amount[]' type='hidden' value='"+ bookAmount + "'></td>";
                     html+= "<td>" + result.subtotal*bookAmount + " VND</td>";
-                    html += "<td><a class=\"btn btn-link btn-remove\" href=\"#\">Remove</a></td></tr>";
+                    html += "<td><a class=\"btn btn-link btn-remove\" href=\"#\">Xóa</a></td></tr>";
                     $("table.table-bill").append(html);
                     $('.bill_total').text(total + " VND");
                 }

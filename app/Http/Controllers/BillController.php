@@ -179,7 +179,7 @@ class BillController extends AppBaseController
     {
         try {
             $bill = $this->billRepository->findWithoutFail($id);
-
+            $bookPrice = [];
             if (empty($bill)) {
                 Flash::error('Không tìm thấy hóa đơn');
 
@@ -191,7 +191,7 @@ class BillController extends AppBaseController
                 $oldNumber = $billDetail->amount;
                 $status = $this->billDetailRepository->delete($billDetail->id);
                 if($status == 1) {
-                    $store = Store::where('book_id', $book_id);
+                    $store = Store::where('book_id', $book_id)->first();
                     $store->update(['amount' => $store->amount + $oldNumber]);
                 }
             }
@@ -214,7 +214,8 @@ class BillController extends AppBaseController
                     Flash::error('Số lượng sách '.$bookstore->book->name.' không đủ trong cửa hàng');
                     return redirect(route('bills.create'));
                 }
-                $total_price += $book->price*((100-$book->sale)/100)*$input['amount'][$i];
+                $bookPrice[$i] = $book->price*((100-$book->sale)/100);
+                $total_price += $bookPrice[$i]*$input['amount'][$i];
             }
             //create bill
             $input['total_price'] = $total_price;
@@ -231,6 +232,7 @@ class BillController extends AppBaseController
                 $billDetail = $this->billDetailRepository->create([
                     'book_id' => $input['book_id'][$i],
                     'amount' => $input['amount'][$i],
+                    'price' => $bookPrice[$i],
                     'bill_id' => $bill->id
                 ]);
                 if($billDetail != null){
@@ -271,7 +273,7 @@ class BillController extends AppBaseController
             $oldNumber = $billDetail->amount;
             $status = $this->billDetailRepository->delete($billDetail->id);
             if($status == 1) {
-                $store = Store::where('book_id', $book_id);
+                $store = Store::where('book_id', $book_id)->first();
                 $store->update(['amount' => $store->amount + $oldNumber]);
             }
         }

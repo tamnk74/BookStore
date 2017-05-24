@@ -11,11 +11,7 @@
         <div class="box box-primary">
 
             <div class="box-body">
-                @if ($message = Session::get('success'))
-					<div class="alert alert-success" role="alert">
-						{{ Session::get('success') }}
-					</div>
-				@endif
+
 
 				@if ($message = Session::get('error'))
 					<div class="alert alert-danger" role="alert">
@@ -42,6 +38,37 @@
                     <button type="submit" class="btn btn-success">@lang('buttons.btn_dowload_excel')</button>
                     {!! Form::close() !!}
                 </div>
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+                @if ($importBooks = Session::get('importBooks'))
+                    <table class="table table-responsive" id="importBooks-table">
+                        <thead>
+                        <th>@lang('import_books.label_no')</th>
+                        <th>@lang('import_books.label_book_name')</th>
+                        <th>@lang('import_books.label_book_number')</th>
+                        <th>@lang('import_books.label_price')</th>
+                        <th>@lang('import_books.label_supplier')</th>
+                        <th>@lang('import_books.label_date')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($importBooks as $importBook)
+                            @if($importBook->book != null)
+                                <tr>
+                                    <td>{!! $loop->iteration !!}</td>
+                                    <td><a href="{{ route('books.show', ['id' => $importBook->book_id]) }}">{!! $importBook->book->name !!}</a></td>
+                                    <td>{!! $importBook->amount !!}</td>
+                                    <td>{!! $importBook->price !!} VND</td>
+                                    <td>{{ $importBook->supplier->name }}</td>
+                                    <td>{!! $importBook->created_at !!}</td>
+                                </tr>
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </div>
     </div>

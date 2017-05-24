@@ -1,5 +1,14 @@
 @extends('home.layouts.app')
+@section('meta')
+	<meta property="fb:app_id" content="1747971682199772" />
+	<meta property='og:locale' content='vi_VN' />
+	<meta property="og:url"           content="http://bookstore.dn.com{{ $_SERVER['REQUEST_URI'] }}" />
+	<meta property="og:type"          content="books.book" />
+	<meta property="og:title"         content="{{ $book->name }}" />
+	<meta property="og:description"   content="{{ \Illuminate\Support\Str::words(strip_tags($book->description), 15, '...') }}" />
+	<meta property="og:image"         content="{{ asset('images/books/'.$book->front_cover) }}" />
 
+@endsection
 @section('front-scripts')
 	<script defer src="{{asset('frontend/js/jquery.flexslider.js')}}"></script>
 	<link rel="stylesheet" href="{{asset('frontend/css/flexslider.css')}}" type="text/css" media="screen" />
@@ -16,7 +25,6 @@
 					<div clas="single-top">
 						<div class="single-left">
 							<div class="flexslider">
-
 								<div class="flex-viewport" style="overflow: hidden; position: relative;">
 									<ul class="slides" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1159.2px, 0px, 0px);">
 										<li data-thumb="{{ asset('images/books/'.$book->front_cover) }}" class="clone" aria-hidden="true" style="width: 386.4px; float: left; display: block; height:100%;">
@@ -27,10 +35,7 @@
 										</li>
 									</ul>
 								</div>
-
-
 							</div>
-
 						</div>
 						<div class="single-right simpleCart_shelfItem">
 							<h1>{{ $book->name }}</h1>
@@ -60,6 +65,13 @@
 							<div class="description">
 								<p><span>Giới thiệu : </span>{{ \Illuminate\Support\Str::words(strip_tags($book->description), 50, '...') }}</p>
 							</div>
+							<!-- Your share button code -->
+							<div class="fb-like fb-share-button"
+								 data-href="http://bookstore.dn.com{{ $_SERVER['REQUEST_URI'] }}"
+								 data-layout="standard" data-action="like"
+								 data-size="small" data-show-faces="true"
+								 data-share="true">
+							</div>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
@@ -82,8 +94,6 @@
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-
-
 			<div class="product-w3agile">
 				<h3 class="tittle1">@lang('homepages.product_description')</h3>
 				<div class="product-grids">
@@ -168,22 +178,9 @@
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
 										<div class="descr">
-											<!-- Load Facebook SDK for JavaScript -->
-											<div id="fb-root"></div>
-											<script>(function(d, s, id) {
-                                                    var js, fjs = d.getElementsByTagName(s)[0];
-                                                    if (d.getElementById(id)) return;
-                                                    js = d.createElement(s); js.id = id;
-                                                    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=1747971682199772";
-                                                    fjs.parentNode.insertBefore(js, fjs);
-                                                }(document, 'script', 'facebook-jssdk'));</script>
-
 											<!-- Your embedded comments code -->
 											<div class="fb-comments" data-href="https://developers.facebook.com/apps/1747971682199772/{{str_slug($book->name)}}" data-width="100%" data-numposts="5"></div>
 										</div>
-									</div>
-									<div role="tabpanel" class="tab-pane fade" id="custom" aria-labelledby="custom-tab">
-
 									</div>
 								</div>
 							</div>

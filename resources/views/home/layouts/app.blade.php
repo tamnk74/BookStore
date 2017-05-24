@@ -6,10 +6,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Nhà sách có quy mô vừa với nhiều thể loại sách phong phú trong và ngoai nước" />
 
-    <meta content='BookStore' property='og:site_name'/>
+    <meta content='NhaSachDaNang' property='og:site_name'/>
     <meta content='1747971682199772' property='fb:app_id'/>
-    <meta property="fb:admins" content="https://www.facebook.com/khac.tam.94"/>
     <meta content='article' property='og:type'/>
+    @yield('meta')
     <!--css-->
     <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,600,400italic,300italic,300' rel='stylesheet' type='text/css'>
@@ -28,6 +28,16 @@
 <body>
 <!--header-->
 <div class="header">
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.3&appId=1747971682199772";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     @include('home.layouts.menu')
 
     <!--banner-->

@@ -28,6 +28,7 @@ return [
     'label_book_id' => 'Mã sách',
     'label_book_name' => 'Tên sách',
     'label_book_number' => 'Số lượng',
+    'label_supplier' => 'Nhà cung cấp',
     'label_price' => 'Giá nhập',
     'label_cover' => 'Bìa sách',
     'label_date' => 'Ngày',

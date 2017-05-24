@@ -4,6 +4,7 @@
         <th>@lang('import_books.label_book_name')</th>
         <th>@lang('import_books.label_book_number')</th>
         <th>@lang('import_books.label_price')</th>
+        <th>@lang('import_books.label_supplier')</th>
         <th>@lang('import_books.label_date')</th>
         <th colspan="3">@lang('import_books.label_action')</th>
     </thead>
@@ -11,11 +12,12 @@
     @foreach($importBooks as $importBook)
         @if($importBook->book != null)
         <tr>
-            <td>{!! $loop->iteration !!}</td>
-            <td><a href="{{ route('books.show', ['id' => $importBook->book_id]) }}">{!! $importBook->book->name !!}</a></td>
-            <td>{!! $importBook->amount !!}</td>
-            <td>{!! $importBook->price !!} VND</td>
-            <td>{!! $importBook->created_at !!}</td>
+            <td>{{ $loop->iteration }}</td>
+            <td><a href="{{ route('books.show', ['id' => $importBook->book_id]) }}">{{ $importBook->book->name }}</a></td>
+            <td>{{ $importBook->amount }}</td>
+            <td>{{ $importBook->price }} VND</td>
+            <td>{{ $importBook->supplier->name }}</td>
+            <td>{{ $importBook->created_at }}</td>
             <td>
                 {!! Form::open(['route' => ['importBooks.destroy', $importBook->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

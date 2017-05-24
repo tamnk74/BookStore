@@ -19,10 +19,16 @@
                <div class="row">
                    {!! Form::open(['route' => ['bills.update', $bill->id], 'method' => 'patch']) !!}
                         <!-- Client Name Field -->
-                    <div class="form-group col-sm-12">
-                        {!! Form::label('client_name', __('bills.label_customer_name')) !!}
-                        {!! Form::text('client_name', $bill->client_name, ['class' => 'form-control']) !!}
-                    </div>
+                       <!-- Client Name Field -->
+                       <div class="form-group col-sm-6">
+                           {!! Form::label('client_name', __('bills.label_customer_name')) !!}
+                           {!! Form::text('client_name', __('bills.label_customer_name_placeholder'), ['class' => 'form-control']) !!}
+                       </div>
+                       <!-- Client address Field -->
+                       <div class="form-group col-sm-6">
+                           {!! Form::label('client_address', __('bills.label_customer_address')) !!}
+                           {!! Form::text('client_address', __('bills.label_customer_address_placeholder'), ['class' => 'form-control']) !!}
+                       </div>
                     <div class="form-group">
                        <label class="col-sm-12 col-md-12">@lang('bills.label_choose_book')</label>
                        <div class="col-sm-12 col-md-5">

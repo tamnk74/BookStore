@@ -146,7 +146,7 @@ class BookController extends AppBaseController
 
         $book = $this->bookRepository->create($input);
 
-        Flash::success(__('notification.not_found', ['attribute' => __('entities.book')]));
+        Flash::success('Thêm sách thành công');
 
         return redirect(route('books.index'));
     }

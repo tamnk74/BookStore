@@ -160,11 +160,13 @@ class ImportBookController extends AppBaseController
                     }
                     if (!empty($insert)) {
                         $sum = 0;
+                        $importBooks= [];
                         foreach ($insert as $input) {
-                            $this->importBookRepository->create($input);
+                            $importBook = $this->importBookRepository->create($input);
+                            if($importBook != null) $importBooks[] = $importBook;
                             $sum += $input['amount'];
                         }
-                        return back()->with('success', 'Nhập thành công '.count($insert).' đợt sách(bao gồm '.$sum.' cuốn sách)!');
+                        return back()->with('importBooks', $importBooks)->with('success', 'Nhập thành công '.count($importBooks).' đợt sách(bao gồm '.$sum.' cuốn sách)!');
                     }
 
                 }
@@ -214,7 +216,7 @@ class ImportBookController extends AppBaseController
             $store = Store::where('book_id', $importBook->book_id)->first();
             $store->update(['amount' => $store->amount + $importBook->amount, 'total_amount' => $store->total_amount + $importBook->amount]);
         }
-        Flash::success('Import Book saved successfully.');
+        Flash::success('Nhập sách thành công.');
 
         return redirect(route('importBooks.index'));
     }
@@ -312,7 +314,7 @@ class ImportBookController extends AppBaseController
             $store = Store::where('book_id', $importBook->book_id)->first();
             $store->update(['amount' => $store->amount - $oldNumber, 'total_amount' => $store->total_amount - $oldNumber]);
         }
-        Flash::success('Import Book deleted successfully.');
+        Flash::success('Xóa đợt nhập sách thành công.');
 
         return redirect(route('importBooks.index'));
     }
