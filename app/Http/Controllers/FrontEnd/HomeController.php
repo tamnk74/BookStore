@@ -92,15 +92,17 @@ class HomeController extends Controller
     public function listBook(Request $request)
     {
         $categories = Category::take(20)->get();
-        $total = Book::count();
         //Search form
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $books = Book::where('name','like','%'.$search.'%')->paginate(12);
-            return view('home.books', compact('books', 'categories'));
+        //dd($request);
+        if ($request->has('q')) {
+            //DB::enableQueryLog();
+            $key = $request->input('q');
+            $books = Book::where('books.name','like','%'.$key.'%')->paginate(12);
+            //dd(DB::getQueryLog());
+            return view('home.books', compact('books', 'categories', 'key'));
         } else {
             $books = $this->bookRepository->paginate(12);
-            return view('home.books', compact('books', 'categories', 'total'));
+            return view('home.books', compact('books', 'categories'));
             //return view('home.books')->with('books', $books)->with('categories', $categories)->
         }
 

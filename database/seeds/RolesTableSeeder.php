@@ -15,21 +15,21 @@ class RolesTableSeeder extends Seeder
         $roles = [
             [
                 'name' => 'admin',
-                'display_name' => 'Admin',
+                'display_name' => 'Quản trị viên',
                 'description' => 'Manage the system'
             ],
             [
-                'name' => 'cashier',
+                'name' => 'Nhân viên bán hàng',
                 'display_name' => 'Cashier',
                 'description' => 'Sell books'
             ],
             [
                 'name' => 'storekeeper',
-                'display_name' => 'Storekeeper',
+                'display_name' => 'Thủ kho',
                 'description' => 'Manage books in store'
             ],
             [
-                'name' => 'manager',
+                'name' => 'Quản lí',
                 'display_name' => 'BookStore Manager',
                 'description' => 'Manage store'
             ]

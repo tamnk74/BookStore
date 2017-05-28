@@ -44,17 +44,22 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'see store'
             ],
             [
-                'name' => 'import-book',//7
+                'name' => 'update-sale',//7
+                'display_name' => 'Update Sale',
+                'description' => 'Manager update sale'
+            ],
+            [
+                'name' => 'import-book',//8
                 'display_name' => 'Import book by excel',
                 'description' => 'Admin import book by excel'
             ],
             [
-                'name' => 'other-items',//8
+                'name' => 'other-items',//9
                 'display_name' => 'others items',
                 'description' => 'Manage Other Items'
             ],
             [
-                'name' => 'statistic',//9
+                'name' => 'statistic',//10
                 'display_name' => 'See Statistic',
                 'description' => 'See Statistic'
             ]

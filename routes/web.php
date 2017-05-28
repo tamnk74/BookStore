@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function()
     });
 
     Route::resource('stores', 'StoreController', ['omly' => ['index'], 'middleware' => ['permission:store-view']]);
-    Route::post('books/updateSale', 'BookController@updateSale', ['middleware' => ['permission:store-view']])->name('books.updateSale');
+    Route::post('books/updateSale', 'BookController@updateSale', ['middleware' => ['permission:update-sale']])->name('books.updateSale');
 
     Route::group(['middleware' => 'permission:import-book'], function() {
         Route::get('importBooks/create/file', 'ImportBookController@createFile')->name('import_books.file');;

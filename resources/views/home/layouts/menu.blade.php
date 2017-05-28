@@ -38,16 +38,12 @@
                     </div>
                 </nav>
             </div>
-            <div class="logo-nav-right">
-                <ul class="cd-header-buttons">
-                    <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-                </ul> <!-- cd-header-buttons -->
-                <div id="cd-search" class="cd-search">
-                {!! Form::open(['route' => 'list-books', 'method' => 'GET'])!!}
-                    <select id="searchbox" name="q" placeholder="Search products or categories..." class="form-control"></select>
-                 {{ Form::close()}}
-                </div>
+            {!! Form::open(['route' => 'list-books', 'method' => 'GET', 'class' => 'form-inline'])!!}
+            <div class="logo-nav-right" style="width: 435px; float: left; display: inline-block; margin-top: 12px">
+                <input type="text" id="searchbox" name="q" placeholder="Tìm sách hay thể loại..." max="50" value="">
+                <button class="btn btn-default" type="submit" style="float: left; height: 50px; width: 50px"><i class="glyphicon glyphicon-search"></i></button>
             </div>
+            {{ Form::close()}}
         </div>
     </div>
 </div>

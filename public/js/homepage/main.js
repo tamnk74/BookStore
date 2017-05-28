@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    $('.logo-nav-right').on('keyup', 'input', function () {
+        var key = $(this).val();
+        $('#searchbox').val(key);
+    });
     $('#searchbox').selectize({
         valueField: 'url',
         labelField: 'name',
@@ -9,7 +13,7 @@ $(document).ready(function(){
         render: {
             option: function(item, escape) {
                 console.log(item);
-                return '<div><img src="'+ item.icon +'" width="50" height="100">' +escape(item.name)+'</div>';
+                return '<div style="width: 500px"><img src="'+ item.icon +'" width="50" height="100">' +escape(item.name)+'</div>';
             }
         },
         optgroups: [

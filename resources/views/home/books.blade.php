@@ -1,7 +1,11 @@
 @extends('home.layouts.app')
 @section('content')
 	<div class="products-agileinfo">
+		@if(!isset($key))
 		<h2 class="tittle">Tất cả sách</h2>
+		@else
+			<h2 class="tittle">Kết quả tìm kiếm cho "{{ $key }}"</h2>
+		@endif
 					<div class="container">
 						<div class="product-agileinfo-grids w3l">
 							<div class="col-md-3 product-agileinfo-grid">
@@ -18,7 +22,7 @@
 							</div>
 							<div class="col-md-9 product-agileinfon-grid1 w3l">
 								<div class="mens-toolbar">
-									<p >Hiển thị {{count($books)}} cuốn sách của {{ $total }} kết quả</p>
+									<p >Hiển thị {{count($books)}} cuốn sách của {{ $books->total() }} kết quả</p>
 									<div class="clearfix"></div>
 								</div>
 								<div class="product-tab">

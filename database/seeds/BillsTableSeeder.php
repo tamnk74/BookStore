@@ -19,7 +19,7 @@ class BillsTableSeeder extends Seeder
         $client_name = 'Khach mua le';
         $client_address = 'Khach mua le';
         $users_id = User::get()->pluck('users_id');
-        for($time = strtotime("2017-01-01"); $time < time(); $time+=$date){
+        for($time = strtotime("2016-01-01"); $time < time(); $time+=$date){
             $books_id = Store::where('amount', '>', 0)->get()->pluck('book_id');
             if(count($books_id) ==0) break;
             $updated_at = $created_at = date('Y-m-d H:i:s', $time);

@@ -19,8 +19,8 @@ class ImportBooksTableSeeder extends Seeder
         $suppliers_id = Supplier::get()->pluck('id');
         $user_id = 1;
         if(count($books_id) == 0) return;
-        for($time = strtotime("2017-01-01"); $time < time(); $time+=$date){
-            for($i=0; $i< 30; $i++){
+        for($time = strtotime("2016-01-01"); $time < time(); $time+=$date){
+            for($i=0; $i< 35; $i++){
                 $book_id = $books_id[rand(0, count($books_id)-1)];
                 $book = Book::find($book_id)->first();
                 $amount = rand(1, 5)*10;

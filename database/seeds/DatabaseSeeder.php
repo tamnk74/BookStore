@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionRoleTableSeeder::class);
         $this->call(BooksTableSeeder::class);
         $this->call(SuppliersTableSeeder::class);
-       //*/
+       /*/
         //level2
-       $this->call(ImportBooksTableSeeder::class);
+        $this->call(ImportBooksTableSeeder::class);
         $this->call(BillsTableSeeder::class);
     }
 }

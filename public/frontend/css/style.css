@@ -223,6 +223,9 @@ ul.multi-column-dropdown h6 {
 .cd-header-buttons li {
 	display: inline-block;
 }
+.cd-header-buttons li input{
+	display: inline-block;
+}
 .cd-search-trigger, .cd-nav-trigger {
 	position: relative;
 	display: block;
@@ -1416,9 +1419,14 @@ h3.tittle1 {
 .latest-grid{
 	height: 100%;
 }
+.selectize-control {
+	width: 80%;
+	height: 50px; !important;
+	float: left;
+}
 .selectize-input{
   background-color: #088;
-  height: 60px;
+  height: 50px !important;
 }
 .selectize-input input{
   width: 100%;
