@@ -295,10 +295,11 @@ class BookController extends AppBaseController
             ->leftjoin('languages','languages.id', '=', 'books.language_id')
             ->leftjoin('types','types.id', '=', 'books.type_id')
             ->select('books.name AS Tên sách', 'authors.name AS Tác giả', 'publishers.name AS Nhà xuất bản',
-                'issuers.name AS Nhà phát hành', 'size as Kích thước(cm)', 'page as Số trang', 'weight as Khối lượng(gram)',
+                'issuers.name AS Nhà phát hành', 'size AS Kích thước(cm)', 'page as Số trang', 'weight as Khối lượng(gram)',
                 'sale as Giảm giá(%)', 'price as Giá bìa(VND)', 'front_cover as Bìa trước', 'back_cover as Bìa sau', 'publishing_year as Năm xuất bản', 'languages.name AS Ngôn ngữ',
                 'categories.name AS Chủ đề', 'types.name AS Thể loại', 'description AS Mô tả')
             ->get()->toArray();
+        dd($data);
         //$data = $this->bookRepository->all()->toArray();
 //        /*for($i=0; $i < count($data); $i++){
 //            $data[$i] = array_except($data[$i], ['created_at', 'updated_at', 'deleted_at']);

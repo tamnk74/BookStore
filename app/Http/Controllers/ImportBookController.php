@@ -83,10 +83,12 @@ class ImportBookController extends AppBaseController
 	public function downloadExcel(Request $request)
 	{
 	    $date = Carbon::now();
-	    if($request->has('date')) $date = $request->input('date');
+	    if($request->has('date')) {
+	        $date = Carbon::createFromFormat('Y-m-d', $request->input('date'));
+        }
         $import = ImportBook::leftjoin('suppliers','suppliers.id', '=', 'import_books.supplier_id')
                     ->leftjoin('books','books.id', '=', 'import_books.book_id')
-                    ->where('import_books.created_at', $date)
+                    ->whereDate('import_books.created_at', $date->toDateString())
                     ->select('books.name AS Tên sách', 'suppliers.name AS Nhà cung cấp', 'amount AS Số lượng',
                         'import_books.price AS Giá cả(VND)', 'import_books.created_at AS Ngày nhập')
                     ->get();
