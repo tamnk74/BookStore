@@ -30,7 +30,7 @@ class IssuerController extends AppBaseController
     public function index(Request $request)
     {
         $this->issuerRepository->pushCriteria(new RequestCriteria($request));
-        $issuers = $this->issuerRepository->all();
+        $issuers = $this->issuerRepository->paginate(15);
 
         return view('issuers.index')
             ->with('issuers', $issuers);

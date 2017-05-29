@@ -21,3 +21,4 @@
     @endforeach
     </tbody>
 </table>
+{{ $publishers->links() }}

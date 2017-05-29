@@ -30,7 +30,7 @@ class PublisherController extends AppBaseController
     public function index(Request $request)
     {
         $this->publisherRepository->pushCriteria(new RequestCriteria($request));
-        $publishers = $this->publisherRepository->all();
+        $publishers = $this->publisherRepository->paginate(10);
 
         return view('publishers.index')
             ->with('publishers', $publishers);
@@ -59,7 +59,7 @@ class PublisherController extends AppBaseController
 
         $publisher = $this->publisherRepository->create($input);
 
-        Flash::success('Publisher saved successfully.');
+        Flash::success('Lưu nhà phát hành thành công');
 
         return redirect(route('publishers.index'));
     }
@@ -76,7 +76,7 @@ class PublisherController extends AppBaseController
         $publisher = $this->publisherRepository->findWithoutFail($id);
 
         if (empty($publisher)) {
-            Flash::error('Publisher not found');
+            Flash::error('Không tìm thấy nhà xuất bản');
 
             return redirect(route('publishers.index'));
         }
@@ -96,7 +96,7 @@ class PublisherController extends AppBaseController
         $publisher = $this->publisherRepository->findWithoutFail($id);
 
         if (empty($publisher)) {
-            Flash::error('Publisher not found');
+            Flash::error('Không tìm thấy nhà xuất bản');
 
             return redirect(route('publishers.index'));
         }
@@ -117,14 +117,14 @@ class PublisherController extends AppBaseController
         $publisher = $this->publisherRepository->findWithoutFail($id);
 
         if (empty($publisher)) {
-            Flash::error('Publisher not found');
+            Flash::error('Không tìm thấy nhà xuất bản');
 
             return redirect(route('publishers.index'));
         }
 
         $publisher = $this->publisherRepository->update($request->all(), $id);
 
-        Flash::success('Publisher updated successfully.');
+        Flash::success('Nhà xuất bản cập nhật thành công.');
 
         return redirect(route('publishers.index'));
     }
@@ -141,7 +141,7 @@ class PublisherController extends AppBaseController
         $publisher = $this->publisherRepository->findWithoutFail($id);
 
         if (empty($publisher)) {
-            Flash::error('Publisher not found');
+            Flash::error('Không tìm thấy nhà xuất bản');
 
             return redirect(route('publishers.index'));
         }

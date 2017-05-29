@@ -23,7 +23,7 @@ class BillsTableSeeder extends Seeder
             $books_id = Store::where('amount', '>', 0)->get()->pluck('book_id');
             if(count($books_id) ==0) break;
             $updated_at = $created_at = date('Y-m-d H:i:s', $time);
-            for($i=0; $i< rand(20, 25); $i++){
+            for($i=0; $i< rand(10, 15); $i++){
                 $total_price =0;
                 $book_ids = array_values($books_id->random(rand(1,min(5, count($books_id))))->all());
                 $amounts =[];

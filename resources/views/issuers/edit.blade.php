@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Issuer
+            Nhà phát hành
         </h1>
    </section>
    <div class="content">

@@ -87,10 +87,10 @@ $(function () {
         },
         series: [{
                 name: 'Nhập sách',
-                data: data_bill
+                data: data_import
             },{
                 name: 'Bán sách',
-                data: data_import
+                data: data_bill
             }]
     });
     $('#turnover').highcharts({
@@ -111,10 +111,10 @@ $(function () {
         },
         series: [{
                 name: 'Nhập sách',
-                data: data_bills
+                data: data_imports
             },{
                 name: 'Bán sách',
-                data: data_imports
+                data: data_bills
             }]
     });
     $('#sale-tab').click(function () {

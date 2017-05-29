@@ -1,7 +1,7 @@
 <table class="table table-responsive" id="languages-table">
     <thead>
-        <th>Name</th>
-        <th colspan="3">Action</th>
+        <th>Tên</th>
+        <th colspan="3">Thao tác</th>
     </thead>
     <tbody>
     @foreach($languages as $language)

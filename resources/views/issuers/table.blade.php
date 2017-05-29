@@ -1,7 +1,7 @@
 <table class="table table-responsive" id="issuers-table">
     <thead>
-        <th>Name</th>
-        <th colspan="3">Action</th>
+        <th>Tên nhà cung cấp</th>
+        <th colspan="3">Thao tác</th>
     </thead>
     <tbody>
     @foreach($issuers as $issuer)
@@ -20,3 +20,5 @@
     @endforeach
     </tbody>
 </table>
+
+{{ $issuers->links() }}

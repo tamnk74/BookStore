@@ -137,15 +137,15 @@ Request::is('authors*') || Request::is('suppliers*') || Request::is('issuers*') 
         </li>
 
         <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
-            <a href="{!! route('suppliers.index') !!}"><i class="fa fa-edit"></i><span>Suppliers</span></a>
+            <a href="{!! route('suppliers.index') !!}"><i class="fa fa-edit"></i><span>Nhà cung cấp</span></a>
         </li>
 
         <li class="{{ Request::is('issuers*') ? 'active' : '' }}">
-            <a href="{!! route('issuers.index') !!}"><i class="fa fa-edit"></i><span>Issuers</span></a>
+            <a href="{!! route('issuers.index') !!}"><i class="fa fa-edit"></i><span>Nhà phát hành</span></a>
         </li>
 
         <li class="{{ Request::is('languages*') ? 'active' : '' }}">
-            <a href="{!! route('languages.index') !!}"><i class="fa fa-edit"></i><span>Languages</span></a>
+            <a href="{!! route('languages.index') !!}"><i class="fa fa-edit"></i><span>Ngôn ngữ</span></a>
         </li>
 
 

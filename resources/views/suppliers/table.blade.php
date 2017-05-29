@@ -1,9 +1,9 @@
 <table class="table table-responsive" id="suppliers-table">
     <thead>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th colspan="3">Action</th>
+        <th>Tên</th>
+        <th>Địa chỉ</th>
+        <th>Số điện thoại</th>
+        <th colspan="3">Thao tác</th>
     </thead>
     <tbody>
     @foreach($suppliers as $supplier)

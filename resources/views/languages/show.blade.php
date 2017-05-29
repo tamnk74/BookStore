@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Language
+            Ngôn ngữ
         </h1>
     </section>
     <div class="content">
@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('languages.show_fields')
-                    <a href="{!! route('languages.index') !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('languages.index') !!}" class="btn btn-default">Quay lại</a>
                 </div>
             </div>
         </div>

@@ -65,9 +65,9 @@ $().ready(function() {
     $('.btn-add').click(function(e){
         e.preventDefault();
         var bookName = $(this).parent().parent().find('.select2-selection__rendered').text()
-        var bookId = $(this).parent().parent().find('select option:selected').val();
-        var bookAmount = $(this).parent().parent().find('#bookAmount').val();
-        if(x < max_fields && bookId != null && bookAmount != 0){ //max input box allowed
+        var bookId = parseInt($(this).parent().parent().find('select option:selected').val());
+        var bookAmount = parseInt($(this).parent().parent().find('#bookAmount').val());
+        if(x < max_fields && bookId >0 && bookAmount > 0){ //max input box allowed
             x++; //text box increment)
             $.ajax({
                 type: "GET",
@@ -87,6 +87,6 @@ $().ready(function() {
                 }
             });
         }
-        else alert("Vui long dien gia tri hop le!");
+        else alert("Vui lòng điền giá trị hợp lệ!");
     });
 });
