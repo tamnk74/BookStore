@@ -59,7 +59,7 @@ return [
             'options' => [
                 // Memcached::OPT_CONNECT_TIMEOUT  => 2000,
             ],
-            'servers' => [
+            'server' => [
                 [
                     'host' => env('MEMCACHED_HOST', '127.0.0.1'),
                     'port' => env('MEMCACHED_PORT', 11211),

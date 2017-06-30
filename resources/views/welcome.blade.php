@@ -9,6 +9,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="{{asset("css/bootstrap.min.css")}}" rel="stylesheet" type="text/css">
+        <link href="{{asset("css/bootstrap-select.css")}}" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
         <style>
@@ -90,6 +92,24 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+
         </div>
+        <div class="form-group">
+            <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Please select a lunch ...">
+                <option>Hot Dog, Fries and a Soda</option>
+                <option>Burger, Shake and a Smile</option>
+                <option>Sugar, Spice and all things nice</option>
+                <option>Baby Back Ribs</option>
+                <option>A really really long option made to illustrate an issue with the live search in an inline form</option>
+            </select>
+        </div>
+        <!-- jQuery 2.1.4 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+
+        <script src="{{asset("js/bootstrap-select.js")}}"></script>
     </body>
+
 </html>
